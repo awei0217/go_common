@@ -1,6 +1,8 @@
 package algorithm
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestBinarySearchTree_RecursionAdd(t *testing.T) {
 	tree := &BinarySearchTree{0,nil,nil}

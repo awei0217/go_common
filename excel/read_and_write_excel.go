@@ -25,6 +25,6 @@ func ReadExcel(filePath string)  {
 			log.Println(wsMap,k,cell)
 		}
 	}
-	excel.SaveAs(excel_file_path)
+	excel.SaveAs(filePath)
 
 }
