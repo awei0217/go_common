@@ -2,9 +2,13 @@ package excel
 
 import (
 	"testing"
-	"go_common/excel"
 )
 
 func TestReadExcel(t *testing.T) {
-	excel.ReadExcel("E:\\111.xlsx")
+	data := ReadExcel("E:\\111.xlsx")
+	for i:=0;i<len(data);i++{
+		for j:=0;j<len(data[i]);j++{
+			t.Log(len(data[i][j]))
+		}
+	}
 }

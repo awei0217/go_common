@@ -1,17 +1,17 @@
 package algorithm
 
 
-type node struct {
+type nodeLinkList struct {
 	value interface{}
-	prev *node
-	next *node
+	prev *nodeLinkList
+	next *nodeLinkList
 }
 /**
 	环形链表
  */
 type LinkList struct {
-	head *node
-	tail *node
+	head *nodeLinkList
+	tail *nodeLinkList
 	size int
 }
 func (list *LinkList)Size() int{
@@ -19,7 +19,7 @@ func (list *LinkList)Size() int{
 	return list.size
 }
 func (list *LinkList)AddToFirst(value interface{}){
-	newNode := &node{value,nil,list.head}
+	newNode := &nodeLinkList{value,nil,list.head}
 	if list.head == nil{
 		list.head = newNode
 		list.tail = newNode
@@ -32,12 +32,12 @@ func (list *LinkList)AddToFirst(value interface{}){
 	list.size++
 	newNode = nil
 }
-func (list *LinkList)GetFirst() *node  {
+func (list *LinkList)GetFirst() *nodeLinkList  {
 	return list.head
 }
 
 func(list *LinkList)AddToTail(value interface{}){
-	newNode := &node{value,list.tail,nil}
+	newNode := &nodeLinkList{value,list.tail,nil}
 	if list.tail == nil{
 		list.tail = newNode
 		list.head =newNode
@@ -51,7 +51,7 @@ func(list *LinkList)AddToTail(value interface{}){
 	newNode = nil
 }
 
-func (list *LinkList)GetTail()*node  {
+func (list *LinkList)GetTail()*nodeLinkList  {
 	return list.tail
 }
 
@@ -67,7 +67,7 @@ func (list *LinkList)Add(value interface{},index int)  {
 		list.AddToTail(value)
 		return
 	}
-	newNode := &node{value,nil,nil}
+	newNode := &nodeLinkList{value,nil,nil}
 	indexNode := list.GetNodeByIndex(index)
 	indexNodePre := indexNode.prev
 	nextNode := indexNode
@@ -82,7 +82,7 @@ func (list *LinkList)Add(value interface{},index int)  {
 	nextNode = nil
 }
 
-func (list *LinkList)GetNodeByIndex(index int)*node {
+func (list *LinkList)GetNodeByIndex(index int)*nodeLinkList {
 	if index < 0 || index >=list.size{
 		panic("index transboundary") //下标越界
 	}
@@ -129,7 +129,7 @@ func (list *LinkList)IndexOfFirst(value interface{}) int{
 	}
 }
 
-func (list *LinkList)RemoveFirstPop()*node{
+func (list *LinkList)RemoveFirstPop()*nodeLinkList{
 	if list.IsEmpty(){
 		panic("empty list")
 	}
@@ -141,7 +141,7 @@ func (list *LinkList)RemoveFirstPop()*node{
 	list.size--
 	return popNode
 }
-func (list *LinkList)RemoveTailPop()*node{
+func (list *LinkList)RemoveTailPop()*nodeLinkList{
 	if list.IsEmpty(){
 		panic("empty list")
 	}

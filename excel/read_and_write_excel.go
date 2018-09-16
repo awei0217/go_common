@@ -2,29 +2,35 @@ package excel
 
 import (
 	"github.com/Luxurioust/excelize"
-	"log"
-	"strconv"
 )
 
-
-func ReadExcel(filePath string)  {
+/**
+	返回的数据三维切片，第一维的大小是 sheet  第二维的大小是rows,不包含表头,第三维的大小是cells,一行多少列
+ */
+func ReadExcel(filePath string)([][][]string,error ) {
 	excel, err := excelize.OpenFile(filePath)
 	if err != nil {
-		log.Println("ERR:"+err.Error())
+		return nil,err
 	}
-	index := excel.GetSheetIndex("sheet1")
-	// Get all the rows in a sheet.
-	rows := excel.GetRows("sheet" + strconv.Itoa(index))
-	for key, row := range rows {
-		if(key == 0){
-			continue
+	sheetMap := excel.GetSheetMap()
+	sheets := make([][][]string,len(sheetMap))
+	for index,value :=range  sheetMap{
+		rows := excel.GetRows(value)
+		rowsString := make([][]string,len(rows)-1)
+		for key, row := range rows {
+			if key == 0 { // 第一行是表头
+				continue
+			}
+			//循环工作表行数的每一列
+			cellsString := make([]string,len(row))
+			for k, cell := range row {
+				cellsString[k] = cell
+			}
+			rowsString[key-1] = cellsString
 		}
-		//循环工作表行数的每一列
-		var wsMap map[string]interface{}
-		for k, cell := range row {
-			log.Println(wsMap,k,cell)
-		}
+		sheets[index-1] = rowsString
 	}
-	excel.SaveAs(filePath)
-
+	return sheets,nil
 }
+
+
