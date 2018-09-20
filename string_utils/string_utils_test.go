@@ -6,24 +6,23 @@ import (
 
 // 字符串拼接的集中方法
 
-
 func BenchmarkAddStringWithOperator(b *testing.B) {
-	for i:=0;i<b.N;i++{
-		AddStringWithOperator("s","s")
+	for i := 0; i < b.N; i++ {
+		AddStringWithOperator("s", "s")
 	}
 }
 func TestAddStringWithOperator(t *testing.T) {
 
-	t.Log(AddStringWithOperator("s","s"))
+	t.Log(AddStringWithOperator("s", "s"))
 }
 func BenchmarkAddStringWidthJoin(b *testing.B) {
-	for i:=0;i<b.N;i++{
-		AddStringWidthJoin([]string{"1","2"})
+	for i := 0; i < b.N; i++ {
+		AddStringWidthJoin([]string{"1", "2"})
 	}
 }
 func BenchmarkAddStringWidthBuffer(b *testing.B) {
-	for i:=0;i<b.N;i++{
-		AddStringWidthBuffer([]string{"1","2"})
+	for i := 0; i < b.N; i++ {
+		AddStringWidthBuffer([]string{"1", "2"})
 	}
 }
 
@@ -35,10 +34,9 @@ func TestFindMaxLenNoRepeatSubStr(t *testing.T) {
 	t.Log(FindMaxLenNoRepeatSubStr("qqwwerrtt"))
 }
 func TestFindMaxLenCommonSubStr(t *testing.T) {
-	t.Log(FindMaxLenCommonSubStr("qwevbnmy","qwtvbnmk"))
+	t.Log(FindMaxLenCommonSubStr("ab", "abcdef"))
 }
 
 func TestFindAndReplacePattern(t *testing.T) {
-	t.Log(FindAndReplacePattern([]string{"abb","dee","lkj"},"abb"))
+	t.Log(FindAndReplacePattern([]string{"abb", "dee", "lkj"}, "abb"))
 }
-

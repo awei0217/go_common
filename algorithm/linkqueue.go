@@ -2,25 +2,25 @@ package algorithm
 
 type nodeQueue struct {
 	value interface{}
-	prev *nodeQueue
-	next *nodeQueue
+	prev  *nodeQueue
+	next  *nodeQueue
 }
 
 /**
-	无界队列
- */
+无界队列
+*/
 type LinkQueue struct {
 	head *nodeQueue
 	tail *nodeQueue
 	size int
 }
 
-func (queue *LinkQueue)Add(value interface{})  {
-	newNode := &nodeQueue{value,nil,nil}
-	if queue.head == nil{
+func (queue *LinkQueue) Add(value interface{}) {
+	newNode := &nodeQueue{value, nil, nil}
+	if queue.head == nil {
 		queue.head = newNode
 		queue.tail = newNode
-	}else{
+	} else {
 		currentNode := queue.tail
 		queue.tail = newNode
 		currentNode.prev = queue.tail
@@ -30,8 +30,8 @@ func (queue *LinkQueue)Add(value interface{})  {
 	queue.size++
 }
 
-func (queue *LinkQueue)Take()interface{} {
-	if queue.head==nil{
+func (queue *LinkQueue) Take() interface{} {
+	if queue.head == nil {
 		panic("queue is empty")
 	}
 	current := queue.head
@@ -41,6 +41,6 @@ func (queue *LinkQueue)Take()interface{} {
 	prevNode = nil
 	return current.value
 }
-func (queue *LinkQueue)Size()int{
+func (queue *LinkQueue) Size() int {
 	return queue.size
 }

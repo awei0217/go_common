@@ -5,8 +5,8 @@ import (
 )
 
 func TestBinarySearchTree_RecursionAdd(t *testing.T) {
-	tree := &BinarySearchTree{0,nil,nil}
-	for i:=1;i<10;i++{
+	tree := &BinarySearchTree{0, nil, nil}
+	for i := 1; i < 10; i++ {
 		tree.RecursionAdd(i)
 	}
 	t.Log(tree)
@@ -18,8 +18,8 @@ func TestBinarySearchTree_RecursionAdd(t *testing.T) {
 	t.Log(tree.Height())
 }
 func TestBinarySearchTree_NotRecursionAdd(t *testing.T) {
-	tree := &BinarySearchTree{0,nil,nil}
-	for i:=1;i<10;i++{
+	tree := &BinarySearchTree{0, nil, nil}
+	for i := 1; i < 10; i++ {
 		tree.RecursionAdd(i)
 	}
 	t.Log(tree.Search(5).value)
