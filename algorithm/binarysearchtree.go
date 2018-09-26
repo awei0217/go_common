@@ -1,5 +1,7 @@
 package algorithm
 
+import "fmt"
+
 type BinarySearchTree struct {
 	value      int
 	leftChild  *BinarySearchTree
@@ -115,11 +117,9 @@ func destroy(tree *BinarySearchTree) {
 func (tree *BinarySearchTree) Deep() int {
 	leftDeep := 0
 	rightDeep := 0
-	/*if(tree.leftChild == nil && tree.rightChild == nil){
-		return -1
-	}*/
+	
 	if tree.leftChild.value == 0 && tree.rightChild.value == 0 {
-		// 空树返回-1
+		// 空树返回-时间复杂度和空间复杂度
 		return -1
 	}
 	current := tree
@@ -144,4 +144,115 @@ func (tree *BinarySearchTree) Deep() int {
 func (tree *BinarySearchTree) Height() int {
 
 	return tree.Deep() + 1
+}
+/**
+假设该数组满足二叉树
+先序非递归遍历的方式打印该数组非递归
+时间复杂度O(n) 空间复杂度O(logn)
+ */
+func PreTraversalTree(array []int)  {
+	stack := &LinkStack{}
+	length := len(array)
+	index := 0
+	for index < length || stack.Size()>0{
+		if index < length{
+			fmt.Println(array[index])
+			stack.Push(index)
+			index = index * 2 + 1
+		}else{
+			index = stack.Pop().(int)
+			index = index * 2 + 2
+		}
+	}
+}
+/**
+	中序遍历非递归
+ */
+func InTraversalTree(array []int)  {
+	stack := &LinkStack{}
+	length := len(array)
+	index := 0
+	for index < length || stack.Size()>0{
+		if index < length{
+			stack.Push(index)
+			index = index * 2 + 1
+		}else{
+			index = stack.Pop().(int)
+			fmt.Println(array[index])
+			index = index * 2 + 2
+		}
+	}
+}
+/**
+	后续遍历非递归
+ */
+func PoTraversalTree(array[]int){
+	length := len(array)
+	stack := &LinkStack{}
+	index := 0
+	preIndex := -1
+	for index < length{
+		stack.Push(index)
+		index = index * 2 +1
+	}
+	for stack.Size()>0{
+		index = stack.Pop().(int)
+		if (index * 2+1) <length && (index*2+2)<length && (index * 2+ 2 ) != preIndex{
+			stack.Push(index)
+			index  = index * 2 +2
+			for index < length{
+				stack.Push(index)
+				index = index * 2+ 1
+			}
+		}else{
+			fmt.Println(array[index])
+			preIndex = index
+		}
+	}
+}
+
+
+func PreTraversalRecursionTree(array []int)  {
+	index :=0
+	PrintPreArray(index,len(array),array)
+}
+/**
+	先序递归遍历
+ */
+func PrintPreArray(index,length int,array[]int)  {
+	if index< length{
+		fmt.Println(array[index])
+		PrintPreArray(index * 2+1,length,array)
+		PrintPreArray(index *2 +2,length,array)
+	}
+}
+
+func InTraversalRecursionTree(array []int)  {
+	index :=0
+	PrintInArray(index,len(array),array)
+}
+/**
+	中序递归遍历
+ */
+func PrintInArray(index,length int,array[]int)  {
+	if index< length{
+		PrintInArray(index * 2+1,length,array)
+		fmt.Println(array[index])
+		PrintInArray(index *2 +2,length,array)
+	}
+}
+
+func PoTraversalRecursionTree(array []int)  {
+	index :=0
+	PrintPoArray(index,len(array),array)
+}
+/**
+	后序递归遍历
+ */
+func PrintPoArray(index,length int,array[]int)  {
+	if index< length{
+		PrintPoArray(index * 2+1,length,array)
+		PrintPoArray(index *2 +2,length,array)
+		fmt.Println(array[index])
+	}
 }

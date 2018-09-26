@@ -31,3 +31,22 @@ func TestBinarySearchTree_NotRecursionAdd(t *testing.T) {
 	t.Log(tree.Search(8).Deep())
 	t.Log(tree.Search(8).Height())
 }
+
+func TestPreTraversalTree(t *testing.T) {
+	PreTraversalTree([]int{0,1,2,3,4,5})
+}
+func TestPreTraversalRecursionTree(t *testing.T) {
+	PreTraversalRecursionTree([]int{0,1,2,3,4,5})
+}
+func TestInTraversalTree(t *testing.T) {
+	InTraversalTree([]int{0,1,2,3,4,5})
+}
+func TestInTraversalRecursionTree(t *testing.T) {
+	InTraversalRecursionTree([]int{0,1,2,3,4,5})
+}
+func TestPoTraversalTree(t *testing.T) {
+	PoTraversalTree([]int{0,1,2,3,4,5})
+}
+func TestPoTraversalRecursionTree(t *testing.T) {
+	PoTraversalRecursionTree([]int{0,1,2,3,4,5})
+}

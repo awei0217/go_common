@@ -1,5 +1,12 @@
 package algorithm
 
+import "fmt"
+
+/**
+常见的时间复杂度有：常数阶O(时间复杂度和空间复杂度)，对数阶O(log2n)，线性阶O(n)，线性对数阶O(nlog2n)，平方阶O(n2)，立方阶O(n3)， k次方阶O(nk)，指数阶O(2n)。
+随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。
+
+ */
 /**
 稳定排序：待排序的记录序列中可能存在两个或两个以上关键字相等的记录。排序前的序列中Ri领先于Rj（即i<j）.若在排序后的序列中Ri仍然领先于Rj，则称所用的方法是稳定的
 		  插入排序  ，基数排序  ，归并排序  ，冒泡排序 ，计数排序
@@ -49,8 +56,8 @@ func SelectSort(intArray []int) []int {
 整个排序过程可以递归进行，以此达到整个数据变成有序序列
 快速排序时间复杂度
 快速排序的时间复杂度在最坏情况下是O(N2)，平均的时间复杂度是O(N*lgN)。
-这句话很好理解：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(N)，需要遍历多少次呢？至少lg(N+1)次，最多N次。
-(01) 为什么最少是lg(N+1)次？快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是lg(N+1)。因此，快速排序的遍历次数最少是lg(N+1)次。
+这句话很好理解：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(N)，需要遍历多少次呢？至少lg(N+时间复杂度和空间复杂度)次，最多N次。
+(01) 为什么最少是lg(N+时间复杂度和空间复杂度)次？快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是lg(N+时间复杂度和空间复杂度)。因此，快速排序的遍历次数最少是lg(N+时间复杂度和空间复杂度)次。
 (02) 为什么最多是N次？这个应该非常简单，还是将快速排序看作一棵二叉树，它的深度最大是N。因此，快读排序的遍历次数最多是N次。
  */
 func QuickSort(array []int) []int {
@@ -112,7 +119,7 @@ func ShellSort(intArray []int) []int {
 
 /**
 堆排序
-时间复杂度：O(nlgn)
+时间复杂度_空间复杂度：O(nlgn)
 建堆的时间复杂度是 O(n)
 调整堆的时间复杂度是 O(lgn)
  */
@@ -123,6 +130,7 @@ func HeapSort(intArray []int)[]int{
 	for i:= length /2-1;i>=0;i--{
 		adjustHeap(intArray,i,length)
 	}
+	fmt.Println(intArray)
 	// 调整堆
 	for i:=length-1;i>=0;i--{
 		intArray[i],intArray[0] = intArray[0],intArray[i]
@@ -149,14 +157,38 @@ func adjustHeap(intArray[]int,i,length int){
 	}
 }
 /**
+求最大子序列和 （就是说子序列加起来和最大）
+ */
+func FindMaxSeqSum(array []int)int{
+	seqSum := make([]int,0) // 存储子序列和
+	// 初始子序列和为 数组下标为0的值
+	seqSum = append(seqSum,array[0])
+	for i:=1;i<len(array);i++{
+		if array[i] > seqSum[i-1]+array[i]{
+			seqSum = append(seqSum,array[i])
+		}else{
+			seqSum = append(seqSum,seqSum[i-1]+array[i])
+		}
+	}
+	max :=seqSum[0]
+	for j:=1;j<len(seqSum);j++{
+		if seqSum[j] > seqSum[j-1]{
+			max = seqSum[j]
+		}
+	}
+	return max
+}
+
+
+/**
 排序算法	平均时间复杂度	最坏时间复杂度	空间复杂度	是否稳定
-冒泡排序	O（n2）	O（n2）	O（1）	是
-选择排序	O（n2）	O（n2）	O（1）	不是
-直接插入排序	O（n2）	O（n2）	O（1）	是
+冒泡排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	是
+选择排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	不是
+直接插入排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	是
 归并排序	O(nlogn)	O(nlogn)	O（n）	是
 快速排序	O(nlogn)	O（n2）	O（logn）	不是
-堆排序	O(nlogn)	O(nlogn)	O（1）	不是
-希尔排序	O(nlogn)	O（ns）	O（1）	不是
+堆排序	O(nlogn)	O(nlogn)	O（时间复杂度和空间复杂度）	不是
+希尔排序	O(nlogn)	O（ns）	O（时间复杂度和空间复杂度）	不是
 计数排序	O(n+k)	O(n+k)	O(n+k)	是
 基数排序	O(N∗M)	O(N∗M)	O(M)	是
 
