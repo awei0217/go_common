@@ -113,13 +113,14 @@ func destroy(tree *BinarySearchTree) {
 
 /**
 获取树的深度
+百度百科定义：树的高度或深度：树中节点的最大层次；
 */
 func (tree *BinarySearchTree) Deep() int {
 	leftDeep := 0
 	rightDeep := 0
 	
 	if tree.leftChild.value == 0 && tree.rightChild.value == 0 {
-		// 空树返回-时间复杂度和空间复杂度
+		// 空树返回-1
 		return -1
 	}
 	current := tree
@@ -136,14 +137,14 @@ func (tree *BinarySearchTree) Deep() int {
 		rightDeep++
 	}
 	if rightDeep > leftDeep {
-		return rightDeep
+		return rightDeep+1
 	}
-	return leftDeep
+	return leftDeep+1
 }
 
 func (tree *BinarySearchTree) Height() int {
 
-	return tree.Deep() + 1
+	return tree.Deep()
 }
 /**
 假设该数组满足二叉树
