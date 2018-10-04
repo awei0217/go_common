@@ -25,9 +25,10 @@ func NewHashMap() *HashMap {
 		data:         make([]*Entry, 16),
 	}
 }
+
 /**
-	key 相同的 value会覆盖
- */
+key 相同的 value会覆盖
+*/
 func (hm *HashMap) Put(key, value string) {
 	if float64(hm.size/len(hm.data)) > hm.loadFactor {
 		rehash(hm)
@@ -44,11 +45,11 @@ func (hm *HashMap) Put(key, value string) {
 	} else {
 
 		for oldEntry != nil {
-			if oldEntry.key == key{
+			if oldEntry.key == key {
 				oldEntry.value = value
 				return
 			}
-			if oldEntry.next == nil{
+			if oldEntry.next == nil {
 				oldEntry.next = entry
 				break
 			}
@@ -57,10 +58,11 @@ func (hm *HashMap) Put(key, value string) {
 	}
 	hm.size++
 }
+
 /**
-	如果第二个参数返回 true，代表key存在，并第一个参数返回value
-	如果第二个参数返回false 代表key不存在，并第一个参数返回空串
- */
+如果第二个参数返回 true，代表key存在，并第一个参数返回value
+如果第二个参数返回false 代表key不存在，并第一个参数返回空串
+*/
 func (hm *HashMap) Get(key string) (string, bool) {
 	hash := hashCode(key)
 	index := getIndex(hash, len(hm.data))
@@ -77,11 +79,10 @@ func (hm *HashMap) Get(key string) (string, bool) {
 	return "", false
 }
 
-func (hm *HashMap)Remove(key string)bool{
+func (hm *HashMap) Remove(key string) bool {
 
 	return false
 }
-
 
 /**
 hash 扩容
@@ -104,8 +105,8 @@ func rehash(hm *HashMap) {
 			oldEntry := newData[index]
 			if oldEntry == nil {
 				en := &Entry{
-					key:v.key,
-					value:v.value,
+					key:   v.key,
+					value: v.value,
 				}
 				newData[index] = en
 			} else {
@@ -113,8 +114,8 @@ func rehash(hm *HashMap) {
 					oldEntry = oldEntry.next
 				}
 				en := &Entry{
-					key:v.key,
-					value:v.value,
+					key:   v.key,
+					value: v.value,
 				}
 				oldEntry.next = en
 			}
@@ -123,8 +124,6 @@ func rehash(hm *HashMap) {
 	}
 	hm.data = newData
 }
-
-
 
 func getIndex(hash, dataLength int) int {
 	return hash % dataLength

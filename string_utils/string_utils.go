@@ -79,116 +79,116 @@ func FindMaxLenNoRepeatSubStr(s string) (string, int) {
 返回最长公共子串
 */
 func FindMaxLenCommonSubStr(str1, str2 string) string {
-	start1 :=-1
-	start2 :=-1
+	start1 := -1
+	start2 := -1
 	comparisons := 0
 	longest := 0
-	for i:=0;i<len(str1);i++{
-		for j:=0;j<len(str2);j++{
-			length:=0
-			m:=i
-			n:=j
-			for m<len(str1) && n<len(str2) {
+	for i := 0; i < len(str1); i++ {
+		for j := 0; j < len(str2); j++ {
+			length := 0
+			m := i
+			n := j
+			for m < len(str1) && n < len(str2) {
 				comparisons++
-				if str1[m] != str2[n]{
+				if str1[m] != str2[n] {
 					break
 				}
 				length++
 				m++
 				n++
 			}
-			if longest < length{
+			if longest < length {
 				longest = length
-				start1 =i
-				start2 =j
+				start1 = i
+				start2 = j
 			}
 		}
 	}
-	if len(str1) > len(str2){
-		return str1[start1:start1+longest]
-	}else{
-		return str1[start2:start2+longest]
+	if len(str1) > len(str2) {
+		return str1[start1 : start1+longest]
+	} else {
+		return str1[start2 : start2+longest]
 	}
 }
+
 // 采用动态规划求取
 func FindMaxLenCommonSubStr2(str1, str2 string) string {
 	l1 := len(str1)
 	l2 := len(str2)
-	max:=0
-	end:=0
-	var twoArray   [][]int
+	max := 0
+	end := 0
+	var twoArray [][]int
 	for i := 0; i < l1+1; i++ {
 		tmp := make([]int, l2+1)
 		twoArray = append(twoArray, tmp)
 	}
-	for i:=1;i<=l1;i++{
-		for j:=1;j<=l2;j++{
-			if str1[i-1] == str2[j-1]{
-				twoArray[i][j]  = twoArray[i-1][j-1]+1
+	for i := 1; i <= l1; i++ {
+		for j := 1; j <= l2; j++ {
+			if str1[i-1] == str2[j-1] {
+				twoArray[i][j] = twoArray[i-1][j-1] + 1
 				if twoArray[i][j] > max {
 					max = twoArray[i][j]
-					end =j
+					end = j
 				}
-			}else{
+			} else {
 				twoArray[i][j] = 0
 			}
 		}
 	}
 	fmt.Println(twoArray)
-	bytes := make([]byte,0)
-	for m:=end-max;m<end;m++{
-		bytes = append(bytes,str2[m])
+	bytes := make([]byte, 0)
+	for m := end - max; m < end; m++ {
+		bytes = append(bytes, str2[m])
 	}
 	return string(bytes)
 }
 
 /**
-	求最长公共子序列
- */
-func FindMaxLenCommonSubSeq(str1,str2 string)string{
+求最长公共子序列
+*/
+func FindMaxLenCommonSubSeq(str1, str2 string) string {
 	l1 := len(str1)
 	l2 := len(str2)
 	var twoArray [][]int
-	for i:=0;i<l2+1;i++{
+	for i := 0; i < l2+1; i++ {
 		tmp := make([]int, l1+1)
-		twoArray = append(twoArray,tmp)
+		twoArray = append(twoArray, tmp)
 	}
-	bs := make([]byte,0)
-	for m:=1;m<=l2;m++{
-		for n:=1;n<=l1;n++{
-			if str1[n-1] == str2[m-1]{
-				twoArray[m][n] = twoArray[m-1][n-1]+1
-				bs =append(bs,str1[n-1])
-			}else if twoArray[m-1][n] >= twoArray[m][n-1]{
+	bs := make([]byte, 0)
+	for m := 1; m <= l2; m++ {
+		for n := 1; n <= l1; n++ {
+			if str1[n-1] == str2[m-1] {
+				twoArray[m][n] = twoArray[m-1][n-1] + 1
+				bs = append(bs, str1[n-1])
+			} else if twoArray[m-1][n] >= twoArray[m][n-1] {
 				twoArray[m][n] = twoArray[m-1][n]
-			}else{
+			} else {
 				twoArray[m][n] = twoArray[m][n-1]
 			}
 		}
 	}
 	return RemoveRepeatStr(string(bs))
 }
+
 /**
-	移除字符串中的重复字符
- */
-func RemoveRepeatStr(str string) string{
-	if len(str) ==0{
+移除字符串中的重复字符
+*/
+func RemoveRepeatStr(str string) string {
+	if len(str) == 0 {
 		return ""
 	}
 	bs := [256]byte{}
-	for _,v:= range str{
-		bs[v] =1
+	for _, v := range str {
+		bs[v] = 1
 	}
-	rs:=make([]byte,0)
-	for index,v:= range bs {
-		if v ==1 {
-			rs =append(rs,byte(index))
+	rs := make([]byte, 0)
+	for index, v := range bs {
+		if v == 1 {
+			rs = append(rs, byte(index))
 		}
 	}
 	return string(rs)
 }
-
-
 
 /**
 你有一个单词列表 words 和一个模式  pattern，你想知道 words 中的哪些单词与模式匹配。
@@ -236,27 +236,27 @@ func IsBlank(str string) bool {
 /**
 给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000
 "abab" true   "aba" false
- */
+*/
 func RepeatedSubstringPattern(s string) bool {
-	length := len(s);
-	if length ==0 || length==1{
+	length := len(s)
+	if length == 0 || length == 1 {
 		return false
 	}
 	n := 2
 	for n <= length {
-		mid := length /n
+		mid := length / n
 		step := mid
 		index := 0
 		flag := true
-		for mid<length{
-			if (mid+step)>length || s[index:mid] != s[mid:mid+step]{
-				flag = false;
+		for mid < length {
+			if (mid+step) > length || s[index:mid] != s[mid:mid+step] {
+				flag = false
 				break
 			}
-			index = index+step
+			index = index + step
 			mid = mid + step
 		}
-		if flag{
+		if flag {
 			fmt.Println(step)
 			return true
 		}
@@ -273,61 +273,64 @@ func RepeatedSubstringPattern2(s string) bool {
 	return strings.Contains(ss, s)
 }
 
-func GetNext(p string)[]int{ //ababda
-	next := make([]int,0)
-	next =append(next,0)
-	k:=0
-	for i:=1;i<len(p);i++{
-		for k>0 && p[i]!=p[k]{
+func GetNext(p string) []int { //ababda
+	next := make([]int, 0)
+	next = append(next, 0)
+	k := 0
+	for i := 1; i < len(p); i++ {
+		for k > 0 && p[i] != p[k] {
 			k = next[k-1]
 		}
-		if p[i] == p[k]{
-			k = k+1
+		if p[i] == p[k] {
+			k = k + 1
 		}
-		next =append(next,k)
+		next = append(next, k)
 	}
 	return next
 }
+
 /**
- KMP 算法，字符串模式匹配算法 主要是 GetNext
- */
-func StrMatch(source,target string)int{ //abababdacabcda
+KMP 算法，字符串模式匹配算法 主要是 GetNext
+*/
+func StrMatch(source, target string) int {
 	slen := len(source)
 	tlen := len(target)
 	next := GetNext(target)
-	q:=0
-	for i:=0;i<slen;i++{
-		for q>0 && target[q] != source[i]{
+	q := 0
+	for i := 0; i < slen; i++ {
+		for q > 0 && target[q] != source[i] {
 			q = next[q-1]
 		}
-		if target[q] == source[i]{
+		if target[q] == source[i] {
 			q++
 		}
-		if q == tlen{
-			return i-tlen+1
+		if q == tlen {
+			return i - tlen + 1
 		}
 	}
 	return -1
 }
 
 type TreeNode struct {
-     Val int
-     Left *TreeNode
-     Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
+
 var buf = bytes.Buffer{}
+
 func Tree2Str(t *TreeNode) string {
 	left := 0
-	if t != nil{
+	if t != nil {
 		buf.WriteString(strconv.Itoa(t.Val))
-		if t.Left != nil{
+		if t.Left != nil {
 			left = 1
 			buf.WriteString("(")
 			Tree2Str(t.Left)
 			buf.WriteString(")")
 		}
-		if t.Right != nil{
-			if left == 0{
+		if t.Right != nil {
+			if left == 0 {
 				buf.WriteString("()")
 			}
 			buf.WriteString("(")
