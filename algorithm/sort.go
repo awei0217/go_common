@@ -180,71 +180,72 @@ func FindMaxSeqSum(array []int) int {
 }
 
 /**
-	二路归并排序 递归
- */
-func MergeSort(array[]int)[]int{
+二路归并排序 递归
+*/
+func MergeSort(array []int) []int {
 	length := len(array)
-	if length <=1{
+	if length <= 1 {
 		return array
 	}
-	num := length  / 2
+	num := length / 2
 	left := MergeSort(array[:num])
 	right := MergeSort(array[num:])
-	return merge(left,right)
+	return merge(left, right)
 }
+
 /**
-	二路归并排序 非递归
- */
-func MergerSortNotRecursion(array[]int)[]int  {
+二路归并排序 非递归
+*/
+func MergerSortNotRecursion(array []int) []int {
 	length := len(array)
-	if length <= 1{
+	if length <= 1 {
 		return array
 	}
-	i:=1 // 子序列大小
-	result := make([]int,0)
-	for i<length  {
-		j:=0
-		for j< length{
-			if j+2*i > length{
-				result = merge(array[j:j+i],array[j+i:length])
+	i := 1 // 子序列大小
+	result := make([]int, 0)
+	for i < length {
+		j := 0
+		for j < length {
+			if j+2*i > length {
+				result = merge(array[j:j+i], array[j+i:length])
 				index := j
-				for _,v:= range result{
+				for _, v := range result {
 					array[index] = v
 					index++
 				}
-			}else{
-				result = merge(array[j:j+i],array[j+i:j+2*i])
+			} else {
+				result = merge(array[j:j+i], array[j+i:j+2*i])
 				index := j
-				for _,v:= range result{
+				for _, v := range result {
 					array[index] = v
 					index++
 				}
 			}
-			j = j+2*i
+			j = j + 2*i
 		}
 		i = i << 1 // 子序列大小翻倍
 	}
 	return array
 }
+
 /**
-	对两个有序的数组进行合并
- */
+对两个有序的数组进行合并
+*/
 func merge(left []int, right []int) (result []int) {
-	l,r :=0,0
-	for l<len(left) && r<len(right){
-		if left[l] < right[r]{
-			result = append(result,left[l])
+	l, r := 0, 0
+	for l < len(left) && r < len(right) {
+		if left[l] < right[r] {
+			result = append(result, left[l])
 			l++
-		}else{
-			result = append(result,right[r])
+		} else {
+			result = append(result, right[r])
 			r++
 		}
 	}
-	result = append(result,left[l:]...)
-	result = append(result,right[r:]...)
+	result = append(result, left[l:]...)
+	result = append(result, right[r:]...)
 	return
 }
-
 
 /**
 排序算法	平均时间复杂度	最坏时间复杂度	空间复杂度	是否稳定

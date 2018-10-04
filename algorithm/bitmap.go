@@ -1,6 +1,5 @@
 package algorithm
 
-
 import (
 	"bytes"
 )
@@ -10,12 +9,12 @@ type BitMap []uint64
 
 const (
 	Address_Bits_Per_Word uint8  = 6
-	Words_Per_Size         uint64 = 64 //64位
+	Words_Per_Size        uint64 = 64 //64位
 )
 
 /**
-	创建指定初始化大小的BitMap
- */
+创建指定初始化大小的BitMap
+*/
 func NewBitMap(nbits int) *BitMap {
 	wordsLen := (nbits - 1) >> Address_Bits_Per_Word
 	temp := BitMap(make([]uint64, wordsLen+1, wordsLen+1))
@@ -24,7 +23,7 @@ func NewBitMap(nbits int) *BitMap {
 
 /**
 把指定位置设为ture
- */
+*/
 func (this *BitMap) Set(bitIndex uint64) {
 	wIndex := this.wordIndex(bitIndex)
 	this.expandTo(wIndex)
@@ -47,7 +46,7 @@ func (this *BitMap) Get(bitIndex uint64) bool {
 
 /**
 以二进制串的格式打印bitMap内容
- */
+*/
 func (this *BitMap) ToString() string {
 	var temp uint64
 	strAppend := &bytes.Buffer{}

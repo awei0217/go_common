@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"testing"
 )
+
 /**
-	左左，右右旋转
- */
+左左，右右旋转
+*/
 func TestAvlTree_Insert(t *testing.T) {
 	avlTree := &AvlTree{}
 
@@ -41,11 +42,12 @@ func TestAvlTree_Insert(t *testing.T) {
 	avlTree.Insert(-3)
 	PrePrint(avlTree.root)
 }
+
 /**
-	左右旋转
- */
+左右旋转
+*/
 func TestAvlInsert2(t *testing.T) {
-	avlTree:= &AvlTree{}
+	avlTree := &AvlTree{}
 	avlTree.Insert(5)
 	avlTree.Insert(4)
 	avlTree.Insert(7)
@@ -54,11 +56,12 @@ func TestAvlInsert2(t *testing.T) {
 
 	PrePrint(avlTree.root)
 }
+
 /**
-	右左旋转
- */
+右左旋转
+*/
 func TestAvlInsert3(t *testing.T) {
-	avlTree:= &AvlTree{}
+	avlTree := &AvlTree{}
 	avlTree.Insert(5)
 	avlTree.Insert(4)
 	avlTree.Insert(7)

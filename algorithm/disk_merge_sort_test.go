@@ -4,7 +4,6 @@ import (
 	"testing"
 )
 
-
 func TestRedFileSortWriteTempFile(t *testing.T) {
 	RedFileSortWriteTempFile("E://number.txt")
 }

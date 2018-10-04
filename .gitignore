@@ -1,6 +1,4 @@
 .git/*
 /**/.idea
-target/*
 *.iml
 .setting
-.sum

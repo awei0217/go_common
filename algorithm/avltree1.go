@@ -4,7 +4,6 @@ import "fmt"
 
 // avl树  自平衡的二叉查找树
 
-
 type AVLTree *AVLTreeNode
 
 type AVLTreeNode struct {
@@ -13,6 +12,7 @@ type AVLTreeNode struct {
 	left  *AVLTreeNode
 	right *AVLTreeNode
 }
+
 func AvlInsert(avl AVLTree, key int) AVLTree {
 	if avl == nil {
 		avl = new(AVLTreeNode)
@@ -95,8 +95,6 @@ func rightLeftRotation(k AVLTree) AVLTree {
 	k.right = leftLeftRotation(k.right)
 	return rightRightRotation(k)
 }
-
-
 
 func PreOrder(avl AVLTree) {
 	if avl != nil {

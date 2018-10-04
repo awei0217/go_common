@@ -7,9 +7,10 @@ import (
 	"strconv"
 	"time"
 )
+
 /**
-	一个简单的区块链
- */
+一个简单的区块链
+*/
 type Block struct {
 	Timestamp     int64
 	Data          []byte

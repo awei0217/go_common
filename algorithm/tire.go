@@ -43,9 +43,10 @@ func (tt *TireTree) Insert(str string) {
 	}
 	tn.isEnd = true
 }
+
 /**
-	查找字符串是否存在
- */
+查找字符串是否存在
+*/
 func (tt *TireTree) Query(str string) bool {
 	if tt.root == nil {
 		return false
@@ -74,9 +75,10 @@ func (tt *TireTree) PreTraverse(tn *TireNode) {
 		tt.PreTraverse(tn.son[i])
 	}
 }
+
 /**
-	统计以prefix开头的单词有多少个
- */
+统计以prefix开头的单词有多少个
+*/
 func (tt *TireTree) CountPrefix(prefix string) int {
 	tn := tt.root
 	if tn == nil {

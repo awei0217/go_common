@@ -37,8 +37,8 @@ func TestFindMaxSeqSum(t *testing.T) {
 }
 
 func TestMergeSort(t *testing.T) {
-	t.Log(MergeSort([]int{1, 3, -9, 6, 8, -19,20,-20}))
+	t.Log(MergeSort([]int{1, 3, -9, 6, 8, -19, 20, -20}))
 }
 func TestMergerSortNotRecursion(t *testing.T) {
-	t.Log(MergerSortNotRecursion([]int{1, 3, -9, 6, 8, -19,20,-20}))
+	t.Log(MergerSortNotRecursion([]int{1, 3, -9, 6, 8, -19, 20, -20}))
 }
