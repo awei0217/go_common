@@ -25,3 +25,12 @@ func TestLinkList_Add(t *testing.T) {
 	t.Log(linklist.Get(2))
 	t.Log(linklist.Get(3))
 }
+
+func TestLinkList_Reverse(t *testing.T) {
+	list := &LinkList{}
+	list.AddToFirst(1)
+	list.AddToFirst(2)
+	list.AddToFirst(3)
+	list.Reverse()
+	list.Print()
+}
