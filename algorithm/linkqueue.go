@@ -1,22 +1,22 @@
 package algorithm
 
-type nodeQueue struct {
+type NodeQueue struct {
 	value interface{}
-	prev  *nodeQueue
-	next  *nodeQueue
+	prev  *NodeQueue
+	next  *NodeQueue
 }
 
 /**
 无界队列
 */
 type LinkQueue struct {
-	head *nodeQueue
-	tail *nodeQueue
+	head *NodeQueue
+	tail *NodeQueue
 	size int
 }
 
 func (queue *LinkQueue) Add(value interface{}) {
-	newNode := &nodeQueue{value, nil, nil}
+	newNode := &NodeQueue{value, nil, nil}
 	if queue.head == nil {
 		queue.head = newNode
 		queue.tail = newNode

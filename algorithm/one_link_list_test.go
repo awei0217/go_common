@@ -35,7 +35,6 @@ func TestFindCenterNode(t *testing.T) {
 	linkList = AddTail(linkList,5)
 	temp := FindCenterNode(linkList)
 	fmt.Println(temp.Value)
-	Print(linkList)
 }
 
 func TestFindReciprocalNode(t *testing.T) {
@@ -70,7 +69,27 @@ func TestMergeSortLinkList(t *testing.T) {
 
 func TestDeleteNode(t *testing.T) {
 	linklist1 := AddTail(nil,1)
-
+	linklist1 = AddTail(linklist1,2)
+	linklist1 = AddTail(linklist1,4)
+	linklist1 = AddTail(linklist1,1)
 	linklist1 = DeleteAppointValueNode(linklist1,1)
 	Print(linklist1)
+}
+
+func TestSortOneLinkList(t *testing.T) {
+	linklist1 := AddTail(nil,1)
+	linklist1 = AddTail(linklist1,2)
+	linklist1 = AddTail(linklist1,4)
+	linklist1 = AddTail(linklist1,5)
+	linklist1 = AddTail(linklist1,0)
+	Print(MergerSortOneLinkList(linklist1))
+}
+
+func TestInsertSortOneLinkList(t *testing.T) {
+	linklist1 := AddTail(nil,4)
+	linklist1 = AddTail(linklist1,2)
+	linklist1 = AddTail(linklist1,1)
+	linklist1 = AddTail(linklist1,3)
+	Print(InsertSortOneLinkList(linklist1))
+
 }

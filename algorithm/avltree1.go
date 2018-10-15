@@ -103,6 +103,27 @@ func PreOrder(avl AVLTree) {
 		PreOrder(avl.right)
 	}
 }
+/**
+	前序非递归遍历
+ */
+func PreNotRecursionOrder(root AVLTree)[]int{
+	if root == nil {
+		return nil
+	}
+	var stack *ArrayStack
+	array := make([]int,0,0)
+	for root != nil || !IsEmpty(stack){
+		if root != nil{
+			array = append(array,root.key)
+			stack = Push(stack,root)
+			root = root.left
+		}else{
+			root = Pop(stack).(*AVLTreeNode)
+			root = root.right
+		}
+	}
+	return array
+}
 
 func MidOrder(avl AVLTree) {
 	if avl != nil {

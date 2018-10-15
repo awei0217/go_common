@@ -63,23 +63,57 @@ func QuickSort(array []int) []int {
 	if len(array) <= 1 {
 		return array
 	}
-	medianValue, index := array[0], 1
 	head, tail := 0, len(array)-1
-	for head < tail {
-		if array[index] > medianValue {
-			array[index], array[tail] = array[tail], array[index]
+	par := partionArray(array,head,tail)
+	QuickSort(array[:par])
+	QuickSort(array[par+1:])
+	return array
+}
+/**
+	快速排序非递归 {1, 3, -9, 6, 8, -19, 20, -20}
+ */
+func QuickSortNotRecursion(array []int)[]int{
+
+	head,tail := 0,len(array)-1
+	stack := &ArrayStack{}
+	par := partionArray(array,head,tail)
+	if par > head+1{
+		stack = Push(stack,head)
+		stack = Push(stack,par-1)
+	}
+	if par < tail-1{
+		stack = Push(stack,par+1)
+		stack = Push(stack,tail)
+	}
+	for !IsEmpty(stack){
+		tail = Pop(stack).(int)
+		head = Pop(stack).(int)
+		par = partionArray(array,head,tail)
+		if par > head+1{
+			stack = Push(stack,head)
+			stack = Push(stack,par-1)
+		}
+		if par < tail-1{
+			stack = Push(stack,par+1)
+			stack = Push(stack,tail)
+		}
+	}
+	return array
+}
+func partionArray(array []int, head int, tail int) int {
+	medianValue,index := array[head],head+1
+	for head<tail{
+		if array[index] > medianValue{
+			array[index],array[tail] = array[tail],array[index]
 			tail--
-		} else {
-			array[index], array[head] = array[head], array[index]
+		}else{
+			array[index],array[head] = array[head],array[index]
 			head++
 			index++
 		}
 	}
-	QuickSort(array[:head])
-	QuickSort(array[head+1:])
-	return array
+	return head
 }
-
 /**
 插入排序
 有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序，
@@ -100,10 +134,12 @@ func InsertSort(intArray []int) []int {
 
 }
 
-//希尔排序
+/**
+	希尔排序,最重要的是选取增量序列
+ */
 func ShellSort(intArray []int) []int {
 	d := len(intArray) / 2
-	for d >= 1 {
+	for d >0 {
 		for i := d; i < len(intArray); i++ {
 			j := i
 			for j-d >= 0 && intArray[j] < intArray[j-d] {

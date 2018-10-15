@@ -72,7 +72,7 @@ func Revers(linkList OneLinkedList)OneLinkedList  {
  */
 func FindCenterNode(linkList OneLinkedList) OneLinkedList {
 	one := linkList
-	two := linkList
+	two := linkList.Next
 	for two != nil && two.Next != nil{
 		one= one.Next
 		two = two.Next.Next
@@ -245,9 +245,39 @@ func DeleteAppointValueNode(linklist OneLinkedList,value int)OneLinkedList  {
 	}
 	return temp
 }
-
-
-
+/**
+	用归并排序对单链表排序
+ */
+func MergerSortOneLinkList(linkList OneLinkedList)OneLinkedList  {
+	if linkList == nil  || linkList.Next == nil{
+		return linkList
+	}
+	first := linkList
+	// 获取中间节点
+	mid := FindCenterNode(linkList)
+	second := mid.Next
+	mid.Next = nil
+	first = MergerSortOneLinkList(first)
+	second = MergerSortOneLinkList(second)
+	return MergeSortLinkList(first,second)
+}
+/**
+	用插入排序对单链表进行排序
+ */
+func InsertSortOneLinkList(linklist OneLinkedList)OneLinkedList  {
+	pre,cur :=linklist,linklist.Next
+	for cur!= nil{
+		for pre != cur {
+			if cur.Value <= pre.Value{
+				cur.Value,pre.Value = pre.Value,cur.Value
+			}
+			pre = pre.Next
+		}
+		cur = cur.Next
+		pre = linklist
+	}
+	return linklist
+}
 
 /**
 	打印单链表

@@ -68,3 +68,6 @@ func TestGetNext(t *testing.T) {
 func TestStrMatch(t *testing.T) {
 	t.Log(StrMatch("abababdacabcda", "ababda"))
 }
+func TestIsValid(t *testing.T) {
+	t.Log(IsValid("[]}"))
+}

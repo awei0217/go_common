@@ -1,21 +1,26 @@
 package algorithm
 
-type nodeStack struct {
+
+/**
+	链表实现栈
+ */
+
+type NodeStack struct {
 	value interface{}
-	next  *nodeStack
-	prev  *nodeStack
+	next  *NodeStack
+	prev  *NodeStack
 }
 type LinkStack struct {
-	top  *nodeStack
+	top  *NodeStack
 	size int //栈的大小
 }
 
 func (stack *LinkStack) Push(value interface{}) {
 	if stack.top == nil {
-		newNode := &nodeStack{value, nil, nil}
+		newNode := &NodeStack{value, nil, nil}
 		stack.top = newNode
 	} else {
-		newNode := &nodeStack{value, nil, nil}
+		newNode := &NodeStack{value, nil, nil}
 		current := stack.top
 		current.next = newNode
 		newNode.prev = current

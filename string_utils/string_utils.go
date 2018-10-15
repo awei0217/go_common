@@ -340,3 +340,40 @@ func Tree2Str(t *TreeNode) string {
 	}
 	return buf.String()
 }
+/**
+输入: "()[]{}"
+输出: true
+
+输入: "(]"
+输出: false
+ */
+func IsValid(s string) bool {
+	stack := make([]rune,len(s))
+	size := 0
+	for _,v:= range s{
+		if v =='('{
+			stack[size] = ')'
+		}else if v =='['{
+			stack[size] = ']'
+		}else if v == '{'{
+			stack[size] = '}'
+		}else{
+			if (size==0 && stack[size] ==0){
+				return false
+			}
+			if size-1 < 0{
+				return false
+			}
+			if v != stack[size-1]{
+				return false
+			}
+			size--
+			continue
+		}
+		size++
+	}
+	if size >0 {
+		return false
+	}
+	return true
+}
