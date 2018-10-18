@@ -30,7 +30,7 @@ import "strconv"
  }
 
 func Pop(stack *ArrayStack)interface{}  {
-	if stack == nil{
+	if stack == nil || stack.Size == 0{
 		return nil
 	}
 	value := stack.Data[stack.Size-1]
@@ -145,5 +145,4 @@ func CalPoints(ops []string) int {
 	}
 	return sum
 }
-
 

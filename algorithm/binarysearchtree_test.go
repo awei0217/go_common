@@ -6,9 +6,9 @@ import (
 
 func TestBinarySearchTree_RecursionAdd(t *testing.T) {
 	tree := &BinarySearchTree{0, nil, nil}
-	for i := 1; i < 10; i++ {
-		tree.RecursionAdd(i)
-	}
+	tree.RecursionAdd(1)
+	tree.RecursionAdd(2)
+	tree.RecursionAdd(3)
 	t.Log(tree)
 	t.Log(tree.leftChild)
 	t.Log(tree.leftChild.leftChild)

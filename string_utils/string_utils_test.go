@@ -71,3 +71,7 @@ func TestStrMatch(t *testing.T) {
 func TestIsValid(t *testing.T) {
 	t.Log(IsValid("[]}"))
 }
+
+func TestLongestPalindrome(t *testing.T) {
+	t.Log(LongestPalindrome("cbcdcbedcbc"))
+}

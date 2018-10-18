@@ -116,30 +116,31 @@ func destroy(tree *BinarySearchTree) {
 百度百科定义：树的高度或深度：树中节点的最大层次；
 */
 func (tree *BinarySearchTree) Deep() int {
-	leftDeep := 0
-	rightDeep := 0
-
-	if tree.leftChild.value == 0 && tree.rightChild.value == 0 {
-		// 空树返回-1
-		return -1
+	var stack *ArrayStack
+	if tree == nil{
+		return 0
 	}
-	current := tree
-	for current.leftChild.value != 0 {
-		current = current.leftChild
-		leftDeep++
+	tempTree := tree
+	stack = Push(stack,tempTree)
+	deep :=1
+	for !IsEmpty(stack){
+		if tempTree.leftChild.value != 0{
+			deep++
+			stack = Push(stack,tempTree.leftChild)
+			tempTree = tempTree.leftChild
+		}else{
+			tempTree = Pop(stack).(*BinarySearchTree)
+			if tempTree.leftChild.value != 0{
+				deep--
+			}
+			if tempTree.rightChild.value != 0{
+				deep++
+				stack = Push(stack,tempTree.rightChild)
+				tempTree = tempTree.rightChild
+			}
+		}
 	}
-	current = tree
-	for current.rightChild.value != 0 {
-		current = current.rightChild
-		rightDeep++
-	}
-	if current.leftChild.value != 0 {
-		rightDeep++
-	}
-	if rightDeep > leftDeep {
-		return rightDeep + 1
-	}
-	return leftDeep + 1
+	return deep
 }
 
 func (tree *BinarySearchTree) Height() int {

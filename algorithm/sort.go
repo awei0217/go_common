@@ -6,34 +6,52 @@ import "fmt"
 常见的时间复杂度有：常数阶O(时间复杂度和空间复杂度)，对数阶O(log2n)，线性阶O(n)，线性对数阶O(nlog2n)，平方阶O(n2)，立方阶O(n3)， k次方阶O(nk)，指数阶O(2n)。
 随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。
 
-*/
-/**
 稳定排序：待排序的记录序列中可能存在两个或两个以上关键字相等的记录。排序前的序列中Ri领先于Rj（即i<j）.若在排序后的序列中Ri仍然领先于Rj，则称所用的方法是稳定的
 		  插入排序  ，基数排序  ，归并排序  ，冒泡排序 ，计数排序
 不稳定的排序算法有：快速排序，希尔排序，简单选择排序，堆排序
+
+排序算法	平均时间复杂度	最坏时间复杂度	空间复杂度	是否稳定
+冒泡排序	O（n2）	        O（n2）	        O（时间复杂度和空间复杂度）	是
+选择排序	O（n2）	        O（n2）	        O（时间复杂度和空间复杂度）	不是
+插入排序    O（n2）	        O（n2）	        O（时间复杂度和空间复杂度）	是
+归并排序	O(nlogn)	    O(nlogn)	    O（n）	是
+快速排序	O(nlogn)	    O（n2）	        O（logn）	不是
+堆排序	    O(nlogn)	    O(nlogn)	    O（时间复杂度和空间复杂度）	不是
+希尔排序	O(nlogn)	    O（ns）	        O（时间复杂度和空间复杂度）	不是
+计数排序	O(n+k)	        O(n+k)	        O(n+k)	是
+基数排序	O(N∗M)	        O(N∗M)	        O(M)	是
 */
 
+
+
+
 /**
-（从小到大排序）存在10个不同大小的气泡，由底至上地把较少的气泡逐步地向上升，这样经过遍历一次后，最小的气泡就会被上升到顶（下标为0），然后再从底至上地这样升，循环直至十个气泡大小有序。
+存在10个不同大小的气泡，由底至上地把较少的气泡逐步地向上升，这样经过遍历一次后，最小的气泡就会被上升到顶（下标为0），然后再从底至上地这样升，循环直至十个气泡大小有序。
 在冒泡排序中，最重要的思想是两两比较，将两者较少的升上去
-冒泡排序最坏情况的时间复杂度是O(n²)
+冒泡排序最坏时间复杂度是O(n²) 最好时间复杂度是O(n) 平均时间复杂度是 O(n²)
+稳定排序
 */
 func MaoPaoSort(intArray []int) []int {
-	for i := 0; i < len(intArray)-1; i++ {
+	for i := 0; i < len(intArray); i++ {
+		flag := true
 		for j := 0; j < len(intArray)-1-i; j++ {
-			if intArray[j] < intArray[j+1] {
+			if intArray[j] > intArray[j+1] {
+				flag = false
 				intArray[j], intArray[j+1] = intArray[j+1], intArray[j]
 			}
+		}
+		if flag{
+			break
 		}
 	}
 	return intArray
 }
 
 /**
-选择排序
 选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，
-存放在序列的起始位置，直到全部待排序的数据元素排完。 选择排序是不稳定的排序方法。
-时间复杂度为 O(N^2)
+存放在序列的起始位置，直到全部待排序的数据元素排完。
+最好，最坏，平均时间复杂度都是 O(n2)
+不稳定排序
 */
 func SelectSort(intArray []int) []int {
 	for i := 0; i < len(intArray); i++ {
@@ -64,7 +82,8 @@ func QuickSort(array []int) []int {
 		return array
 	}
 	head, tail := 0, len(array)-1
-	par := partionArray(array,head,tail)
+	par := partionArray(array,head,tail) // 每次执行n次
+	// 需要递归logn次 ，最坏时需要递归n次
 	QuickSort(array[:par])
 	QuickSort(array[par+1:])
 	return array
@@ -152,6 +171,7 @@ func ShellSort(intArray []int) []int {
 	return intArray
 }
 
+
 /**
 堆排序
 时间复杂度_空间复杂度：O(nlgn)
@@ -162,7 +182,7 @@ func HeapSort(intArray []int) []int {
 
 	length := len(intArray)
 	//建堆,把最大的放到顶部
-	for i := length/2 - 1; i >= 0; i-- {
+	for i := length/2-1; i >= 0; i-- {
 		adjustHeap(intArray, i, length)
 	}
 	fmt.Println(intArray)
@@ -192,31 +212,15 @@ func adjustHeap(intArray []int, i, length int) {
 	}
 }
 
-/**
-求最大子序列和 （就是说子序列加起来和最大）
-*/
-func FindMaxSeqSum(array []int) int {
-	seqSum := make([]int, 0) // 存储子序列和
-	// 初始子序列和为 数组下标为0的值
-	seqSum = append(seqSum, array[0])
-	for i := 1; i < len(array); i++ {
-		if array[i] > seqSum[i-1]+array[i] {
-			seqSum = append(seqSum, array[i])
-		} else {
-			seqSum = append(seqSum, seqSum[i-1]+array[i])
-		}
-	}
-	max := seqSum[0]
-	for j := 1; j < len(seqSum); j++ {
-		if seqSum[j] > seqSum[j-1] {
-			max = seqSum[j]
-		}
-	}
-	return max
-}
+
 
 /**
+,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，
+得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。
 二路归并排序 递归
+稳定排序
+时间复杂度 O(nlogn)
+空间复杂度 O(n)
 */
 func MergeSort(array []int) []int {
 	length := len(array)
@@ -284,15 +288,67 @@ func merge(left []int, right []int) (result []int) {
 }
 
 /**
-排序算法	平均时间复杂度	最坏时间复杂度	空间复杂度	是否稳定
-冒泡排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	是
-选择排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	不是
-直接插入排序	O（n2）	O（n2）	O（时间复杂度和空间复杂度）	是
-归并排序	O(nlogn)	O(nlogn)	O（n）	是
-快速排序	O(nlogn)	O（n2）	O（logn）	不是
-堆排序	O(nlogn)	O(nlogn)	O（时间复杂度和空间复杂度）	不是
-希尔排序	O(nlogn)	O（ns）	O（时间复杂度和空间复杂度）	不是
-计数排序	O(n+k)	O(n+k)	O(n+k)	是
-基数排序	O(N∗M)	O(N∗M)	O(M)	是
+	桶排序
+	适合不重复数组排序，这数组的最大值不宜过大
+ */
+func BucketSort(array []int)[]int{
+	var max int
+	for _,v:=range array{
+		if v > max{
+			max= v
+		}
+	}
+	max= max+1
+	temp := make([][]int,max,max)
+	bucketSizes := make([]int,max,max)
+	for i:=0;i<max;i++{
+		temp[i] = make([]int,max,max)
+	}
+	for _,v:=range array{
+		mod := v % max
+		i := bucketSizes[v%max]
+		temp[mod][i] = v
+		i++
+	}
+	index :=0
+	for _,v :=range temp {
+		if v[0] !=0{
+			array[index] = v[0]
+			index++
+		}
+	}
+	return array
+}
 
-*/
+func StringMergerSort(d[]string) []string{
+	if len(d) <= 1 {
+		return d
+	}
+	l:= len(d) / 2
+	left := StringMergerSort(d[:l])
+	right := StringMergerSort(d[l:])
+	return merger(left,right)
+}
+
+func merger(d1,d2 []string)[]string{
+	l := 0
+	r := 0
+	result := make([]string,0,0)
+	for l < len(d1) && r < len(d2){
+		if len(d1[l]) < len(d2[r]){
+			result = append(result,d2[r])
+			r++
+		} else if len(d1[l]) > len(d2[r]){
+			result = append(result,d1[l])
+			l++
+		}else{
+			result = append(result,d1[l],d2[r])
+			l++
+			r++
+		}
+	}
+	result = append(result,d1[l:]...)
+	result = append(result,d2[r:]...)
+
+	return result
+}
