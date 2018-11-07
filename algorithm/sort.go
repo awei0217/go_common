@@ -1,7 +1,5 @@
 package algorithm
 
-import "fmt"
-
 /**
 常见的时间复杂度有：常数阶O(时间复杂度和空间复杂度)，对数阶O(log2n)，线性阶O(n)，线性对数阶O(nlog2n)，平方阶O(n2)，立方阶O(n3)， k次方阶O(nk)，指数阶O(2n)。
 随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。
@@ -22,9 +20,6 @@ import "fmt"
 基数排序	O(N∗M)	        O(N∗M)	        O(M)	是
 */
 
-
-
-
 /**
 存在10个不同大小的气泡，由底至上地把较少的气泡逐步地向上升，这样经过遍历一次后，最小的气泡就会被上升到顶（下标为0），然后再从底至上地这样升，循环直至十个气泡大小有序。
 在冒泡排序中，最重要的思想是两两比较，将两者较少的升上去
@@ -40,7 +35,7 @@ func MaoPaoSort(intArray []int) []int {
 				intArray[j], intArray[j+1] = intArray[j+1], intArray[j]
 			}
 		}
-		if flag{
+		if flag {
 			break
 		}
 	}
@@ -82,57 +77,80 @@ func QuickSort(array []int) []int {
 		return array
 	}
 	head, tail := 0, len(array)-1
-	par := partionArray(array,head,tail) // 每次执行n次
+	par := partitionArray(array, head, tail) // 每次执行n次
 	// 需要递归logn次 ，最坏时需要递归n次
 	QuickSort(array[:par])
 	QuickSort(array[par+1:])
 	return array
 }
-/**
-	快速排序非递归 {1, 3, -9, 6, 8, -19, 20, -20}
- */
-func QuickSortNotRecursion(array []int)[]int{
 
-	head,tail := 0,len(array)-1
+/**
+快速排序非递归 {1, 3, -9, 6, 8, -19, 20, -20}
+*/
+func QuickSortNotRecursion(array []int) []int {
+
+	head, tail := 0, len(array)-1
 	stack := &ArrayStack{}
-	par := partionArray(array,head,tail)
-	if par > head+1{
-		stack = Push(stack,head)
-		stack = Push(stack,par-1)
+	par := partitionArray(array, head, tail)
+	if par > head+1 {
+		stack = Push(stack, head)
+		stack = Push(stack, par-1)
 	}
-	if par < tail-1{
-		stack = Push(stack,par+1)
-		stack = Push(stack,tail)
+	if par < tail-1 {
+		stack = Push(stack, par+1)
+		stack = Push(stack, tail)
 	}
-	for !IsEmpty(stack){
+	for !IsEmpty(stack) {
 		tail = Pop(stack).(int)
 		head = Pop(stack).(int)
-		par = partionArray(array,head,tail)
-		if par > head+1{
-			stack = Push(stack,head)
-			stack = Push(stack,par-1)
+		par = partitionArray2(array, head, tail)
+		//par = partitionArray(array, head, tail)
+		if par > head+1 {
+			stack = Push(stack, head)
+			stack = Push(stack, par-1)
 		}
-		if par < tail-1{
-			stack = Push(stack,par+1)
-			stack = Push(stack,tail)
+		if par < tail-1 {
+			stack = Push(stack, par+1)
+			stack = Push(stack, tail)
 		}
 	}
 	return array
 }
-func partionArray(array []int, head int, tail int) int {
-	medianValue,index := array[head],head+1
-	for head<tail{
-		if array[index] > medianValue{
-			array[index],array[tail] = array[tail],array[index]
+/**
+	这种分区函数下是稳定排序
+ */
+func partitionArray(array []int, head int, tail int) int {
+	medianValue, index := array[head], head+1
+	for head < tail {
+		if array[index] > medianValue {
+			array[index], array[tail] = array[tail], array[index]
 			tail--
-		}else{
-			array[index],array[head] = array[head],array[index]
+		} else {
+			array[index], array[head] = array[head], array[index]
 			head++
 			index++
 		}
 	}
 	return head
 }
+/**
+	这种分区函数下是不稳定排序
+ */
+func partitionArray2(array[]int,head int ,tail int)int {
+	middleValue := array[head]
+	for head < tail{
+		for head < tail && array[tail] > middleValue{
+			tail--
+		}
+		array[tail],array[head] = array[head],array[tail]
+		for head < tail && array[head] < middleValue{
+			head++
+		}
+		array[head],array[tail] = array[tail],array[head]
+	}
+	return head
+}
+
 /**
 插入排序
 有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序，
@@ -154,11 +172,11 @@ func InsertSort(intArray []int) []int {
 }
 
 /**
-	希尔排序,最重要的是选取增量序列
- */
+希尔排序,最重要的是选取增量序列
+*/
 func ShellSort(intArray []int) []int {
 	d := len(intArray) / 2
-	for d >0 {
+	for d > 0 {
 		for i := d; i < len(intArray); i++ {
 			j := i
 			for j-d >= 0 && intArray[j] < intArray[j-d] {
@@ -171,40 +189,37 @@ func ShellSort(intArray []int) []int {
 	return intArray
 }
 
-
 /**
 堆排序
 时间复杂度_空间复杂度：O(nlgn)
 建堆的时间复杂度是 O(n)
 调整堆的时间复杂度是 O(lgn)
 */
-func HeapSort(intArray []int) []int {
+func SmallHeapSort(intArray []int) []int {
 
 	length := len(intArray)
 	//建堆,把最大的放到顶部
-	for i := length/2-1; i >= 0; i-- {
-		adjustHeap(intArray, i, length)
+	for i := length/2 - 1; i >= 0; i-- {
+		adjustSmallHeap(intArray, i, length)
 	}
-	fmt.Println(intArray)
 	// 调整堆
 	for i := length - 1; i >= 0; i-- {
 		intArray[i], intArray[0] = intArray[0], intArray[i]
-		adjustHeap(intArray, 0, i)
+		adjustSmallHeap(intArray, 0, i)
 	}
 	return intArray
 }
-func adjustHeap(intArray []int, i, length int) {
+func adjustSmallHeap(intArray []int, i, length int) {
 	//左子节点
 	childrenNode := i*2 + 1
 	for childrenNode < length {
 		if childrenNode+1 < length && intArray[childrenNode] > intArray[childrenNode+1] { // 从子节点中找较小的
 			childrenNode++
 		}
-		if intArray[i] < intArray[childrenNode] { // 如果父节点 < 两个子节点中最小的，则说明父节点最小
-			break
+		if intArray[i] > intArray[childrenNode] { // 如果父节点 < 两个子节点中最小的，则说明父节点最小
+			// 把父节点和最小子节点交换
+			intArray[i], intArray[childrenNode] = intArray[childrenNode], intArray[i]
 		}
-		// 把父节点和最小子节点交换
-		intArray[i], intArray[childrenNode] = intArray[childrenNode], intArray[i]
 		// 父节点变更
 		i = childrenNode
 		// 父节点的子节点
@@ -212,7 +227,35 @@ func adjustHeap(intArray []int, i, length int) {
 	}
 }
 
+/**
+大顶堆
+*/
+func BigHeapSort(array []int) []int {
+	// 创建堆
+	for i := len(array)/2 - 1; i >= 0; i-- {
+		createBigHeap(array, i, len(array))
+	}
+	//调整堆
+	for i := len(array) - 1; i >= 0; i-- {
+		array[0], array[i] = array[i], array[0]
+		createBigHeap(array, 0, i)
 
+	}
+	return array
+}
+func createBigHeap(array []int, i, length int) {
+	childLeft := i*2 + 1
+	for childLeft < length {
+		if (childLeft+1) < length && array[childLeft] < array[childLeft+1] {
+			childLeft++
+		}
+		if array[childLeft] > array[i] {
+			array[i], array[childLeft] = array[childLeft], array[i]
+		}
+		i = childLeft
+		childLeft = i*2 + 1
+	}
+}
 
 /**
 ,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，
@@ -288,31 +331,31 @@ func merge(left []int, right []int) (result []int) {
 }
 
 /**
-	桶排序
-	适合不重复数组排序，这数组的最大值不宜过大
- */
-func BucketSort(array []int)[]int{
+桶排序
+适合不重复数组排序，这数组的最大值不宜过大
+*/
+func BucketSort(array []int) []int {
 	var max int
-	for _,v:=range array{
-		if v > max{
-			max= v
+	for _, v := range array {
+		if v > max {
+			max = v
 		}
 	}
-	max= max+1
-	temp := make([][]int,max,max)
-	bucketSizes := make([]int,max,max)
-	for i:=0;i<max;i++{
-		temp[i] = make([]int,max,max)
+	max = max + 1
+	temp := make([][]int, max, max)
+	bucketSizes := make([]int, max, max)
+	for i := 0; i < max; i++ {
+		temp[i] = make([]int, max, max)
 	}
-	for _,v:=range array{
+	for _, v := range array {
 		mod := v % max
 		i := bucketSizes[v%max]
 		temp[mod][i] = v
 		i++
 	}
-	index :=0
-	for _,v :=range temp {
-		if v[0] !=0{
+	index := 0
+	for _, v := range temp {
+		if v[0] != 0 {
 			array[index] = v[0]
 			index++
 		}
@@ -320,35 +363,97 @@ func BucketSort(array []int)[]int{
 	return array
 }
 
-func StringMergerSort(d[]string) []string{
+/**
+	计数排序
+	入参 是数组 和 数组中的最大值
+ */
+func CountSort(array []int,max int)[]int{
+	length := len(array)
+	if length==0 || length ==1{
+		return array
+	}
+	temp := make([]int,max+1)
+	for i :=0;i<length;i++{
+		temp[array[i]]++
+	}
+	for i:=1;i<max+1;i++{
+		temp[i+1] = temp[i-1]+temp[i]
+	}
+	sort := make([]int,length)
+	for i:=length-1;i>=0;i--{
+		index := temp[array[i]]-1
+		sort[index] = array[i]
+		temp[array[i]]--
+	}
+	return array
+}
+
+/**
+按字符串长度，由长到短
+字符串合并排序
+*/
+func StringMergerSort(d []string) []string {
 	if len(d) <= 1 {
 		return d
 	}
-	l:= len(d) / 2
+	l := len(d) / 2
 	left := StringMergerSort(d[:l])
 	right := StringMergerSort(d[l:])
-	return merger(left,right)
+	return merger(left, right)
 }
 
-func merger(d1,d2 []string)[]string{
+func merger(d1, d2 []string) []string {
 	l := 0
 	r := 0
-	result := make([]string,0,0)
-	for l < len(d1) && r < len(d2){
-		if len(d1[l]) < len(d2[r]){
-			result = append(result,d2[r])
+	result := make([]string, 0, 0)
+	for l < len(d1) && r < len(d2) {
+		if len(d1[l]) < len(d2[r]) {
+			result = append(result, d2[r])
 			r++
-		} else if len(d1[l]) > len(d2[r]){
-			result = append(result,d1[l])
+		} else if len(d1[l]) > len(d2[r]) {
+			result = append(result, d1[l])
 			l++
-		}else{
-			result = append(result,d1[l],d2[r])
+		} else {
+			result = append(result, d1[l], d2[r])
 			l++
 			r++
 		}
 	}
-	result = append(result,d1[l:]...)
-	result = append(result,d2[r:]...)
-
+	result = append(result, d1[l:]...)
+	result = append(result, d2[r:]...)
 	return result
+}
+
+/**
+实现一个通用排序
+*/
+func Sort(array []int) []int {
+	sort(array, 0, len(array)-1)
+	return array
+}
+func sort(array []int, a, b int) {
+	quickSort3(array, a, b)
+}
+func quickSort3(ints []int, i int, i2 int) {
+	if i >= i2 {
+		return
+	}
+	mid := partition3(ints, i, i2)
+	quickSort3(ints, i, mid-1)
+	quickSort3(ints, mid+1, i2)
+}
+func partition3(ints []int, i int, i2 int) int {
+	midValue := ints[i]
+	index := i + 1
+	for i < i2 {
+		if ints[index] > midValue {
+			ints[index], ints[i2] = ints[i2], ints[index]
+			i2--
+		} else {
+			ints[index], ints[i] = ints[i], ints[index]
+			i++
+			index++
+		}
+	}
+	return i
 }

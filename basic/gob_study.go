@@ -15,7 +15,7 @@ bool类型是被当作uint来编码的，0是false，1是true。
 String和[]byte传递是uint(byte个数) + byte[]的形式编码的
 Slice和array是按照uint(array个数) + 每个array编码 这样的形式进行编码的
 Maps是按照 uint(Map个数) + 键值对 这样的形式进行编码的
- */
+*/
 type P struct {
 	X int
 	Y string
@@ -24,12 +24,12 @@ type Q struct {
 	Y string
 	X int
 	Z string
-
 }
+
 /**
-	字段先后顺序不影响编解码
- */
-func EncoderAndDecoder(p P,q Q)  {
+字段先后顺序不影响编解码
+*/
+func EncoderAndDecoder(p P, q Q) {
 	buf := bytes.Buffer{}
 	gob.NewEncoder(&buf).Encode(p)
 	gob.NewDecoder(&buf).Decode(&q)

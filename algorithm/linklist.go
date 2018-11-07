@@ -202,17 +202,18 @@ func (list *LinkList) RemoveByIndex(index int) {
 func (list *LinkList) IsEmpty() bool {
 	return list.Size() == 0
 }
+
 /**
-	双链表反转
- */
-func (list *LinkList)Reverse(){
-	if list.head == nil || list.tail == nil{
+双链表反转
+*/
+func (list *LinkList) Reverse() {
+	if list.head == nil || list.tail == nil {
 		return
 	}
 	// 从尾部开始
 	p := list.tail
-	for p != list.head{
-		pre := p.prev // 记录当前的前节点
+	for p != list.head {
+		pre := p.prev  // 记录当前的前节点
 		tail := p.next //记录当前的后节点
 		//互换
 		p.next = p.prev
@@ -228,12 +229,11 @@ func (list *LinkList)Reverse(){
 	list.head = p.next
 }
 
-func (list *LinkList)Print()  {
+func (list *LinkList) Print() {
 	head := list.head
-	for head.next != list.head{
+	for head.next != list.head {
 		fmt.Println(head.value)
 		head = head.next
 	}
 	fmt.Print(head.value)
 }
-

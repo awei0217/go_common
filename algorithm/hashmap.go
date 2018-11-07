@@ -43,7 +43,6 @@ func (hm *HashMap) Put(key, value string) {
 	if oldEntry == nil {
 		hm.data[index] = entry
 	} else {
-
 		for oldEntry != nil {
 			if oldEntry.key == key {
 				oldEntry.value = value

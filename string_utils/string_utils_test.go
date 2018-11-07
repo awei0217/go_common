@@ -75,3 +75,7 @@ func TestIsValid(t *testing.T) {
 func TestLongestPalindrome(t *testing.T) {
 	t.Log(LongestPalindrome("cbcdcbedcbc"))
 }
+
+func TestReorganizeString(t *testing.T) {
+	t.Log(ReorganizeString("aaab"))
+}

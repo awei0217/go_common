@@ -18,3 +18,10 @@ func TestNewHashMap(t *testing.T) {
 	t.Log(hm.Size())
 	t.Log("ss")
 }
+
+func BenchmarkHashMap_Put(b *testing.B) {
+	hm := NewHashMap()
+	for i := 0; i < b.N; i++ {
+		hm.Put("spw", "Sun")
+	}
+}

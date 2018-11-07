@@ -340,31 +340,32 @@ func Tree2Str(t *TreeNode) string {
 	}
 	return buf.String()
 }
+
 /**
 输入: "()[]{}"
 输出: true
 
 输入: "(]"
 输出: false
- */
+*/
 func IsValid(s string) bool {
-	stack := make([]rune,len(s))
+	stack := make([]rune, len(s))
 	size := 0
-	for _,v:= range s{
-		if v =='('{
+	for _, v := range s {
+		if v == '(' {
 			stack[size] = ')'
-		}else if v =='['{
+		} else if v == '[' {
 			stack[size] = ']'
-		}else if v == '{'{
+		} else if v == '{' {
 			stack[size] = '}'
-		}else{
-			if (size==0 && stack[size] ==0){
+		} else {
+			if size == 0 && stack[size] == 0 {
 				return false
 			}
-			if size-1 < 0{
+			if size-1 < 0 {
 				return false
 			}
-			if v != stack[size-1]{
+			if v != stack[size-1] {
 				return false
 			}
 			size--
@@ -372,11 +373,13 @@ func IsValid(s string) bool {
 		}
 		size++
 	}
-	if size >0 {
+	if size > 0 {
 		return false
 	}
+
 	return true
 }
+
 /**
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
 示例 1：
@@ -386,22 +389,22 @@ func IsValid(s string) bool {
 示例 2：
 输入: "cbbd"
 输出: "bb"
- */
+*/
 func LongestPalindrome(s string) string {
-	if len(s) == 0 || len(s) ==1{
+	if len(s) == 0 || len(s) == 1 {
 		return s
 	}
-	head,tail := 0,len(s)-1
+	head, tail := 0, len(s)-1
 	seq := 0
 	max := 1
 	index := 0
-	for head<len(s)-1 {
-		tail = len(s)-1
+	for head < len(s)-1 {
+		tail = len(s) - 1
 		tempHead := head
-		for tempHead < tail{
-			if s[tempHead] == s[tail]{
+		for tempHead < tail {
+			if s[tempHead] == s[tail] {
 				seq++
-				if tail - tempHead <=2{
+				if tail-tempHead <= 2 {
 					break
 				}
 				tempHead++
@@ -409,20 +412,50 @@ func LongestPalindrome(s string) string {
 				continue
 			}
 			tail--
-			if seq > 0{
-				tempHead = tempHead-seq
-				tail = tail +seq
-				seq= 0
+			if seq > 0 {
+				tempHead = tempHead - seq
+				tail = tail + seq
+				seq = 0
 			}
 		}
-		if seq >0{
-			if (seq * 2  + (tail-tempHead) / 2) >= max{
-				max = seq * 2  + (tail-tempHead) / 2
-				index = tempHead-seq+1
+		if seq > 0 {
+			if (seq*2 + (tail-tempHead)/2) >= max {
+				max = seq*2 + (tail-tempHead)/2
+				index = tempHead - seq + 1
 			}
 		}
 		head++
 		seq = 0
 	}
-	return s[index:index+max]
+	return s[index : index+max]
+}
+
+func ReorganizeString(S string) string {
+	length := len(S)
+	if length == 0 || length == 1 {
+		return S
+	}
+	r := make([]byte, 0, 0)
+	maps := make(map[int]int)
+	for i := 0; i < length; i++ {
+		if _, ok := maps[i]; ok {
+			continue
+		}
+		current := i
+		for len(r) > 0 && S[current] == r[len(r)-1] {
+			current++
+			if _, ok := maps[current]; ok {
+				current++
+			}
+			if current >= length {
+				return ""
+			}
+		}
+		if current > i {
+			i--
+		}
+		r = append(r, S[current])
+		maps[current] = 0
+	}
+	return string(r)
 }

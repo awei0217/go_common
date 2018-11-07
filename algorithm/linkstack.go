@@ -1,9 +1,8 @@
 package algorithm
 
-
 /**
-	链表实现栈
- */
+链表实现栈
+*/
 
 type NodeStack struct {
 	value interface{}

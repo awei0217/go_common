@@ -38,7 +38,7 @@ func AvlInsert(avl AVLTree, key int) AVLTree {
 		avl.right = AvlInsert(avl.right, key)
 		if (highTree(avl.right) - highTree(avl.left)) == 2 {
 			if key < avl.right.key { // RL
-				avl = rightLeftRotation(avl)
+				avl = rightRightRotation(avl)
 			} else {
 				fmt.Println("right right", key)
 				avl = rightLeftRotation(avl)
@@ -103,21 +103,22 @@ func PreOrder(avl AVLTree) {
 		PreOrder(avl.right)
 	}
 }
+
 /**
-	前序非递归遍历
- */
-func PreNotRecursionOrder(root AVLTree)[]int{
+前序非递归遍历
+*/
+func PreNotRecursionOrder(root AVLTree) []int {
 	if root == nil {
 		return nil
 	}
 	var stack *ArrayStack
-	array := make([]int,0,0)
-	for root != nil || !IsEmpty(stack){
-		if root != nil{
-			array = append(array,root.key)
-			stack = Push(stack,root)
+	array := make([]int, 0, 0)
+	for root != nil || !IsEmpty(stack) {
+		if root != nil {
+			array = append(array, root.key)
+			stack = Push(stack, root)
 			root = root.left
-		}else{
+		} else {
 			root = Pop(stack).(*AVLTreeNode)
 			root = root.right
 		}

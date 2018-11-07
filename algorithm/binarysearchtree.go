@@ -117,25 +117,25 @@ func destroy(tree *BinarySearchTree) {
 */
 func (tree *BinarySearchTree) Deep() int {
 	var stack *ArrayStack
-	if tree == nil{
+	if tree == nil {
 		return 0
 	}
 	tempTree := tree
-	stack = Push(stack,tempTree)
-	deep :=1
-	for !IsEmpty(stack){
-		if tempTree.leftChild.value != 0{
+	stack = Push(stack, tempTree)
+	deep := 1
+	for !IsEmpty(stack) {
+		if tempTree.leftChild.value != 0 {
 			deep++
-			stack = Push(stack,tempTree.leftChild)
+			stack = Push(stack, tempTree.leftChild)
 			tempTree = tempTree.leftChild
-		}else{
+		} else {
 			tempTree = Pop(stack).(*BinarySearchTree)
-			if tempTree.leftChild.value != 0{
+			if tempTree.leftChild.value != 0 {
 				deep--
 			}
-			if tempTree.rightChild.value != 0{
+			if tempTree.rightChild.value != 0 {
 				deep++
-				stack = Push(stack,tempTree.rightChild)
+				stack = Push(stack, tempTree.rightChild)
 				tempTree = tempTree.rightChild
 			}
 		}

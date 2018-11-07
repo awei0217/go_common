@@ -80,25 +80,24 @@ func SelectSortTopK(array []int, top int) []int {
 func HeadTopK(array []int, top int) []int {
 	// 构建一个top堆
 	for i := top/2 - 1; i >= 0; i-- {
-		createHeap(array, i, top)
+		createBigHeap(array, i, top)
 	}
 	//调整堆
-	adjustHeap2(array, top)
+	for i := top - 1; i >= 0; i-- {
+		array[0], array[i] = array[i], array[0]
+		createBigHeap(array, 0, i)
+	}
 	for i := top; i < len(array); i++ {
 		if array[i] > array[0] {
 			array[i], array[0] = array[0], array[i]
-			adjustHeap2(array, top)
+			for i := top - 1; i >= 0; i-- {
+				array[0], array[i] = array[i], array[0]
+				createBigHeap(array, 0, i)
+			}
 		}
 	}
 	return array[0:top]
 }
-func adjustHeap2(array []int, top int) {
-	for i := top - 1; i >= 0; i-- {
-		array[0], array[i] = array[i], array[0]
-		createHeap(array, 0, i)
-	}
-}
-
 func createHeap(array []int, parentNode, top int) {
 	childrenNode := parentNode*2 + 1
 	for childrenNode < top {

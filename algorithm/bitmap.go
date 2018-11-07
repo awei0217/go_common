@@ -6,7 +6,6 @@ import (
 
 //BitMap实现
 type BitMap []uint64
-
 const (
 	Address_Bits_Per_Word uint8  = 6
 	Words_Per_Size        uint64 = 64 //64位
@@ -16,18 +15,20 @@ const (
 创建指定初始化大小的BitMap
 */
 func NewBitMap(nbits int) *BitMap {
+	//得出需要多少个unit64的长度，  一个unit64 占8个字节，一个字节占8位
+	//右移6位相当于处于64
 	wordsLen := (nbits - 1) >> Address_Bits_Per_Word
 	temp := BitMap(make([]uint64, wordsLen+1, wordsLen+1))
 	return &temp
 }
 
 /**
-把指定位置设为ture
+	把指定位置设为ture
 */
 func (this *BitMap) Set(bitIndex uint64) {
 	wIndex := this.wordIndex(bitIndex)
 	this.expandTo(wIndex)
-	(*this)[wIndex] |= uint64(0x01) << (bitIndex % Words_Per_Size)
+	(*this)[wIndex] |= (uint64(0x01) << (bitIndex % Words_Per_Size))
 }
 
 //设置指定位置为false
