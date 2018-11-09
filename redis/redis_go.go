@@ -11,8 +11,8 @@ var conn  redis.Conn
 	初始化
  */
 func init(){
-	//"ap2.jd.local:5360",redis.DialPassword("jim://1803528818953446384/1")
-	conn,_ = redis.Dial("tcp4","ap2.jd.local:5360",redis.DialPassword("jim://1803528818953446384/1"))
+
+	conn,_ = redis.Dial("tcp4","127.0.0.1:5360",redis.DialPassword(""))
 }
 func String()  {
 	// set key value 原子性操作

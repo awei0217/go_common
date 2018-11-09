@@ -124,3 +124,48 @@ func MergeTwoArray(nums1 []int, m int, nums2 []int, n int)  {
 	fmt.Println(nums1)
 
 }
+/**
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+示例:
+
+输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+进阶:
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+ */
+/**
+     * 定义状态：
+     * dp[i] ： 表示以 nums[i] 结尾的连续子数组的最大和
+     * <p>
+     * 状态转移方程：
+     * dp[i] = max{num[i],dp[i-1] + num[i]}
+     *
+     * @param nums
+     * @return
+*/
+func maxSubArray(nums []int) int {
+	if len(nums) ==0{
+		return 0
+	}
+	dp := make([]int,len(nums))
+	for index,v := range nums{
+		if index ==0{
+			dp[index] = v
+		}else{
+			if dp[index-1]+v > v{
+				dp[index] = dp[index-1]+v
+			}else{
+				dp[index] = v
+			}
+		}
+	}
+	max :=dp[0]
+	for _,v := range dp{
+		if v > max{
+			max = v
+		}
+	}
+	return max
+}
