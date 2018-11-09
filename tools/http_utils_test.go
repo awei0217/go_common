@@ -19,7 +19,7 @@ func TestHttpGetFile(t *testing.T) {
 							if cel ==""{
 								fmt.Println(i,"月份 ",row[0]," jss key 为空")
 							}else{
-								HttpGetFile("http://storage.jd.com/lbs.settlement.download/"+cel,"E:\\oss\\"+strconv.Itoa(i)+"\\")
+								HttpGetFile(""+cel,"E:\\oss\\"+strconv.Itoa(i)+"\\")
 							}
 						}
 					}
