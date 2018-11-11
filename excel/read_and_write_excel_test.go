@@ -13,8 +13,8 @@ func TestReadExcel(t *testing.T) {
 		" action_time, service_type, region_no, data_source, yn, create_time) values"
 	var buf bytes.Buffer
 	data, err := ReadExcel("E:\\test\\10166_2018-06-01-2018-06-30_BillingDetail1.xls")
-	if err != nil{
-		fmt.Println("excel读取失败",err)
+	if err != nil {
+		fmt.Println("excel读取失败", err)
 		return
 	}
 	for i := 0; i < len(data); i++ {
@@ -35,9 +35,9 @@ func TestReadExcel(t *testing.T) {
 }
 
 func TestUnZipFile(t *testing.T) {
-	for i:=2;i<=9;i++{
-		if i  != 4{
-			UnZipFile("E:\\oss\\"+strconv.Itoa(i)+"\\","E://oss_oss//"+strconv.Itoa(i)+"//")
+	for i := 2; i <= 9; i++ {
+		if i != 4 {
+			UnZipFile("E:\\oss\\"+strconv.Itoa(i)+"\\", "E://oss_oss//"+strconv.Itoa(i)+"//")
 		}
 	}
 }

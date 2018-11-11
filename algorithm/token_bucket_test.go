@@ -18,5 +18,3 @@ func TestNewTokenBucket(t *testing.T) {
 	}
 	wg.Wait()
 }
-
-

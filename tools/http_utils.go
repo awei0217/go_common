@@ -10,11 +10,11 @@ import (
 )
 
 /**
-	使用httpUrl下载文件
-	第一个参数，http连接
-	第二参数，下载下来的文件存放路径
+使用httpUrl下载文件
+第一个参数，http连接
+第二参数，下载下来的文件存放路径
 */
-func HttpGetFile(httpUrl string,filePath string) {
+func HttpGetFile(httpUrl string, filePath string) {
 	if httpUrl == "" {
 		return
 	}

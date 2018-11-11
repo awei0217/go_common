@@ -41,23 +41,23 @@ func ReadExcel(filePath string) ([][][]string, error) {
 }
 
 /**
-	第一个参数的源目录
-	第二个参数是解压后存放解压文件的目录
- */
-func UnZipFile(sourceDir string,targetDir string)  {
+第一个参数的源目录
+第二个参数是解压后存放解压文件的目录
+*/
+func UnZipFile(sourceDir string, targetDir string) {
 	//获取这个目录下的所有压缩文件
 	filePathArray := getAllFile(sourceDir)
-	for m,fileName := range filePathArray {
+	for m, fileName := range filePathArray {
 		// m 是为了防止不同压缩文件中的文件名重复给文件名加编号
-		_,err := unzip(fileName,targetDir,m+1)
-		if err != nil{
-			fmt.Println(fileName,"解压失败",err)
+		_, err := unzip(fileName, targetDir, m+1)
+		if err != nil {
+			fmt.Println(fileName, "解压失败", err)
 			continue
 		}
 	}
 }
-func getAllFile(pathname string) [] string {
-	filePath := make([]string,0,0)
+func getAllFile(pathname string) []string {
+	filePath := make([]string, 0, 0)
 	rd, _ := ioutil.ReadDir(pathname)
 	for _, fi := range rd {
 		if fi.IsDir() {
@@ -68,14 +68,14 @@ func getAllFile(pathname string) [] string {
 	}
 	return filePath
 }
-func unzip(archive, target string,m int)(string,error) {
+func unzip(archive, target string, m int) (string, error) {
 	reader, err := zip.OpenReader(archive)
 	if err != nil {
-		fmt.Println(archive,"解析失败")
-		return "",err
+		fmt.Println(archive, "解析失败")
+		return "", err
 	}
 	if err := os.MkdirAll(target, 0755); err != nil {
-		return "",err
+		return "", err
 	}
 	for _, file := range reader.File {
 		path := filepath.Join(target, strconv.Itoa(m)+"_"+file.Name)
@@ -85,20 +85,17 @@ func unzip(archive, target string,m int)(string,error) {
 		}
 		fileReader, err := file.Open()
 		if err != nil {
-			return "",err
+			return "", err
 		}
 		defer fileReader.Close()
-		targetFile,err := os.Create(path)
+		targetFile, err := os.Create(path)
 		if err != nil {
-			return "",err
+			return "", err
 		}
 		defer targetFile.Close()
 		if _, err := io.Copy(targetFile, fileReader); err == nil {
-			return targetFile.Name(),nil
+			return targetFile.Name(), nil
 		}
 	}
-	return "",err
+	return "", err
 }
-
-
-

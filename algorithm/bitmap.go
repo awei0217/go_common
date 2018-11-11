@@ -6,6 +6,7 @@ import (
 
 //BitMap实现
 type BitMap []uint64
+
 const (
 	Address_Bits_Per_Word uint8  = 6
 	Words_Per_Size        uint64 = 64 //64位
@@ -23,7 +24,7 @@ func NewBitMap(nbits int) *BitMap {
 }
 
 /**
-	把指定位置设为ture
+把指定位置设为ture
 */
 func (this *BitMap) Set(bitIndex uint64) {
 	wIndex := this.wordIndex(bitIndex)

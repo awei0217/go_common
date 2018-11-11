@@ -116,9 +116,10 @@ func QuickSortNotRecursion(array []int) []int {
 	}
 	return array
 }
+
 /**
-	这种分区函数下是稳定排序
- */
+这种分区函数下是稳定排序
+*/
 func partitionArray(array []int, head int, tail int) int {
 	medianValue, index := array[head], head+1
 	for head < tail {
@@ -133,20 +134,21 @@ func partitionArray(array []int, head int, tail int) int {
 	}
 	return head
 }
+
 /**
-	这种分区函数下是不稳定排序
- */
-func partitionArray2(array[]int,head int ,tail int)int {
+这种分区函数下是不稳定排序
+*/
+func partitionArray2(array []int, head int, tail int) int {
 	middleValue := array[head]
-	for head < tail{
-		for head < tail && array[tail] > middleValue{
+	for head < tail {
+		for head < tail && array[tail] > middleValue {
 			tail--
 		}
-		array[tail],array[head] = array[head],array[tail]
-		for head < tail && array[head] < middleValue{
+		array[tail], array[head] = array[head], array[tail]
+		for head < tail && array[head] < middleValue {
 			head++
 		}
-		array[head],array[tail] = array[tail],array[head]
+		array[head], array[tail] = array[tail], array[head]
 	}
 	return head
 }
@@ -364,24 +366,24 @@ func BucketSort(array []int) []int {
 }
 
 /**
-	计数排序
-	入参 是数组 和 数组中的最大值
- */
-func CountSort(array []int,max int)[]int{
+计数排序
+入参 是数组 和 数组中的最大值
+*/
+func CountSort(array []int, max int) []int {
 	length := len(array)
-	if length==0 || length ==1{
+	if length == 0 || length == 1 {
 		return array
 	}
-	temp := make([]int,max+1)
-	for i :=0;i<length;i++{
+	temp := make([]int, max+1)
+	for i := 0; i < length; i++ {
 		temp[array[i]]++
 	}
-	for i:=1;i<max+1;i++{
-		temp[i+1] = temp[i-1]+temp[i]
+	for i := 1; i < max+1; i++ {
+		temp[i+1] = temp[i-1] + temp[i]
 	}
-	sort := make([]int,length)
-	for i:=length-1;i>=0;i--{
-		index := temp[array[i]]-1
+	sort := make([]int, length)
+	for i := length - 1; i >= 0; i-- {
+		index := temp[array[i]] - 1
 		sort[index] = array[i]
 		temp[array[i]]--
 	}

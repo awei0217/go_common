@@ -19,5 +19,5 @@ func TestBinaryFindTailOrderArray(t *testing.T) {
 }
 
 func TestMergeTwoArray(t *testing.T) {
-	MergeTwoArray([]int{1},1,[]int{},0)
+	MergeTwoArray([]int{1}, 1, []int{}, 0)
 }

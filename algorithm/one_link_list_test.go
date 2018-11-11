@@ -93,4 +93,3 @@ func TestInsertSortOneLinkList(t *testing.T) {
 	Print(InsertSortOneLinkList(linklist1))
 
 }
-

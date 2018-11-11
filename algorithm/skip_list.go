@@ -13,8 +13,8 @@ type Node struct {
 }
 
 /**
-	创建一个节点，创建这个节点时指定这个节点所在层
- */
+创建一个节点，创建这个节点时指定这个节点所在层
+*/
 func newNode(index uint64, value interface{}, level int) *Node {
 	return &Node{
 		index:     index,
@@ -24,20 +24,22 @@ func newNode(index uint64, value interface{}, level int) *Node {
 }
 
 /**
-	返回节点的key
- */
+返回节点的key
+*/
 func (n *Node) Index() uint64 {
 	return n.index
 }
+
 /**
-	返回节点的value
- */
+返回节点的value
+*/
 func (n *Node) Value() interface{} {
 	return n.value
 }
+
 /**
-	空间换时间的一种数据结构，时间复杂度为log2n
- */
+空间换时间的一种数据结构，时间复杂度为log2n
+*/
 type skipList struct {
 	level  int   //跳跃俩表的最大层高
 	length int32 //跳跃列表的长度
@@ -46,10 +48,10 @@ type skipList struct {
 }
 
 /**
-	创建一个跳跃列表，入参为最大层
- */
+创建一个跳跃列表，入参为最大层
+*/
 func NewSkipList(level int) *skipList {
-	head := newNode( 0, nil, level)
+	head := newNode(0, nil, level)
 	var tail *Node
 	for i := 0; i < len(head.nextNodes); i++ {
 		head.nextNodes[i] = tail

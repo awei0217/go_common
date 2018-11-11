@@ -7,11 +7,11 @@ import (
 )
 
 /**
-	golang hash函数学习
- */
+golang hash函数学习
+*/
 
 // 生成32位MD5
-func Md5(){
+func Md5() {
 	str := "sun_peng_wei"
 	//方法一
 	ctx := md5.New()

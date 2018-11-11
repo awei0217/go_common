@@ -10,10 +10,10 @@ import (
 func TestNewFunnelRateLimiter(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
-	limiter := NewFunnelRateLimiter(1000,100)
+	limiter := NewFunnelRateLimiter(1000, 100)
 	for {
 		fmt.Println(limiter.IsAllow())
-		time.Sleep(10* time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
 	wg.Wait()
 }

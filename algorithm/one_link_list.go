@@ -298,5 +298,3 @@ func Print(linkList OneLinkedList) {
 	}
 	fmt.Println()
 }
-
-
