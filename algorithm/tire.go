@@ -3,7 +3,7 @@ package algorithm
 import "fmt"
 
 type TireNode struct {
-	num   int         // 有多少个单子通过这个节点
+	num   int         // 有多少个单词通过这个节点
 	son   []*TireNode // 子节点
 	isEnd bool        // 是否最后一个节点
 	val   rune        // 节点的值

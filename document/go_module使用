@@ -1,0 +1,6 @@
+
+#### go mod init module_name 初始化mod文件
+#### go mod tidy 下载依赖的包
+#### go get github.com/jtianling/goModule@latest 的形式更新到最新版
+#### go get -u 的形式升级所有的依赖库
+#### go mod edit -require="github.com/chromedp/chromedp@v0.1.0" 修改指定的版本，修改之后执行第二步
