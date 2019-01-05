@@ -19,6 +19,7 @@ func AddStringWithOperator(str1, str2 string) string {
 通过strings 包的join连接字符串
 */
 func AddStringWidthJoin(strArray []string) string {
+
 	return strings.Join(strArray, "")
 }
 
@@ -46,10 +47,14 @@ func ReversString(str string) string {
 }
 
 /**
+https://www.cnblogs.com/linghu-java/p/9037262.html 参考这边文章
 查找给定字符串中的最长不重复子串
 返回最长不重复子串+子串的长度
 */
 func FindMaxLenNoRepeatSubStr(s string) (string, int) {
+	if len(s) == 1 {
+		return s, 1
+	}
 	head, tail := 0, 0
 	maxLenNoRepeatSubStr := ""
 	for i := 0; i < len(s)-1; i++ {
@@ -66,7 +71,7 @@ func FindMaxLenNoRepeatSubStr(s string) (string, int) {
 			}
 			maxLenNoRepeatSubStr = s[i : j+1]
 		}
-		if maxLenNoRepeatSubStr == s[i:] {
+		if maxLenNoRepeatSubStr == s[i:] && len(s[i:]) > len(s[head:tail]) {
 			head, tail = i, len(s)
 			break
 		}
@@ -75,13 +80,67 @@ func FindMaxLenNoRepeatSubStr(s string) (string, int) {
 }
 
 /**
+查找给定字符串中的最长不重复子串
+返回子串的长度
+*/
+func FindMaxLenNoRepeatSubStr2(s string) int {
+	length := len(s)
+	ans := 0
+	for i := 0; i < length; i++ {
+		for j := i + 1; j <= length; j++ {
+			if allUnique(s, i, j) {
+				if (j - i) > ans {
+					ans = j - i
+				}
+			}
+		}
+	}
+	return ans
+}
+func allUnique(s string, start int, end int) bool {
+	set := make(map[byte]int, 0)
+	for i := start; i < end; i++ {
+		if _, ok := set[s[i]]; ok {
+			return false
+		}
+		set[s[i]]++
+	}
+	return true
+}
+
+/**
+时间滑动窗口思想
+查找给定字符串中的最长不重复子串
+返回子串的长度
+*/
+func FindMaxLenNoRepeatSubStr3(s string) int {
+	length := len(s)
+	ans := 0
+	m := make(map[byte]int, 0)
+	i, j := 0, 0
+	for i < length && j < length {
+		//如果不包含
+		if _, ok := m[s[j]]; !ok {
+			m[s[j]]++
+			j++
+			if (j - i) > ans {
+				ans = j - i
+			}
+		} else { //如果包含
+			delete(m, s[i])
+			i++
+		}
+	}
+	return ans
+}
+
+/**
 从两个给定字符串中找出最长公共子串
-返回最长公共子串
+返回最长公共子串  "gfdef", "abcdef"
 */
 func FindMaxLenCommonSubStr(str1, str2 string) string {
 	start1 := -1
 	start2 := -1
-	comparisons := 0
 	longest := 0
 	for i := 0; i < len(str1); i++ {
 		for j := 0; j < len(str2); j++ {
@@ -89,7 +148,6 @@ func FindMaxLenCommonSubStr(str1, str2 string) string {
 			m := i
 			n := j
 			for m < len(str1) && n < len(str2) {
-				comparisons++
 				if str1[m] != str2[n] {
 					break
 				}
@@ -107,16 +165,18 @@ func FindMaxLenCommonSubStr(str1, str2 string) string {
 	if len(str1) > len(str2) {
 		return str1[start1 : start1+longest]
 	} else {
-		return str1[start2 : start2+longest]
+		return str2[start2 : start2+longest]
 	}
+
 }
 
-// 采用动态规划求取
+// 采用动态规划求取最长公共子串
 func FindMaxLenCommonSubStr2(str1, str2 string) string {
 	l1 := len(str1)
 	l2 := len(str2)
 	max := 0
 	end := 0
+
 	var twoArray [][]int
 	for i := 0; i < l1+1; i++ {
 		tmp := make([]int, l2+1)
@@ -135,7 +195,6 @@ func FindMaxLenCommonSubStr2(str1, str2 string) string {
 			}
 		}
 	}
-	fmt.Println(twoArray)
 	bytes := make([]byte, 0)
 	for m := end - max; m < end; m++ {
 		bytes = append(bytes, str2[m])
@@ -147,6 +206,7 @@ func FindMaxLenCommonSubStr2(str1, str2 string) string {
 求最长公共子序列
 */
 func FindMaxLenCommonSubSeq(str1, str2 string) string {
+	fmt.Println(string(rune(str1[0])))
 	l1 := len(str1)
 	l2 := len(str2)
 	var twoArray [][]int
@@ -167,7 +227,7 @@ func FindMaxLenCommonSubSeq(str1, str2 string) string {
 			}
 		}
 	}
-	return RemoveRepeatStr(string(bs))
+	return Deduplicate(string(bs))
 }
 
 /**
@@ -188,6 +248,48 @@ func RemoveRepeatStr(str string) string {
 		}
 	}
 	return string(rs)
+}
+
+/**
+去除重复的字符，返回去重后的字符
+申请了新的数组用来存储，空间复杂度o(n)
+*/
+func Deduplicate(input string) string {
+	if len(input) == 0 {
+		return ""
+	}
+	slice := make([]rune, 0, 0)
+	m := make(map[rune]byte, 0)
+	for _, v := range input {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		slice = append(slice, v)
+		m[v] = 0
+	}
+	return string(slice)
+}
+
+/**
+去除重复的字符，返回去重后的字符
+空间复杂度o(1)
+*/
+func Deduplicate2(input string) string {
+	if len(input) == 0 {
+		return ""
+	}
+	m := make(map[rune]byte, 0)
+	bs := []byte(input)
+	current := 0
+	for next, v := range input {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		bs[current] = input[next]
+		current++
+		m[v] = 0
+	}
+	return string(bs[:current])
 }
 
 /**
@@ -264,6 +366,11 @@ func RepeatedSubstringPattern(s string) bool {
 	}
 	return false
 }
+
+/**
+给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000
+"abab" true   "aba" false
+*/
 func RepeatedSubstringPattern2(s string) bool {
 	if len(s) == 0 {
 		return false
@@ -291,6 +398,7 @@ func GetNext(p string) []int { //ababda
 
 /**
 KMP 算法，字符串模式匹配算法 主要是 GetNext
+匹配 target 在 source 存在时的起始位置 （字符串搜索）
 */
 func StrMatch(source, target string) int {
 	slen := len(source)
@@ -311,37 +419,8 @@ func StrMatch(source, target string) int {
 	return -1
 }
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
-var buf = bytes.Buffer{}
-
-func Tree2Str(t *TreeNode) string {
-	left := 0
-	if t != nil {
-		buf.WriteString(strconv.Itoa(t.Val))
-		if t.Left != nil {
-			left = 1
-			buf.WriteString("(")
-			Tree2Str(t.Left)
-			buf.WriteString(")")
-		}
-		if t.Right != nil {
-			if left == 0 {
-				buf.WriteString("()")
-			}
-			buf.WriteString("(")
-			Tree2Str(t.Right)
-			buf.WriteString(")")
-		}
-	}
-	return buf.String()
-}
-
 /**
+判断括号是否成对出现
 输入: "()[]{}"
 输出: true
 
@@ -430,32 +509,308 @@ func LongestPalindrome(s string) string {
 	return s[index : index+max]
 }
 
-func ReorganizeString(S string) string {
-	length := len(S)
-	if length == 0 || length == 1 {
-		return S
-	}
-	r := make([]byte, 0, 0)
-	maps := make(map[int]int)
-	for i := 0; i < length; i++ {
-		if _, ok := maps[i]; ok {
+/**
+给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1:
+输入: "abcabcbb"
+输出: 3
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+*/
+func LengthOfLongestSubstring(s string) int {
+	next := GetNext(s)
+	m := make(map[byte]int, 0)
+	temp := 0
+	max := 0
+	for i := 0; i < len(s); i++ {
+		if _, ok := m[s[i]]; ok {
+			if max == 0 {
+				max = temp
+			}
+			i = next[i] - 1
+			m = make(map[byte]int, 0)
+			if temp > max {
+				max = temp
+			}
+			temp = 0
 			continue
 		}
-		current := i
-		for len(r) > 0 && S[current] == r[len(r)-1] {
-			current++
-			if _, ok := maps[current]; ok {
-				current++
-			}
-			if current >= length {
-				return ""
-			}
-		}
-		if current > i {
-			i--
-		}
-		r = append(r, S[current])
-		maps[current] = 0
+		m[s[i]] = 1
+		temp++
 	}
-	return string(r)
+	if temp > max {
+		max = temp
+	}
+	return max
+}
+
+/**
+  最长公共前缀
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。
+
+示例 1:
+
+输入: ["flower","flow","flight"]
+输出: "fl"
+示例 2:
+
+输入: ["dog","racecar","car"]
+输出: ""
+解释: 输入不存在公共前缀。
+说明:
+
+所有输入只包含小写字母 a-z 。
+*/
+
+func LongestCommonPrefix(strs []string) string {
+	if strs == nil || len(strs) == 0 {
+		return ""
+	}
+	bs := make([]rune, 0, 0)
+	strs = sort(strs)
+	fmt.Println(strs)
+	min := strs[0]
+	for index, v := range min {
+		for _, n := range strs {
+			if n[index] != byte(v) {
+				return string(bs)
+			}
+		}
+		bs = append(bs, v)
+	}
+	return string(bs)
+}
+
+/**
+字符串按长度排序 归并
+*/
+func sort(strs []string) []string {
+	if len(strs) == 1 {
+		return strs
+	}
+	mid := len(strs) / 2
+	left := sort(strs[:mid])
+	right := sort(strs[mid:])
+	return merger(left, right)
+
+}
+func merger(left []string, right []string) []string {
+	s := make([]string, 0, 0)
+	l, r := 0, 0
+	for l < len(left) && r < len(right) {
+		if len(left[l]) < len(right[r]) {
+			s = append(s, left[l])
+			l++
+		} else if len(left[l]) > len(right[r]) {
+			s = append(s, right[r])
+			r++
+		} else {
+			s = append(s, left[l])
+			s = append(s, right[r])
+			l++
+			r++
+		}
+	}
+	for l < len(left) {
+		s = append(s, left[l])
+		l++
+	}
+	for r < len(right) {
+		s = append(s, right[r])
+		r++
+	}
+	return s
+}
+
+/**
+字符串全排列
+题目：终端随机输入一串字符串，输出该字符串的所有排列。
+
+　　例如，输入：“abc”，输出：abc、acb、bac、bca、cab、cba
+*/
+func RecursionPermutation(str string) []string {
+	arrays := make([]string, 0, 0)
+	arrays = permutation([]byte(str), 0, arrays)
+	return arrays
+}
+func permutation(s []byte, i int, arrays []string) []string {
+	if i == len(s)-1 {
+		arrays = append(arrays, string(s))
+		return arrays
+	}
+	for temp := i; temp < len(s); temp++ {
+		s[i], s[temp] = s[temp], s[i]
+		arrays = permutation(s, i+1, arrays)
+		s[i], s[temp] = s[temp], s[i]
+	}
+	return arrays
+}
+
+/**
+给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。
+换句话说，第一个字符串的排列之一是第二个字符串的子串。
+
+示例1:
+输入: s1 = "ab" s2 = "eidbaooo"
+输出: True
+解释: s2 包含 s1 的排列之一 ("ba").
+
+示例2:
+输入: s1= "ab" s2 = "eidboaoo"
+输出: FalseRecursionPermutation
+*/
+//我们不用真的去算出s1的全排列，只要统计字符出现的次数即可。可以使用一个哈希表配上双指针来做
+func CheckInclusion(s1 string, s2 string) bool {
+	if len(s1) > len(s2) {
+		return false
+	}
+	m := make(map[rune]byte, 0)
+	for index, v := range s1 {
+		m[v]++
+		m[rune(s2[index])]--
+	}
+	if allZero(m) {
+		return true
+	}
+	for temp := len(s1); temp < len(s2); temp++ {
+		m[rune(s2[temp])]--
+		m[rune(s2[temp-len(s1)])]++
+		if allZero(m) {
+			return true
+		}
+	}
+	return false
+}
+func allZero(m map[rune]byte) bool {
+	for _, v := range m {
+		if v != 0 {
+			return false
+		}
+	}
+	return true
+}
+
+/**
+给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
+
+示例 1:
+输入: num1 = "2", num2 = "3"
+输出: "6"
+示例 2:
+
+输入: num1 = "123", num2 = "456"
+输出: "56088"
+说明：
+
+num1 和 num2 的长度小于110。
+num1 和 num2 只包含数字 0-9。
+num1 和 num2 均不以零开头，除非是数字 0 本身。
+不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。
+*/
+
+func Multiply(num1 string, num2 string) string {
+	m := make(map[int]int, 0)
+	value := 0
+	// 映射0 到9 的ASCII码
+	for i := 48; i < 58; i++ {
+		m[i] = value
+		value++
+	}
+	n1 := len(num1)
+	n2 := len(num2)
+	result := make([]int, n1+n2)
+	rss := make([][]int, 0, 0)
+	index := n1 + n2 - 1
+	for t := len(num1) - 1; t >= 0; t-- {
+		var j, y int = 0, 0
+		for temp := len(num2) - 1; temp >= 0; temp-- {
+			k := m[int(num1[t])] * m[int(num2[temp])]
+			y = (k + j) % 10
+			j = (k + j) / 10
+			result[index] = y
+			index--
+			if temp == 0 { //如果到最高位了，就把商赋值
+				result[index] = j
+			}
+		}
+		index = index + len(num2) - 1
+		rss = append(rss, result)
+		result = make([]int, n1+n2)
+	}
+	fmt.Println(rss)
+	index = n1 + n2 - 1
+	var sum int = 0
+	var j, y int = 0, 0
+	for m := index; m >= 0; m-- {
+		for i := 0; i < len(rss); i++ {
+			sum = sum + rss[i][m]
+		}
+		y = sum % 10
+		if y+j < 10 {
+			result[m] = y + j
+			j = sum / 10
+		} else {
+			result[m] = (y + j) % 10
+			j = sum/10 + (y+j)/10
+		}
+		sum = 0
+	}
+	for index, v := range result {
+		if index == len(result)-1 && v == 0 {
+			return "0"
+		}
+		if v == 0 {
+			continue
+		}
+		result = result[index:]
+		break
+	}
+	s := make([]string, len(result), len(result))
+	for index, v := range result {
+		fmt.Println(v)
+		s[index] = string(strconv.Itoa(int(v)))
+	}
+	fmt.Println(result)
+	fmt.Println(s)
+	return strings.Join(s, "")
+}
+
+func LetterCasePermutation(S string) []string {
+	if len(S) == 0 {
+		return nil
+	}
+	temps := ""
+	position := 0
+	sArray := make([]string, 0, 0)
+	sArray = dfs(temps, S, sArray, position)
+	return sArray
+}
+
+// 65-90 大写
+// 97-122 小写
+func dfs(temps string, s string, sArray []string, position int) []string {
+	if position == len(s) {
+		sArray = append(sArray, temps)
+		return sArray
+	}
+	//不是字母
+	if s[position] < 65 || s[position] > 122 || (s[position] > 90 && s[position] < 97) {
+		sArray = dfs(temps+string(rune(s[position])), s, sArray, position+1)
+	} else {
+		sArray = dfs(temps+strings.ToLower(string(rune(s[position]))), s, sArray, position+1)
+		sArray = dfs(temps+strings.ToUpper(string(rune(s[position]))), s, sArray, position+1)
+	}
+	return sArray
 }

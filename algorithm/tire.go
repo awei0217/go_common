@@ -70,7 +70,7 @@ func (tt *TireTree) PreTraverse(tn *TireNode) {
 	if tn == nil {
 		return
 	}
-	fmt.Println(string(tn.val))
+	fmt.Print(string(tn.val))
 	for i := 0; i < len(tn.son); i++ {
 		tt.PreTraverse(tn.son[i])
 	}

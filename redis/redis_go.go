@@ -8,6 +8,9 @@ import (
 
 var conn redis.Conn
 
+//redis文章
+//https://www.cnblogs.com/276815076/p/7245333.html
+
 /**
 初始化
 */

@@ -201,7 +201,7 @@ func SmallHeapSort(intArray []int) []int {
 
 	length := len(intArray)
 	//建堆,把最大的放到顶部
-	for i := length/2 - 1; i >= 0; i-- {
+	for i := length/2 + 1; i >= 0; i-- {
 		adjustSmallHeap(intArray, i, length)
 	}
 	// 调整堆
@@ -426,16 +426,6 @@ func merger(d1, d2 []string) []string {
 	return result
 }
 
-/**
-实现一个通用排序
-*/
-func Sort(array []int) []int {
-	sort(array, 0, len(array)-1)
-	return array
-}
-func sort(array []int, a, b int) {
-	quickSort3(array, a, b)
-}
 func quickSort3(ints []int, i int, i2 int) {
 	if i >= i2 {
 		return

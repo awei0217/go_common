@@ -2,10 +2,19 @@ package main
 
 import (
 	"fmt"
-	"go_common/algorithm"
 )
 
+/**
+可以写两个init 方法，按顺序执行
+*/
+func init() {
+	fmt.Println("A")
+}
+
+func init() {
+	fmt.Println("B")
+}
+
 func main() {
-	fmt.Println(algorithm.AVAIL_TOKEN)
 
 }

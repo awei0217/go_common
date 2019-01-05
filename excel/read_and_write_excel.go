@@ -23,6 +23,10 @@ func ReadExcel(filePath string) ([][][]string, error) {
 	sheets := make([][][]string, len(sheetMap))
 	for index, value := range sheetMap {
 		rows := excel.GetRows(value)
+		if(len(rows)==0){
+			fmt.Println(index,"sheet行数为空")
+			continue
+		}
 		rowsString := make([][]string, len(rows)-1)
 		for key, row := range rows {
 			if key == 0 { // 第一行是表头

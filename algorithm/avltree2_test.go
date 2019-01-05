@@ -70,3 +70,19 @@ func TestAvlInsert3(t *testing.T) {
 
 	PrePrint(avlTree.root)
 }
+
+/**
+这个avl的树实现有问题
+*/
+func TestGetHeight(t *testing.T) {
+	avlTree := &AvlTree{}
+	avlTree.Insert(8)
+	avlTree.Insert(4)
+	avlTree.Insert(15)
+	avlTree.Insert(5)
+	avlTree.Insert(6)
+
+	PrePrint(avlTree.root)
+	fmt.Println(GetHeight(avlTree.root))
+
+}

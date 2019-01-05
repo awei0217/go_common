@@ -145,7 +145,22 @@ func (tree *BinarySearchTree) Deep() int {
 
 func (tree *BinarySearchTree) Height() int {
 
-	return tree.Deep()
+	l := 0
+	r := 0
+	left := tree.leftChild
+	if left == nil {
+		return 0
+	}
+	l = left.Height() + 1
+	right := tree.rightChild
+	if right == nil {
+		return 0
+	}
+	r = right.Height() + 1
+	if l > r {
+		return l
+	}
+	return r
 }
 
 /**

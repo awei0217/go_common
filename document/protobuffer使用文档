@@ -1,0 +1,12 @@
+### protobuffer使用
+
+    .代表生成的.go文件的目录，这里是当前目录，也可以指定，比如（E:\）
+    route_guide.proto 是proto文件的名称
+    protoc --go_out=. route_guide.proto
+    
+    -I 指的是route_guide.proto 这个文件所在的目录 ，如果在当前目录下，可以不指定,如上面的写法
+    protoc -I ./proto --go_out=E:\ route_guide.proto
+    
+    grpc-go生成客户端服务器端代码
+    protoc --go_out=plugins=grpc:. route_guide.proto
+

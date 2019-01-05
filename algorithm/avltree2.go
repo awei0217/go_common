@@ -9,6 +9,9 @@ const (
 	VALUE_REPEAT = "添加的值在二叉树中已经存在"
 )
 
+/**
+//TODO 这个avl的树实现有问题 TestGetHeight测试用例没通过
+*/
 type AvlNode struct {
 	value  int // 节点的值
 	left   *AvlNode
@@ -85,6 +88,7 @@ func (avlTree *AvlTree) Insert(value int) error {
 }
 
 func GetHeight(childNode *AvlNode) int {
+
 	if childNode == nil {
 		return 0
 	}

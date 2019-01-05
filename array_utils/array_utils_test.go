@@ -21,3 +21,16 @@ func TestBinaryFindTailOrderArray(t *testing.T) {
 func TestMergeTwoArray(t *testing.T) {
 	MergeTwoArray([]int{1}, 1, []int{}, 0)
 }
+
+func TestThreeSum(t *testing.T) {
+
+	t.Log(ThreeSum([]int{-1, 0, 1, 2, -1, -4}))
+}
+
+func TestGetAllPermutation(t *testing.T) {
+	GetAllPermutation(9)
+}
+
+func TestGetPermutation(t *testing.T) {
+	t.Log(GetPermutation(1, 1))
+}

@@ -12,4 +12,5 @@ func TestTireTree_Insert(t *testing.T) {
 	t.Log(tt.Query("wer"))
 	//tt.PreTraverse(tt.root)
 	t.Log(tt.CountPrefix("c"))
+	tt.PreTraverse(tt.root)
 }

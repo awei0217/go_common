@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package protobuffer;
+
+
+// 手机类型
+// 枚举类型第一个字段必须是0
+enum PhoneType {
+
+    HOME = 0;
+    WORK = 1;
+
+}
+
+// 手机
+message Phone {
+    PhoneType type = 1;
+    string number = 2;
+}
+// 人
+message Persion {
+    int32 id = 1;
+    string name = 2;
+    // repeated 表示可以重复 可以有多个手机
+    repeated Phone phones = 3;
+}
+// 联系簿
+message ContactBook {
+    repeated Persion persions = 1;
+}

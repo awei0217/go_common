@@ -1,6 +1,9 @@
 package array_utils
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 /**
 求最大子序列和 （就是说子序列加起来和最大）
@@ -87,6 +90,7 @@ func BinaryFindTailOrderArray(array []int, value int) int {
 			head = mid + 1
 		}
 	}
+
 	return -1
 }
 
@@ -173,6 +177,7 @@ func maxSubArray(nums []int) int {
 	}
 	return max
 }
+
 /**
 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
 
@@ -198,8 +203,192 @@ func maxSubArray(nums []int) int {
 输入: [7,6,4,3,1]
 输出: 0
 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
- */
+*/
 func maxProfit(prices []int) int {
 
 	return 0
+}
+
+/**
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+
+注意：答案中不可以包含重复的三元组。
+例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+*/
+
+/**
+首先对数组从小到大排序，从一个数开始遍历，若该数大于0，后面的数不可能与其相加和为0，所以跳过；否则该数可能是满足要求的第一个数，这样可以转化为求后面数组中两数之和为该数的相反数的问题。
+定义两个指针一前一后，若找到两数之和满足条件则加入到解集中；若大于和则后指针向前移动，反之则前指针向后移动，直到前指针大于等于后指针。这样遍历第一个数直到数组的倒数第3位。
+注意再求和过程中首先判断该数字是否与前面数字重复，保证解集中没有重复解。
+*/
+func ThreeSum(nums []int) [][]int {
+	result := make([][]int, 0, 0)
+	if len(nums) < 3 {
+		return result
+	}
+	bigHeapSort(nums)
+	if nums[0] == 0 && nums[len(nums)-1] == 0 {
+		result = append(result, []int{0, 0, 0})
+		return result
+	}
+	fmt.Println(nums)
+	for index, v := range nums {
+		if v > 0 && index == 0 {
+			return result
+		}
+		if index != 0 && v == nums[index-1] {
+			continue
+		}
+		next, pre := index+1, len(nums)-1
+		temp := make([]int, 3, 3)
+		for next < pre {
+			if nums[next]+nums[pre] > -v {
+				pre--
+			} else if nums[next]+nums[pre] < -v {
+				next++
+			} else {
+				temp[0] = nums[index]
+				temp[1] = nums[next]
+				temp[2] = nums[pre]
+				result = append(result, temp)
+				temp = make([]int, 3, 3)
+				t := next
+				next++
+				for next < pre && nums[next] == nums[t] {
+					next++
+				}
+			}
+		}
+	}
+	return result
+}
+func bigHeapSort(nums []int) {
+	for i := len(nums)/2 - 1; i >= 0; i-- {
+		createHeap(nums, i, len(nums))
+	}
+	for j := len(nums) - 1; j >= 0; j-- {
+		nums[0], nums[j] = nums[j], nums[0]
+		createHeap(nums, 0, j)
+	}
+}
+func createHeap(nums []int, i int, length int) {
+	left := i*2 + 1
+	for left < length {
+		if left+1 < length && nums[left+1] > nums[left] {
+			left++
+		}
+		if nums[i] < nums[left] {
+			nums[i], nums[left] = nums[left], nums[i]
+		}
+		i = left
+		left = i*2 + 1
+	}
+}
+
+/**
+ 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
+
+按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+
+ 求n的全排列
+*/
+func GetAllPermutation(n int) {
+	nums := make([]int, n)
+	for i := 1; i <= n; i++ {
+		nums[i-1] = i
+	}
+	result := make([][]int, 0, 0)
+	result = permutation(nums, 0, result)
+	fmt.Println(result)
+}
+func permutation(nums []int, index int, result [][]int) [][]int {
+	if index == len(nums)-1 {
+		tempArray := make([]int, len(nums), len(nums))
+		copy(tempArray, nums)
+		result = append(result, tempArray)
+		return result
+	}
+	for temp := index; temp < len(nums); temp++ {
+		nums[index], nums[temp] = nums[temp], nums[index]
+		result = permutation(nums, index+1, result)
+		nums[index], nums[temp] = nums[temp], nums[index]
+	}
+	return result
+}
+
+/**
+/**
+给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
+
+按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+给定 n 和 k，返回第 k 个排列。
+
+说明：
+
+给定 n 的范围是 [1, 9]。
+给定 k 的范围是[1,  n!]。
+示例 1:
+
+输入: n = 3, k = 3
+输出: "213"
+示例 2:
+
+输入: n = 4, k = 9
+输出: "2314"
+*/
+func GetPermutation(n int, k int) string {
+	// 把n转化为一个nums数组
+	nums := make([]int, n)
+	for i := 1; i <= n; i++ {
+		nums[i-1] = i
+	}
+	//n的全排列个数
+	permutationSum := 1
+	index := 0
+	//求n-1个数的全排列组合的个数
+	for i := 1; i <= n-1; i++ {
+		permutationSum = permutationSum * i
+	}
+	s := make([]string, 0, 0)
+	//找到一个起始值使得以这个值为起始值，排列组合的个数大于等于k
+	nextP := permutationSum
+	n = n - 1
+	for {
+		if permutationSum >= k {
+			s = append(s, strconv.Itoa(nums[index]))
+			permutationSum = permutationSum / 2
+			n--
+			nextP = nextP / n
+		}
+		permutationSum = permutationSum + nextP
+		index++
+
+	}
+	//index 为要找的第k个排列组合的字符串的起始字符
+	s = append(s, strconv.Itoa(nums[index]))
+	for i, v := range nums {
+		if index == i {
+			continue
+		}
+		s = append(s, strconv.Itoa(v))
+	}
+	return ""
 }

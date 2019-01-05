@@ -15,7 +15,8 @@ type User struct {
 	Age  int
 }
 
-type UserServiceImpl User
+type UserServiceImpl struct {
+}
 
 type UserService interface {
 	/**
@@ -28,7 +29,7 @@ type UserService interface {
 	InsertUser(user User)
 }
 
-func (userService UserServiceImpl) FindUserById() User {
+func (userServiceImpl UserServiceImpl) FindUserById() User {
 	return User{2, "spw", 25}
 }
 
@@ -52,7 +53,7 @@ func ReflectionStudy() {
 	user := User{1, "spw", 25}
 	doFiled(user)
 
-	userService := UserServiceImpl(User{})
+	userService := new(UserServiceImpl)
 	doMethod(userService)
 }
 
@@ -65,6 +66,9 @@ func doFiled(input interface{}) {
 
 	getValue := reflect.ValueOf(input)
 	fmt.Println("get all Fields is:", getValue)
+
+	//获取value是那种类型，此处结果是 struct
+	fmt.Println(getValue.Kind())
 
 	// 获取方法字段
 	// 1. 先获取interface的reflect.Type，然后通过NumField进行遍历
@@ -97,4 +101,12 @@ func doMethod(input interface{}) {
 	fmt.Println(methodType, flag)
 	fmt.Println(methodType.Name)
 
+}
+
+/**
+通过反射调用传递的函数
+*/
+func FuncReflection(f func(s string), str string) {
+	fun := reflect.ValueOf(f)
+	fun.Call(append(make([]reflect.Value, 0), reflect.ValueOf(str)))
 }

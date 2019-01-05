@@ -1,6 +1,7 @@
 package string_utils
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -31,17 +32,23 @@ func TestReversString(t *testing.T) {
 }
 
 func TestFindMaxLenNoRepeatSubStr(t *testing.T) {
-	t.Log(FindMaxLenNoRepeatSubStr("qqwwerrtt"))
+	t.Log(FindMaxLenNoRepeatSubStr("abcabcbb"))
+}
+func TestFindMaxLenNoRepeatSubStr2(t *testing.T) {
+	t.Log(FindMaxLenNoRepeatSubStr2("abcabcbb"))
+}
+func TestFindMaxLenNoRepeatSubStr3(t *testing.T) {
+	t.Log(FindMaxLenNoRepeatSubStr3("abcad"))
 }
 func TestFindMaxLenCommonSubStr(t *testing.T) {
-	t.Log(FindMaxLenCommonSubStr("ab", "abcdef"))
+	t.Log(FindMaxLenCommonSubStr("gfdef", "abcdef"))
 }
 func TestFindMaxLenCommonSubStr2(t *testing.T) {
-	t.Log(FindMaxLenCommonSubStr2("gbcdefg", "abcdg"))
+	t.Log(FindMaxLenCommonSubStr2("abc", "abcd"))
 }
 
 func TestFindMaxLenCommonSubSeq(t *testing.T) {
-	t.Log(FindMaxLenCommonSubSeq("abcdef", "aabcdf"))
+	t.Log(FindMaxLenCommonSubSeq("0acdef", "baacdf"))
 }
 
 func TestFindAndReplacePattern(t *testing.T) {
@@ -49,7 +56,7 @@ func TestFindAndReplacePattern(t *testing.T) {
 }
 
 func TestRemoveRepeatStr(t *testing.T) {
-	t.Log(RemoveRepeatStr("aabcd"))
+	t.Log(RemoveRepeatStr("bbaacd"))
 }
 
 func TestRepeatedSubstringPattern(t *testing.T) {
@@ -62,11 +69,12 @@ func TestRepeatedSubstringPattern2(t *testing.T) {
 }
 
 func TestGetNext(t *testing.T) {
-	GetNext("ababac")
+	t.Log(GetNext("adabcd"))
+
 }
 
 func TestStrMatch(t *testing.T) {
-	t.Log(StrMatch("abababdacabcda", "ababda"))
+	t.Log(StrMatch("adabefghgth", "adabcd"))
 }
 func TestIsValid(t *testing.T) {
 	t.Log(IsValid("[]}"))
@@ -76,6 +84,31 @@ func TestLongestPalindrome(t *testing.T) {
 	t.Log(LongestPalindrome("cbcdcbedcbc"))
 }
 
-func TestReorganizeString(t *testing.T) {
-	t.Log(ReorganizeString("aaab"))
+func TestLengthOfLongestSubstring(t *testing.T) {
+	t.Log(LengthOfLongestSubstring("abcdan"))
+}
+
+func TestDeduplicate2(t *testing.T) {
+	t.Log(Deduplicate2("aabcdeer"))
+}
+
+func TestLongestCommonPrefix(t *testing.T) {
+	t.Log(LongestCommonPrefix([]string{"flower", "flow", "flight"}))
+}
+
+func TestRecursionPermutation(t *testing.T) {
+	t.Log(RecursionPermutation("acety"))
+}
+
+func TestCheckInclusion(t *testing.T) {
+	t.Log(CheckInclusion("ab", "mnab"))
+}
+
+func TestMultiply(t *testing.T) {
+	fmt.Println("1584586728493525893642541066405904799198536104293994395887321573366110169031498781815747478010725266431858021835056717082517535189123595786349457873248" == "1584586728493525893642541066405904799198536104293994395887321573366110169031498781815747478010725266431858021835056717082517535189123595786349457873248")
+	t.Log(Multiply("581852037460725882246068583352420736139988952640866685633288423526139", "2723349969536684936041476639043426870967112972397011150925040382981287990380531232"))
+}
+
+func Test_LetterCasePermutation(t *testing.T) {
+	t.Log(LetterCasePermutation("a1b2"))
 }

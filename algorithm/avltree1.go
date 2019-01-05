@@ -102,6 +102,7 @@ func PreOrder(avl AVLTree) {
 		PreOrder(avl.left)
 		PreOrder(avl.right)
 	}
+
 }
 
 /**
@@ -126,10 +127,37 @@ func PreNotRecursionOrder(root AVLTree) []int {
 	return array
 }
 
+/**
+中序遍历递归
+*/
 func MidOrder(avl AVLTree) {
 	if avl != nil {
 		MidOrder(avl.left)
 		fmt.Print(avl.key, "\t")
 		MidOrder(avl.right)
 	}
+}
+
+/**
+后续遍历递归
+*/
+func PoOrder(avl AVLTree) {
+	if avl == nil {
+		return
+	}
+	PoOrder(avl.left)
+	PoOrder(avl.right)
+	fmt.Println(avl.key)
+}
+
+func getAvlHeight(avl AVLTree) int {
+	if avl == nil {
+		return 0
+	}
+	l := getAvlHeight(avl.left) + 1
+	r := getAvlHeight(avl.right) + 1
+	if l > r {
+		return l
+	}
+	return r
 }

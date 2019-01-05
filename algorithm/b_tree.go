@@ -18,22 +18,21 @@ type BT struct {
 	child  []*BT //子树指针向量
 }
 
-
 /**
 m 为树的度数
 */
 func NewBTree(m int) *BT {
 	return &BT{
-		m:		m, //b树的度
+		m:      m, //b树的度
 		parent: nil,
 		keyNum: 0,
-		key:    make([]int,m-1,m-1),//每个节点的关键字个数  m/2-1 <= l <= m-1
-		child:  make([]*BT, m, m), //每个节点子节点个数    m/2   <= l <= m
+		key:    make([]int, m-1, m-1), //每个节点的关键字个数  m/2-1 <= l <= m-1
+		child:  make([]*BT, m, m),     //每个节点子节点个数    m/2   <= l <= m
 	}
 }
 
 func (bt *BT) Insert(key int) bool {
-	if bt == nil{
+	if bt == nil {
 		return false
 	}
 	return true
@@ -41,5 +40,3 @@ func (bt *BT) Insert(key int) bool {
 func Split(bt *BT) {
 
 }
-
-
