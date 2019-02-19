@@ -48,7 +48,7 @@ func TestFindMaxLenCommonSubStr2(t *testing.T) {
 }
 
 func TestFindMaxLenCommonSubSeq(t *testing.T) {
-	t.Log(FindMaxLenCommonSubSeq("0acdef", "baacdf"))
+	t.Log(FindMaxLenCommonSubSeq("abcd", "anbvcfgd"))
 }
 
 func TestFindAndReplacePattern(t *testing.T) {
@@ -69,12 +69,12 @@ func TestRepeatedSubstringPattern2(t *testing.T) {
 }
 
 func TestGetNext(t *testing.T) {
-	t.Log(GetNext("adabcd"))
+	t.Log(GetNext("abcabc"))
 
 }
 
 func TestStrMatch(t *testing.T) {
-	t.Log(StrMatch("adabefghgth", "adabcd"))
+	t.Log(StrMatch("adabeabcabc", "abcabc"))
 }
 func TestIsValid(t *testing.T) {
 	t.Log(IsValid("[]}"))

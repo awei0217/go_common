@@ -206,25 +206,24 @@ func FindMaxLenCommonSubStr2(str1, str2 string) string {
 求最长公共子序列
 */
 func FindMaxLenCommonSubSeq(str1, str2 string) string {
-	fmt.Println(string(rune(str1[0])))
 	l1 := len(str1)
 	l2 := len(str2)
-	var twoArray [][]int
+	/*var twoArray [][]int
 	for i := 0; i < l2+1; i++ {
 		tmp := make([]int, l1+1)
 		twoArray = append(twoArray, tmp)
-	}
+	}*/
 	bs := make([]byte, 0)
 	for m := 1; m <= l2; m++ {
 		for n := 1; n <= l1; n++ {
 			if str1[n-1] == str2[m-1] {
-				twoArray[m][n] = twoArray[m-1][n-1] + 1
+				//twoArray[m][n] = twoArray[m-1][n-1] + 1
 				bs = append(bs, str1[n-1])
-			} else if twoArray[m-1][n] >= twoArray[m][n-1] {
-				twoArray[m][n] = twoArray[m-1][n]
+			} /*else if twoArray[m-1][n] >= twoArray[m][n-1] {
+				//twoArray[m][n] = twoArray[m-1][n]
 			} else {
-				twoArray[m][n] = twoArray[m][n-1]
-			}
+				//twoArray[m][n] = twoArray[m][n-1]
+			}*/
 		}
 	}
 	return Deduplicate(string(bs))
@@ -393,12 +392,13 @@ func GetNext(p string) []int { //ababda
 		}
 		next = append(next, k)
 	}
+	fmt.Println(next)
 	return next
 }
 
 /**
 KMP 算法，字符串模式匹配算法 主要是 GetNext
-匹配 target 在 source 存在时的起始位置 （字符串搜索）
+匹配 target 在 source 存在时的起始位置 （字符串搜索） "adabeabcabc", "abcabc"
 */
 func StrMatch(source, target string) int {
 	slen := len(source)

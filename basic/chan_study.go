@@ -28,7 +28,7 @@ func ChanStudy1_1() {
 
 /**
 goroutines are asleep - deadlock!
-发生死锁的原因是忘一个没有缓冲区的通道中放入元素时，会阻塞，因此，主程序被阻塞，golang判断为死锁
+发生死锁的原因是往一个没有缓冲区的通道中放入元素时，会阻塞，因此，主程序被阻塞，golang判断为死锁
 */
 func ChanStudy2() {
 	cint := make(chan int)

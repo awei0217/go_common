@@ -23,5 +23,5 @@ func TestRecoverA(t *testing.T) {
 
 func TestA(t *testing.T) {
 	t.Log(A())
-	t.Log(B())
+	//t.Log(B())
 }

@@ -14,10 +14,10 @@ func TestHttpGetFile(t *testing.T) {
 			for celIndex, cel := range row {
 				if celIndex == 0 {
 					if cel == "" {
-						fmt.Println(row[0], " jss key 为空")
+						fmt.Println(row[0])
 					} else {
 						fmt.Println(cel)
-						HttpGetFile("https://storage.jd.com/lbs.settlement.download/"+cel, "E:\\oss\\")
+						HttpGetFile(""+cel, "E:\\oss\\")
 					}
 				}
 			}

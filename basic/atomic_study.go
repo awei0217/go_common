@@ -12,4 +12,5 @@ func AtomicStudy() {
 	new := atomic.AddInt32(i, 2)
 	fmt.Println(new)
 
+
 }
