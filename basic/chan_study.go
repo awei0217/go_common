@@ -12,7 +12,8 @@ goroutines are asleep - deadlock 会发生死锁
 */
 func ChanStudy1() {
 	cint := make(chan int)
-	fmt.Println(<-cint) // 从通道中取出一个值
+	<-cint
+	fmt.Println() // 从通道中取出一个值
 }
 
 /**

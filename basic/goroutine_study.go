@@ -37,3 +37,19 @@ func findByPage(pages []int, channel chan string) {
 	channel <- "查询完毕"
 	close(channel)
 }
+func StartGoRouting2() {
+	channel := make(chan string, 1)
+
+	go findByPage([]int{1, 2, 3}, channel)
+
+	message, ok := <-channel
+	if ok {
+		fmt.Println(message)
+	}
+}
+
+func StartGoRoutine2() {
+	go func() {
+		fmt.Println("start goroutines")
+	}()
+}

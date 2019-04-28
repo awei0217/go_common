@@ -8,8 +8,6 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
-	"syscall"
-	"time"
 	"unicode/utf8"
 )
 
@@ -40,13 +38,13 @@ func FileStudy() {
 	fmt.Println(fileInfo.IsDir())   // 是否是目录 false
 	fmt.Println(fileInfo.Mode())    // 文件的权限 -rw-rw-rw-
 	fmt.Println(fileInfo.ModTime()) // 最后修改时间
-	fileSys := fileInfo.Sys().(*syscall.Win32FileAttributeData)
-	fmt.Println(fileSys.CreationTime)
-	//获取文件最后写入的时间
-	fmt.Println(fileSys.LastWriteTime.Nanoseconds() / 1000 / 1000)
-	fmt.Println(time.Unix(fileSys.LastWriteTime.Nanoseconds()/1000/1000/1000, 0).Format("2006-01-02 15:04:05"))
-	//获取这个文件的字节大小
-	fmt.Println(fileSys.FileSizeLow)
+	//fileSys := fileInfo.Sys().(*syscall.Win32FileAttributeData)
+	//fmt.Println(fileSys.CreationTime)
+	////获取文件最后写入的时间
+	//fmt.Println(fileSys.LastWriteTime.Nanoseconds() / 1000 / 1000)
+	//fmt.Println(time.Unix(fileSys.LastWriteTime.Nanoseconds()/1000/1000/1000, 0).Format("2006-01-02 15:04:05"))
+	////获取这个文件的字节大小
+	//fmt.Println(fileSys.FileSizeLow)
 	//按行读取文件
 	reader := bufio.NewReader(file)
 	for {

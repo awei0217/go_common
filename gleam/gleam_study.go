@@ -2,18 +2,18 @@ package gleam
 
 import (
 	"flag"
-	"strings"
 	"github.com/chrislusf/gleam/distributed"
 	"github.com/chrislusf/gleam/flow"
 	"github.com/chrislusf/gleam/gio"
 	"github.com/chrislusf/gleam/plugins/file"
+	"strings"
 )
 
 var (
-	isDistributed   = flag.Bool("distributed", false, "run in distributed or not")
-	Tokenize  = gio.RegisterMapper(tokenize)
-	AppendOne = gio.RegisterMapper(appendOne)
-	Sum = gio.RegisterReducer(sum)
+	isDistributed = flag.Bool("distributed", false, "run in distributed or not")
+	Tokenize      = gio.RegisterMapper(tokenize)
+	AppendOne     = gio.RegisterMapper(appendOne)
+	Sum           = gio.RegisterReducer(sum)
 )
 
 func GleamStudy() {
@@ -22,7 +22,7 @@ func GleamStudy() {
 	flag.Parse() // optional, since gio.Init() will call this also.
 
 	f := flow.New("top5 words in passwd").
-		Read(file.Txt("E:\\1.txt", 1)).  // read a txt file and partitioned to 2 shards
+		Read(file.Txt("./1.txt", 1)). // read a txt file and partitioned to 2 shards
 
 		Printlnf("%s\t%d")
 

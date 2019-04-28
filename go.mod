@@ -11,7 +11,7 @@ require (
 	github.com/chrislusf/gleam v0.0.0-20181211145800-883f13cbcc1a
 	github.com/colinmarc/hdfs v1.1.3 // indirect
 	github.com/glycerine/truepack v0.0.0-20171113054516-e3f6c9bc15a7 // indirect
-	github.com/golang/protobuf v1.2.0
+	github.com/golang/protobuf v1.3.1
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/martian v2.1.0+incompatible // indirect
