@@ -14,6 +14,10 @@ func TestMethod(t *testing.T) {
 	Method()
 }
 
+func BenchmarkMethod2(b *testing.B) {
+	Method()
+}
+
 func BenchmarkMethod(b *testing.B) {
 	Method()
 }

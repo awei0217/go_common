@@ -34,4 +34,5 @@ func EncoderAndDecoder(p P, q Q) {
 	gob.NewEncoder(&buf).Encode(p)
 	gob.NewDecoder(&buf).Decode(&q)
 	fmt.Println(q)
+
 }

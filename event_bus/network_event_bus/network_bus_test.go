@@ -1,6 +1,7 @@
 package EventBus
 
 import (
+	"fmt"
 	"go_common/event_bus"
 	"testing"
 )
@@ -96,6 +97,7 @@ func TestNetworkBus(t *testing.T) {
 		if a != 10 {
 			t.Fail()
 		}
+		fmt.Println(a)
 	}
 	networkBusA.Subscribe("topic-A", fnA, ":2030", "/_net_bus_B")
 	networkBusB.EventBus().Publish("topic-A", 10)
@@ -104,6 +106,7 @@ func TestNetworkBus(t *testing.T) {
 		if a != 20 {
 			t.Fail()
 		}
+		fmt.Println(a)
 	}
 	networkBusB.Subscribe("topic-B", fnB, ":2035", "/_net_bus_A")
 	networkBusA.EventBus().Publish("topic-B", 20)

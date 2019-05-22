@@ -24,7 +24,6 @@ require (
 	github.com/willf/bitset v1.1.9
 	github.com/xitongsys/parquet-go v0.0.0-20190201083525-0beadf60c779 // indirect
 	go.opencensus.io v0.19.0 // indirect
-	golang.org/x/net v0.0.0-20181217023233-e147a9138326
 	google.golang.org/api v0.1.0 // indirect
 	google.golang.org/grpc v1.17.0
 
