@@ -19,7 +19,7 @@ func SliceStudy() {
 	// len函数获取切片的长度  cap 函数获取切片的容量
 	fmt.Println(slice2, len(slice2), cap(slice2))
 
-	var arraySliceInt = []int{1, 2, 3, 4, 5, 6}
+	var arraySliceInt = [...]int{1, 2, 3, 4, 5, 6}
 
 	slice3 := arraySliceInt[:]   // 将数组赋值给切片
 	slice4 := arraySliceInt[0:2] //数组下标0到2的值赋值给切片 ,不包含末尾

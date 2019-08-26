@@ -16,6 +16,10 @@ func TestChanStudy2_2(t *testing.T) {
 	ChanStudy2_2()
 }
 
+func TestChanStudy3(t *testing.T) {
+	ChanStudy3()
+}
+
 func TestReadAndWriteChanStudy(t *testing.T) {
 	ReadAndWriteChanStudy()
 }
@@ -26,4 +30,8 @@ func TestSelectStudy(t *testing.T) {
 
 func TestProductAndConsumer(t *testing.T) {
 	ProductAndConsumer()
+}
+
+func TestStudyChannel10(t *testing.T) {
+	StudyChannel10()
 }

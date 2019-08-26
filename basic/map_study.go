@@ -46,3 +46,33 @@ func MapStudy() {
 	}
 
 }
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+	temp1 := head
+	result := head
+	m := make(map[ListNode]int)
+	for temp1 != nil {
+		current := *temp1
+		if _, ok := m[current]; ok {
+			result = temp1
+			break
+		} else {
+			m[current] = 1
+		}
+		temp1 = temp1.Next
+		fmt.Println(temp1)
+		if temp1 == nil {
+			return nil
+		}
+
+	}
+	return result
+}

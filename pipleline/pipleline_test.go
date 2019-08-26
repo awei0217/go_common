@@ -15,15 +15,14 @@ func TestPipeline_Async(t *testing.T) {
 		//(1)
 		//加载100条数据，并修改变量checkpoint
 		//data是数组，每个元素是一条评论，之后的联表、NLP都直接修改data里的每条记录。
-
 		ok := pipeline.Async(func() error {
-			i = i+1
+			i = i + 1
 			return nil
 		}, func() error {
-			i = i+1
+			i = i + 1
 			return nil
 		}, func() error {
-			i = i+1
+			i = i + 1
 			return nil
 		}, func() error {
 			fmt.Println(i)
@@ -34,5 +33,7 @@ func TestPipeline_Async(t *testing.T) {
 		}
 	}
 	err := pipeline.Wait()
-	if err != nil { log.Print(err) }
+	if err != nil {
+		log.Print(err)
+	}
 }

@@ -48,6 +48,9 @@ func (this *S) f() {
 }
 
 func main() {
+	c := make(chan int, 10)
+	close(c)
+	c <- 1
 	start := time.Now().UnixNano() / 1000 / 1000
 	var s S
 	var i I = &s

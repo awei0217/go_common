@@ -4,13 +4,13 @@
 package protobuffer
 
 import (
-	proto "github.com/golang/protobuf/proto"
+	"encoding/json"
 	"fmt"
-	"math"
+	proto "github.com/golang/protobuf/proto"
 	"io/ioutil"
+	"math"
 	"os"
 	"time"
-	"encoding/json"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -97,7 +97,7 @@ func (m *Phone) GetNumber() string {
 }
 
 // 人
-type Persion struct {
+type Person struct {
 	Id   int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// repeated 表示可以重复 可以有多个手机
@@ -107,45 +107,45 @@ type Persion struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Persion) Reset()         { *m = Persion{} }
-func (m *Persion) String() string { return proto.CompactTextString(m) }
-func (*Persion) ProtoMessage()    {}
-func (*Persion) Descriptor() ([]byte, []int) {
+func (m *Person) Reset()         { *m = Person{} }
+func (m *Person) String() string { return proto.CompactTextString(m) }
+func (*Person) ProtoMessage()    {}
+func (*Person) Descriptor() ([]byte, []int) {
 	return fileDescriptor_test_9e89aff8799fe9b1, []int{1}
 }
-func (m *Persion) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Persion.Unmarshal(m, b)
+func (m *Person) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Person.Unmarshal(m, b)
 }
-func (m *Persion) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Persion.Marshal(b, m, deterministic)
+func (m *Person) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Person.Marshal(b, m, deterministic)
 }
-func (dst *Persion) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Persion.Merge(dst, src)
+func (dst *Person) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Person.Merge(dst, src)
 }
-func (m *Persion) XXX_Size() int {
-	return xxx_messageInfo_Persion.Size(m)
+func (m *Person) XXX_Size() int {
+	return xxx_messageInfo_Person.Size(m)
 }
-func (m *Persion) XXX_DiscardUnknown() {
-	xxx_messageInfo_Persion.DiscardUnknown(m)
+func (m *Person) XXX_DiscardUnknown() {
+	xxx_messageInfo_Person.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Persion proto.InternalMessageInfo
+var xxx_messageInfo_Person proto.InternalMessageInfo
 
-func (m *Persion) GetId() int32 {
+func (m *Person) GetId() int32 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-func (m *Persion) GetName() string {
+func (m *Person) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Persion) GetPhones() []*Phone {
+func (m *Person) GetPhones() []*Phone {
 	if m != nil {
 		return m.Phones
 	}
@@ -154,10 +154,10 @@ func (m *Persion) GetPhones() []*Phone {
 
 // 联系簿
 type ContactBook struct {
-	Persions             []*Persion `protobuf:"bytes,1,rep,name=persions,proto3" json:"persions,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	Persons              []*Person `protobuf:"bytes,1,rep,name=persons,proto3" json:"Persons,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *ContactBook) Reset()         { *m = ContactBook{} }
@@ -184,16 +184,16 @@ func (m *ContactBook) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ContactBook proto.InternalMessageInfo
 
-func (m *ContactBook) GetPersions() []*Persion {
+func (m *ContactBook) GetPersons() []*Person {
 	if m != nil {
-		return m.Persions
+		return m.Persons
 	}
 	return nil
 }
 
 func init() {
 	proto.RegisterType((*Phone)(nil), "test.Phone")
-	proto.RegisterType((*Persion)(nil), "test.Persion")
+	proto.RegisterType((*Person)(nil), "test.Person")
 	proto.RegisterType((*ContactBook)(nil), "test.ContactBook")
 	proto.RegisterEnum("test.PhoneType", PhoneType_name, PhoneType_value)
 }
@@ -218,104 +218,97 @@ var fileDescriptor_test_9e89aff8799fe9b1 = []byte{
 	0x7e, 0x99, 0x37, 0x19, 0x0f, 0x01, 0x00, 0x00,
 }
 
-
-
 //======================================================================================================================
-
-
 
 func Write() {
 
-	p1 := &Persion{
+	p1 := &Person{
 		Id:   1,
 		Name: "小张",
 		Phones: []*Phone{
 			{Type: PhoneType_HOME, Number: "111111111"},
-			{Type:PhoneType_WORK, Number:"222222222"},
+			{Type: PhoneType_WORK, Number: "222222222"},
 		},
-	};
-	p2 := &Persion{
+	}
+	p2 := &Person{
 		Id:   2,
 		Name: "小王",
 		Phones: []*Phone{
-			{Type:PhoneType_HOME, Number:"333333333"},
-			{Type:PhoneType_WORK, Number:"444444444"},
+			{Type: PhoneType_HOME, Number: "333333333"},
+			{Type: PhoneType_WORK, Number: "444444444"},
 		},
-	};
+	}
 
 	//创建地址簿
-	book := &ContactBook{};
-	book.Persions = append(book.Persions, p1);
-	book.Persions = append(book.Persions, p2);
+	book := &ContactBook{}
+	book.Persons = append(book.Persons, p1)
+	book.Persons = append(book.Persons, p2)
 	//编码数据
-	data, _ := proto.Marshal(book);
+	data, _ := proto.Marshal(book)
 	//把数据写入文件
-	ioutil.WriteFile("./test.txt", data, os.ModePerm);
+	ioutil.WriteFile("./test.txt", data, os.ModePerm)
 }
 
 func Read() {
 	//读取文件数据
-	data, _ := ioutil.ReadFile("./test.txt");
-	book := &ContactBook{};
+	data, _ := ioutil.ReadFile("./test.txt")
+	book := &ContactBook{}
 	//解码数据
-	proto.Unmarshal(data, book);
-	for _, v := range book.Persions {
-		fmt.Println(v.Id, v.Name);
+	proto.Unmarshal(data, book)
+	for _, v := range book.Persons {
+		fmt.Println(v.Id, v.Name)
 		for _, vv := range v.Phones {
-			fmt.Println(vv.Type, vv.Number);
+			fmt.Println(vv.Type, vv.Number)
 		}
 	}
 }
 
-
-func BenchMarkJson(){
-	p1 := &Persion{
+func BenchMarkJson() {
+	p1 := &Person{
 		Id:   1,
 		Name: "小张",
 		Phones: []*Phone{
 			{Type: PhoneType_HOME, Number: "111111111"},
-			{Type:PhoneType_WORK, Number:"222222222"},
+			{Type: PhoneType_WORK, Number: "222222222"},
 		},
-	};
+	}
 	//创建地址簿
-	book := &ContactBook{};
-	book.Persions = append(book.Persions, p1);
+	book := &ContactBook{}
+	book.Persons = append(book.Persons, p1)
 
-
-	book1 := &ContactBook{};
+	book1 := &ContactBook{}
 
 	start := time.Now().UnixNano()
-	for i:=0;i<10000;i++{
-		bs,_:=json.Marshal(book); //序列化
-		json.Unmarshal(bs,book1)
+	for i := 0; i < 10000; i++ {
+		bs, _ := json.Marshal(book) //序列化
+		json.Unmarshal(bs, book1)
 	}
 	end := time.Now().UnixNano()
 
-	fmt.Println((end-start)/1000/1000)
+	fmt.Println((end - start) / 1000 / 1000)
 }
 
-func BenchMarkProto(){
-	p1 := &Persion{
+func BenchMarkProto() {
+	p1 := &Person{
 		Id:   1,
 		Name: "小张",
 		Phones: []*Phone{
 			{Type: PhoneType_HOME, Number: "111111111"},
-			{Type:PhoneType_WORK, Number:"222222222"},
+			{Type: PhoneType_WORK, Number: "222222222"},
 		},
-	};
+	}
 	//创建地址簿
-	book := &ContactBook{};
-	book.Persions = append(book.Persions, p1);
+	book := &ContactBook{}
+	book.Persons = append(book.Persons, p1)
 
-
-	book1 := &ContactBook{};
+	book1 := &ContactBook{}
 
 	start := time.Now().UnixNano()
-	for i:=0;i<10000;i++{
-		bs,_:=proto.Marshal(book); //序列化
-		proto.Unmarshal(bs,book1)
+	for i := 0; i < 10000; i++ {
+		bs, _ := proto.Marshal(book) //序列化
+		proto.Unmarshal(bs, book1)
 	}
 	end := time.Now().UnixNano()
 
-	fmt.Println((end-start)/1000/1000)
+	fmt.Println((end - start) / 1000 / 1000)
 }
