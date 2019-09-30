@@ -3,6 +3,7 @@ package tools
 import (
 	"fmt"
 	"go_common/excel"
+	"sync"
 	"testing"
 )
 
@@ -23,4 +24,26 @@ func TestHttpGetFile(t *testing.T) {
 			}
 		}
 	}
+}
+
+func BenchmarkPostRequest(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		go func() {
+			url := "http://127.0.0.1:8081/api/calculation/theaReplenishment"
+			PostRequest(url)
+		}()
+	}
+}
+
+func TestPostRequest(t *testing.T) {
+	wg := sync.WaitGroup{}
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func() {
+			url := "http://10.112.6.137/cs/api/calculation/theaReplenishment"
+			PostRequest(url)
+			wg.Done()
+		}()
+	}
+	wg.Wait()
 }

@@ -1,8 +1,11 @@
 package tools
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -42,4 +45,34 @@ func PathExists(path string) (bool, error) {
 		return false, nil
 	}
 	return false, err
+}
+
+func PostRequest(httpUrl string) {
+
+	params := make(map[string]interface{})
+	params["createTime"] = "2019-09-09 12:12:12"
+	params["salegrpCodes"] = []string{"100"}
+	params["modelCode"] = 1
+	params["dealCode"] = 1
+	params["skuCodeArray"] = []string{"000000000100461042"}
+	params["businessUnitCode"] = "舒适家事业部"
+	params["saleChannelType"] = "1"
+	params["buyorg"] = 103
+	params["purchaseType"] = "0001"
+
+	data, err := json.Marshal(params)
+	if err != nil {
+		log.Println("序列化错误", err)
+		return
+	}
+	body := bytes.NewBuffer(data)
+	req, err := http.NewRequest("POST", httpUrl, body)
+	req.Header.Set("Content-Type", "application/json;charset=utf-8")
+	client := NewClient()
+	// 执行登录操作
+	res, err := client.Do(req)
+	if nil != err {
+		log.Println("请求错误", err)
+	}
+	defer res.Body.Close()
 }

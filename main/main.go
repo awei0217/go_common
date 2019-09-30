@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	h "net/http"
+	"net/http"
 	"time"
 )
 
@@ -16,7 +16,7 @@ const (
 }*/
 var result string
 
-/*func main() {
+/*func main() {\
 	hello := "hello"
 	var world string = "world"
 	result = hello+world
@@ -24,7 +24,7 @@ var result string
 	h.ListenAndServe(":8080",nil)
 }*/
 
-func IndexHandler(w h.ResponseWriter, r *h.Request) {
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(DATETIME)
 	w.Write([]byte(result))
 }

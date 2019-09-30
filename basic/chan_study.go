@@ -181,3 +181,19 @@ func StudyChannel10() {
 	//等待新的协程运行完毕，程序才退出
 	wg.Wait()
 }
+
+/**
+当chan关闭时，chan会返回一个默认值
+*/
+func ChanClose() {
+
+	c := make(chan int)
+
+	close(c)
+
+	select {
+	case temp := <-c:
+		fmt.Println(temp)
+
+	}
+}

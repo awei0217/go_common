@@ -1,11 +1,9 @@
-package server
+package impl
 
 import (
 	"context"
-	pb "go_common/grpc/helloworld_new/proto"
-	"google.golang.org/grpc"
+	pb "go_common/grpc/helloworld_demo/proto"
 	"log"
-	"net"
 	"time"
 )
 
@@ -53,15 +51,4 @@ func (*HelloServiceServer) HelloWorldClientAndServerStream(srv pb.HelloService_H
 		}
 	}
 	return nil
-}
-
-func StartServer() {
-
-	lis, err := net.Listen("tcp", "127.0.0.1:8090")
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	gRpcServer := grpc.NewServer()
-	pb.RegisterHelloServiceServer(gRpcServer, &HelloServiceServer{})
-	gRpcServer.Serve(lis)
 }

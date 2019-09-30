@@ -66,3 +66,11 @@ func TestStringMergerSort(t *testing.T) {
 	d := StringMergerSort([]string{"asd", "ssssw", "s", "mmwdsasdw", "sdas"})
 	t.Log(d)
 }
+
+func TestQuickSort3(t *testing.T) {
+	QuickSort3([][]int{{1, 3}, {1, 3}})
+}
+
+func TestReorganizeString(t *testing.T) {
+	ReorganizeString("aabbvfadqw")
+}

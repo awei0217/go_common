@@ -449,3 +449,123 @@ func partition3(ints []int, i int, i2 int) int {
 	}
 	return i
 }
+
+//合并区间
+func mergeIntervals(intervals [][]int) [][]int {
+	//先判断，逻辑严谨性
+	if len(intervals) == 0 {
+		return nil
+	}
+	//快速排序
+	QuickSort3(intervals)
+
+	//合并区间
+	index := 0
+	result := make([][]int, 0)
+	for index < len(intervals) {
+		//获取区间的左右值
+		left := intervals[index][0]
+		right := intervals[index][1]
+
+		//判断下一个区间的起始值是否在上一个区间的范围
+		//index下标小于二位数组长度-1，因为下一个区间是index+1，
+		//已经排过序了，下一个区间的起始值只需要小于上一个区间的最大值
+		for index < len(intervals)-1 && intervals[index+1][0] <= right {
+			//获取区间的最大值
+			right = max(intervals[index][1], intervals[index+1][1])
+			index++
+		}
+		result = append(result, []int{left, right})
+		index++
+	}
+	return result
+}
+
+func QuickSort3(intervals [][]int) {
+	//递归终止条件
+	if len(intervals) <= 1 {
+		return
+	}
+	head, tail := 0, len(intervals)-1
+	//分区函数排序
+	index := partion3(intervals, head, tail)
+	//递归左边的数组
+	QuickSort3(intervals[:index])
+	//递归右边的数组
+	QuickSort3(intervals[index+1:])
+}
+
+func partion3(intervals [][]int, head, tail int) int {
+	//选取一个中间值
+	v := intervals[head][0]
+	for head < tail {
+		//比较末尾值和中间值，末尾值比中间值大，循环倒数第二个
+		for head < tail && intervals[tail][0] >= v {
+			tail--
+		}
+		//当末尾值大于中间值时，交换末尾值和中间值
+		intervals[head], intervals[tail] = intervals[tail], intervals[head]
+		//比较首部值和中间值，首部值比中间值小，继续下一个
+		for head < tail && intervals[head][0] <= v {
+			head++
+		}
+		//当首部值大于中间值时，交换中间值和首部值
+		intervals[tail], intervals[head] = intervals[head], intervals[tail]
+	}
+	//返回中间值的下标
+	return head
+
+}
+
+func ReorganizeString(S string) string {
+	if len(S) == 0 {
+		return ""
+	}
+	m := make(map[rune]int, 0)
+	//统计每个字符出现个数，放入kv
+	for _, c := range S {
+		if _, ok := m[c]; ok {
+			m[c]++
+			//当有字符出现的个数大于字符串长度一半以上，则可肯定不满足规则
+			if (m[c] - len(S)/2) > len(S)%2 {
+				return ""
+			}
+		} else {
+			m[c] = 1
+		}
+	}
+	//按照kv组装成结构体数组
+	cs := make([]StrCount, 0)
+	for k, v := range m {
+		cs = append(cs, StrCount{v, k})
+	}
+
+	//按照出现的个数排序(插入排序)
+	for i, _ := range cs {
+		preIndex := i - 1
+		current := cs[i]
+		for preIndex >= 0 && current.count > cs[preIndex].count {
+			cs[preIndex+1] = cs[preIndex]
+			preIndex--
+		}
+		cs[preIndex+1] = current
+	}
+	result := make([]rune, len(S))
+	next := 0
+	for _, v := range cs {
+		for i := 0; i < v.count; i++ {
+			if next >= len(result) {
+				next = 1
+			}
+			result[next] = v.r
+			next = next + 2
+		}
+	}
+	return string(result)
+
+}
+
+type StrCount struct {
+	count int
+	r     rune
+}

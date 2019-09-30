@@ -2,17 +2,25 @@ package client
 
 import (
 	"context"
-	pb "go_common/grpc/helloworld_new/proto"
-	"google.golang.org/grpc"
+	"fmt"
+	pb "go_common/grpc/helloworld_demo/proto"
 	"log"
 	"strconv"
 	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
-func StartClient() {
+func StartClientTLS() {
+	// TLS认证
+	creds, err := credentials.NewClientTLSFromFile("E:\\server.pem", "")
 
-	conn, err := grpc.Dial("127.0.0.1:8090", grpc.WithInsecure())
-
+	conn, err := grpc.Dial("127.0.0.1:8090", grpc.WithTransportCredentials(creds))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	c := pb.NewHelloServiceClient(conn)
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)

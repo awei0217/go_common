@@ -35,3 +35,6 @@ func TestProductAndConsumer(t *testing.T) {
 func TestStudyChannel10(t *testing.T) {
 	StudyChannel10()
 }
+func TestChanClose(t *testing.T) {
+	ChanClose()
+}

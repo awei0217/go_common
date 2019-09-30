@@ -1,4 +1,4 @@
-package string_utils
+package Persontils
 
 import (
 	"fmt"
@@ -9,12 +9,8 @@ import (
 
 func BenchmarkAddStringWithOperator(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		AddStringWithOperator("s", "s")
+		AddStringWithOperator("时间复杂度和空间复杂度", "s")
 	}
-}
-func TestAddStringWithOperator(t *testing.T) {
-
-	t.Log(AddStringWithOperator("s", "s"))
 }
 func BenchmarkAddStringWidthJoin(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -78,6 +74,7 @@ func TestStrMatch(t *testing.T) {
 }
 func TestIsValid(t *testing.T) {
 	t.Log(IsValid("[]}"))
+
 }
 
 func TestLongestPalindrome(t *testing.T) {

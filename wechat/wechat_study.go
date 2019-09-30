@@ -12,5 +12,4 @@ func WeChat() {
 	}
 
 	rebot.Start()
-
 }

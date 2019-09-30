@@ -3,12 +3,13 @@ package excel
 import (
 	"archive/zip"
 	"fmt"
-	"github.com/Luxurioust/excelize"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"github.com/360EntSecGroup-Skylar/excelize"
 )
 
 /**
@@ -21,10 +22,11 @@ func ReadExcel(filePath string) ([][][]string, error) {
 	}
 	sheetMap := excel.GetSheetMap()
 	sheets := make([][][]string, len(sheetMap))
+
 	for index, value := range sheetMap {
 		rows := excel.GetRows(value)
-		if(len(rows)==0){
-			fmt.Println(index,"sheet行数为空")
+		if len(rows) == 0 {
+			fmt.Println(index, "sheet行数为空")
 			continue
 		}
 		rowsString := make([][]string, len(rows)-1)
@@ -102,4 +104,16 @@ func unzip(archive, target string, m int) (string, error) {
 		}
 	}
 	return "", err
+}
+
+func WriteExcel(values [][]string, fileName string) {
+	file := excelize.NewFile()
+	for k, rows := range values {
+		for i, v := range rows {
+			r := rune(i + 97)
+			s := strconv.QuoteRune(r) + strconv.Itoa(k+1)
+			file.SetCellStr("Sheet1", s, v)
+		}
+	}
+	file.SaveAs(fileName)
 }

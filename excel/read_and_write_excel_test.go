@@ -41,3 +41,8 @@ func TestUnZipFile(t *testing.T) {
 		}
 	}
 }
+
+func TestWriteExcel(t *testing.T) {
+
+	WriteExcel([][]string{{"123", "456"}, {"789", "000"}}, "E:\\test.xlsx")
+}
