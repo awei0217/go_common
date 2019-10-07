@@ -12,7 +12,6 @@ import (
 func StartClientIntercept() {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
-
 	conn, err := grpc.Dial("127.0.0.1:8090", opts...)
 	if err != nil {
 		fmt.Println(err)

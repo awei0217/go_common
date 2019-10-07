@@ -16,7 +16,7 @@ require (
 	github.com/chrislusf/gleam v0.0.0-20181211145800-883f13cbcc1a
 	github.com/colinmarc/hdfs v1.1.3 // indirect
 	github.com/coreos/bbolt v1.3.3 // indirect
-	github.com/coreos/etcd v3.3.15+incompatible // indirect
+	github.com/coreos/etcd v3.3.15+incompatible
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-20190719114852-fd7a80b32e1f // indirect
 	github.com/fatih/color v1.7.0 // indirect
@@ -33,6 +33,7 @@ require (
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/pprof v0.0.0-20190908185732-236ed259b199 // indirect
+	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/gostaticanalysis/analysisutil v0.0.3 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
@@ -99,6 +100,7 @@ require (
 	google.golang.org/grpc v1.23.1
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	mvdan.cc/unparam v0.0.0-20190720180237-d51796306d8f // indirect
+	sigs.k8s.io/yaml v1.1.0 // indirect
 	sourcegraph.com/sqs/pbtypes v1.0.0 // indirect
 )
 
