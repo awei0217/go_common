@@ -1,5 +1,7 @@
 package algorithm
 
+import "fmt"
+
 /**
 常见的时间复杂度有：常数阶O(时间复杂度和空间复杂度)，对数阶O(log2n)，线性阶O(n)，线性对数阶O(nlog2n)，平方阶O(n2)，立方阶O(n3)， k次方阶O(nk)，指数阶O(2n)。
 随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。
@@ -241,7 +243,6 @@ func BigHeapSort(array []int) []int {
 	for i := len(array) - 1; i >= 0; i-- {
 		array[0], array[i] = array[i], array[0]
 		createBigHeap(array, 0, i)
-
 	}
 	return array
 }
@@ -568,4 +569,97 @@ func ReorganizeString(S string) string {
 type StrCount struct {
 	count int
 	r     rune
+}
+
+// 基数排序，对手机号排序
+func RadixSort(phones []string) {
+	//手机号最小0，最大9，创建一个大小为10的bucket
+	//为什么是二维呢，因为手机号某一位可能有多个一样的
+	bucket := make([][]string, 10)
+	//对手机号遍历11次，因为手机号长度为11位
+	for index := 10; index >= 0; index-- {
+		for _, v := range phones {
+			//把手机号根据末尾顺序放入bucket中
+			if bucket[v[index]-48] == nil {
+				temp := make([]string, 0)
+				temp = append(temp, v)
+				bucket[v[index]-48] = temp
+			} else {
+				bucket[v[index]-48] = append(bucket[v[index]-48], v)
+			}
+		}
+		i := 0
+		for k, v := range bucket {
+			if v != nil {
+				//根据bucket中的下标phones重新排序
+				for _, p := range v {
+					phones[i] = p
+					i++
+				}
+				//重置bucket
+				bucket[k] = nil
+			}
+		}
+	}
+}
+
+func BigHeapSort11(array []int) {
+	//为什么i=初始值是 len(array) /2 -1
+	for i := len(array)/2 - 1; i >= 0; i-- {
+		createHeap11(array, len(array)/2-1)
+	}
+
+	for length := len(array) - 1; length >= 0; length-- {
+		array[0], array[length] = array[length], array[0]
+		adjustHeap(array, 0, length-1)
+	}
+
+	fmt.Println(array)
+}
+
+func createHeap11(array []int, index int) {
+	length := len(array) - 1
+	left := index*2 + 1
+	for left < length {
+		right := left + 1
+		max := -1
+		if right > length {
+			max = left
+		} else if array[left] > array[right] {
+			max = left
+		} else {
+			max = right
+		}
+		if array[index] < array[max] {
+			array[index], array[max] = array[max], array[index]
+		}
+		index = max
+		left = max*2 + 1
+	}
+}
+
+func adjustHeap(array []int, index, length int) {
+	left := index*2 + 1
+	for left < length {
+		right := left + 1
+		max := -1
+		if right > length {
+			max = left
+		} else if array[left] >= array[right] {
+			max = left
+		} else {
+			max = right
+		}
+		if array[index] < array[max] {
+			array[index], array[max] = array[max], array[index]
+		}
+		index = max
+		left = max*2 + 1
+	}
+}
+
+//TODO
+func SortString(s string) string {
+
+	return ""
 }

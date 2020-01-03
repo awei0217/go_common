@@ -80,7 +80,9 @@ func TestPublish(t *testing.T) {
 	})
 	bus.Publish("topic", 10, 10)
 }
+
 var bus = New()
+
 func BenchmarkEventBus_Subscribe(b *testing.B) {
 
 	bus.Subscribe("topic", func(a int, b int) {
@@ -93,7 +95,7 @@ func BenchmarkEventBus_SubscribeAsync(b *testing.B) {
 
 	bus.SubscribeAsync("topic", func(a int, b int) {
 		time.Sleep(10 * time.Millisecond)
-	},false)
+	}, false)
 	bus.Publish("topic", 10, 10)
 }
 

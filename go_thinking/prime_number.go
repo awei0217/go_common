@@ -4,7 +4,7 @@ package go_thinking
 import "fmt"
 
 func generate(ch chan<- int) {
-	for i := 2; i < 10000; i++ {
+	for i := 2; i < 100; i++ {
 		ch <- i // Send 'i' to channel 'ch'.
 	}
 	close(ch)
@@ -38,5 +38,31 @@ func Sieve() {
 	go filter(origin, wait)
 
 	<-wait
+
+}
+
+//1-100的质数
+func SieveNew(n int) []int {
+
+	result := make([]int, 0)
+	for i := 2; i <= n; i++ {
+		if i == 2 {
+			result = append(result, i)
+			continue
+		}
+		count := 0
+		for j := 1; j <= i; j++ {
+			if count > 2 {
+				break
+			}
+			if i%j == 0 {
+				count++
+			}
+		}
+		if count == 2 {
+			result = append(result, i)
+		}
+	}
+	return result
 
 }

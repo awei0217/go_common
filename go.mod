@@ -4,11 +4,13 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.46.2 // indirect
+	git.apache.org/thrift.git v0.13.0 // indirect
 	github.com/360EntSecGroup-Skylar/excelize v1.3.0
 	github.com/OneOfOne/xxhash v1.2.4 // indirect
 	github.com/OpenPeeDeeP/depguard v1.0.1 // indirect
 	github.com/Sirupsen/logrus v1.0.6 // indirect
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
+	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/alecthomas/units v0.0.0-20190910110746-680d30ca3117 // indirect
 	github.com/apache/thrift v0.12.0 // indirect
 	github.com/aws/aws-sdk-go v1.23.21 // indirect
@@ -19,12 +21,13 @@ require (
 	github.com/coreos/etcd v3.3.15+incompatible
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-20190719114852-fd7a80b32e1f // indirect
+	github.com/derekgr/hivething v0.0.0-20140519204655-eaa381350ccb // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/garyburd/redigo v1.6.0 // indirect
 	github.com/glycerine/truepack v0.0.0-20171113054516-e3f6c9bc15a7 // indirect
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-toolsmith/astinfo v1.0.0 // indirect
-	github.com/gogo/protobuf v1.3.0 // indirect
+	github.com/gogo/protobuf v1.3.0
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/golangci/gocyclo v0.0.0-20180528144436-0a533e8fa43d // indirect
@@ -38,7 +41,7 @@ require (
 	github.com/gostaticanalysis/analysisutil v0.0.3 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.11.1 // indirect
-	github.com/hashicorp/golang-lru v0.5.3 // indirect
+	github.com/hashicorp/golang-lru v0.5.3 // indirectgateway
 	github.com/jessevdk/go-flags v1.4.0 // indirect
 	github.com/klauspost/compress v1.8.3 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
@@ -82,15 +85,17 @@ require (
 	github.com/ultraware/funlen v0.0.2 // indirect
 	github.com/valyala/fasthttp v1.5.0 // indirect
 	github.com/valyala/quicktemplate v1.2.0 // indirect
+	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	github.com/willf/bitset v1.1.9
 	github.com/xitongsys/parquet-go v0.0.0-20190201083525-0beadf60c779 // indirect
 	go.etcd.io/bbolt v1.3.3 // indirect
 	go.opencensus.io v0.22.1 // indirect
+	go.uber.org/atomic v1.4.0
 	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7 // indirect
 	golang.org/x/exp v0.0.0-20190912063710-ac5d2bfcbfe0 // indirect
 	golang.org/x/image v0.0.0-20190910094157-69e4b8554b2a // indirect
 	golang.org/x/mobile v0.0.0-20190910184405-b558ed863381 // indirect
-	golang.org/x/net v0.0.0-20190912160710-24e19bdeb0f2 // indirect
+	golang.org/x/net v0.0.0-20190912160710-24e19bdeb0f2
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/sys v0.0.0-20190913121621-c3b328c6e5a7 // indirect
 	golang.org/x/tools v0.0.0-20190916034716-92af9d69eff2 // indirect

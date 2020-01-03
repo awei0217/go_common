@@ -7,6 +7,23 @@ import (
 	"time"
 )
 
+func ChanStudyClose() {
+	cint := make(chan struct{})
+
+	go func() {
+
+		select {
+		case c := <-cint:
+			fmt.Println(c)
+		}
+	}()
+
+	close(cint)
+
+	time.Sleep(1 * time.Second)
+
+}
+
 /**
 goroutines are asleep - deadlock 会发生死锁
 原因是 主程序在等待一个永远也不可能等待到的值，goroutine 会判断为死锁

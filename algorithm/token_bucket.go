@@ -40,7 +40,6 @@ type TokenBucket struct {
 入参为令牌桶的容量
 */
 func NewTokenBucket(cap int) *TokenBucket {
-
 	tokenBucket := &TokenBucket{
 		interval:        INTERVAL,
 		cap:             cap,
@@ -63,7 +62,7 @@ func adjustTokenDaemon(tokenBucket *TokenBucket) {
 		tokenBucket.tokenArray[tokenBucket.index] = 1
 		tokenBucket.index++
 	}
-	tokenBucket.ticker = time.NewTicker(INTERVAL)
+	tokenBucket.ticker = time.NewTicker(tokenBucket.interval)
 	go func(t *time.Ticker) {
 		for {
 			<-t.C

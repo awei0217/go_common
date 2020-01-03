@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package serialize;
+
+import "google/protobuf/timestamp.proto";
+
+// 人
+message PersonProto3 {
+    string name = 1;
+    int64 age = 2;
+    int64 sex =  3;
+    repeated string like = 4;
+    repeated PersonProto3 children = 5;
+    repeated string address = 6;
+    repeated string phone = 7;
+    string card = 8;
+    string qq = 9;
+    string weChat = 10;
+    google.protobuf.Timestamp birthday = 11;
+    double money = 12;
+}

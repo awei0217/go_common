@@ -1,4 +1,4 @@
-package Persontils
+package string_utils
 
 import (
 	"fmt"
@@ -65,16 +65,14 @@ func TestRepeatedSubstringPattern2(t *testing.T) {
 }
 
 func TestGetNext(t *testing.T) {
-	t.Log(GetNext("abcabc"))
-
+	t.Log(GetNext("ABCDABD"))
 }
 
 func TestStrMatch(t *testing.T) {
-	t.Log(StrMatch("adabeabcabc", "abcabc"))
+	t.Log(StrMatch("adabeabccbc", "ccbc"))
 }
 func TestIsValid(t *testing.T) {
 	t.Log(IsValid("[]}"))
-
 }
 
 func TestLongestPalindrome(t *testing.T) {
@@ -82,7 +80,7 @@ func TestLongestPalindrome(t *testing.T) {
 }
 
 func TestLengthOfLongestSubstring(t *testing.T) {
-	t.Log(LengthOfLongestSubstring("abcdan"))
+	t.Log(LengthOfLongestSubstring("accdan"))
 }
 
 func TestDeduplicate2(t *testing.T) {

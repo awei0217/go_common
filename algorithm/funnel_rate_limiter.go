@@ -56,13 +56,18 @@ func leakRate(limiter *FunnelRateLimiter) {
 	limiter.ticker = time.NewTicker(limiter.interval)
 	for {
 		<-limiter.ticker.C
-		if limiter.tail >= limiter.head { // 代表漏斗没水了
-			fmt.Println("漏斗没水了", limiter.head, limiter.tail)
+
+		//根本没有流量，不需要漏
+		if limiter.tail >= limiter.head {
+			fmt.Println("根本没有流量，不需要漏", limiter.head, limiter.tail)
 			continue
 		}
-		for i := 0; i < limiter.head-limiter.tail && i <= limiter.rate; i++ {
-			fmt.Println("每秒都在流水", limiter.head, limiter.tail)
-			limiter.tail++
+		if (limiter.head - limiter.tail) > limiter.rate {
+			limiter.tail = limiter.tail + limiter.rate
+			fmt.Println("每秒都在流水-1", limiter.head, limiter.tail)
+		} else {
+			limiter.tail = limiter.head
+			fmt.Println("每秒都在流水-2", limiter.head, limiter.tail)
 		}
 	}
 }

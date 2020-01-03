@@ -49,6 +49,7 @@ func RedFileSortWriteTempFile(fileName string) {
 /**
 多个已经排好序的小文件合并排序
 */
+
 func MergerSortFile(childFilePath string) {
 	//最终生成的排序文件
 	sortFile, _ := os.Create("E://number_sort.txt")

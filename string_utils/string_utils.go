@@ -380,17 +380,18 @@ func RepeatedSubstringPattern2(s string) bool {
 }
 
 func GetNext(p string) []int { //ababda
-	next := make([]int, 0)
-	next = append(next, 0)
-	k := 0
-	for i := 1; i < len(p); i++ {
-		for k > 0 && p[i] != p[k] {
-			k = next[k-1]
+	next := make([]int, len(p))
+	next[0] = -1
+	k := -1
+	i := 0
+	for i < len(p)-1 {
+		if k == -1 || p[i] == p[k] {
+			k++
+			i++
+			next[i] = k
+		} else {
+			k = next[k]
 		}
-		if p[i] == p[k] {
-			k = k + 1
-		}
-		next = append(next, k)
 	}
 	fmt.Println(next)
 	return next
@@ -407,7 +408,7 @@ func StrMatch(source, target string) int {
 	q := 0
 	for i := 0; i < slen; i++ {
 		for q > 0 && target[q] != source[i] {
-			q = next[q-1]
+			q = next[q]
 		}
 		if target[q] == source[i] {
 			q++

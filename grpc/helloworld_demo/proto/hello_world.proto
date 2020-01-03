@@ -1,18 +1,13 @@
 syntax = "proto3";
-
 package proto;
-
 //接口请求入参
 message HelloRequest{
     string request = 1;
-
 }
-
 //接口返回出参
 message HelloResponse{
     string response = 1;
 }
-
 //定义接口
 service HelloService{
     //一个简单的rpc
@@ -24,3 +19,4 @@ service HelloService{
     //一个客户端和服务器端双向流式rpc
     rpc HelloWorldClientAndServerStream(stream HelloRequest) returns (stream HelloResponse){}
 }
+

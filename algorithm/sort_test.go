@@ -44,12 +44,12 @@ func Test_SmallHeapSort(t *testing.T) {
 }
 
 func Test_BigHeapSort(t *testing.T) {
-	intArray := BigHeapSort([]int{-10, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 8, 5, 5, 6, 6, 6, 7, 7, 8, 7, 9, 10, 10, 11})
+	intArray := BigHeapSort([]int{3, 2, 3, 1, 2, 4, 5, 5, 6})
 	t.Log(intArray)
 }
 
 func TestMergeSort(t *testing.T) {
-	t.Log(MergeSort([]int{1, 3, -9, 6, 8, -19, 20, -20}))
+	t.Log(MergeSort([]int{3, 5, 1, 7, 2}))
 }
 func TestMergerSortNotRecursion(t *testing.T) {
 	t.Log(MergerSortNotRecursion([]int{1, 3, -9, 6, 8, -19, 20, -20}))
@@ -73,4 +73,12 @@ func TestQuickSort3(t *testing.T) {
 
 func TestReorganizeString(t *testing.T) {
 	ReorganizeString("aabbvfadqw")
+}
+
+func TestRadixSort(t *testing.T) {
+	RadixSort([]string{"18091772262", "19083123122", "11083128312"})
+}
+
+func TestBigHeapSort11(t *testing.T) {
+	BigHeapSort11([]int{1, 3, -9, 6, 8, -1, 20, -20})
 }

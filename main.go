@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 const (
@@ -47,19 +46,19 @@ func (this *S) f() {
 	this.a++
 }
 
-func main() {
-	c := make(chan int, 10)
-	close(c)
-	c <- 1
-	start := time.Now().UnixNano() / 1000 / 1000
-	var s S
-	var i I = &s
-	for j := 0; j < 1000000000; j++ {
-		i.f()
-	}
-	end := time.Now().UnixNano() / 1000 / 1000
-	println(end - start)
-}
+//func main() {
+//	c := make(chan int, 10)
+//	close(c)
+//	c <- 1
+//	start := time.Now().UnixNano() / 1000 / 1000
+//	var s S
+//	var i I = &s
+//	for j := 0; j < 1000000000; j++ {
+//		i.f()
+//	}
+//	end := time.Now().UnixNano() / 1000 / 1000
+//	println(end - start)
+//}
 
 func findByPage(pages []int, channel chan string) {
 	for i := 0; i < len(pages); i++ {
@@ -67,4 +66,29 @@ func findByPage(pages []int, channel chan string) {
 	}
 	channel <- "查询完毕"
 	close(channel)
+}
+
+type student struct {
+	Name string
+	Age  int
+}
+
+func pase_student() map[string]*student {
+	m := make(map[string]*student)
+	stus := make([]student, 0)
+
+	stus = append(stus, student{Name: "sss", Age: 25})
+
+	for _, stu := range stus {
+		stu.Name = "123"
+	}
+	fmt.Println(stus)
+	return m
+}
+func main() {
+
+	students := pase_student()
+	for k, v := range students {
+		fmt.Printf("key=%s,value=%v \n", k, v)
+	}
 }

@@ -110,3 +110,17 @@ func FuncReflection(f func(s string), str string) {
 	fun := reflect.ValueOf(f)
 	fun.Call(append(make([]reflect.Value, 0), reflect.ValueOf(str)))
 }
+
+func Reflect01(b interface{}) {
+	pointer := reflect.TypeOf(b)
+	switch pointer.Kind() {
+	//是指针类型
+	case reflect.Ptr:
+		fmt.Println(pointer.Kind())
+	//不是指针类型
+	default:
+		fmt.Println(pointer.Kind())
+	}
+}
+
+//反射变量对应的Kind方法的返回值是基类型，并不是静态类型

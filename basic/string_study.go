@@ -16,6 +16,7 @@ import (
 func StringStudy() {
 
 	str1 := "hello\ngo"
+
 	fmt.Println(str1) // 会换行
 	str2 := `hello \t go \n`
 
@@ -64,4 +65,39 @@ func StringStudy() {
 	fmt.Println("拼接后的结果为-->", buffer.String())
 
 	fmt.Println(string([]rune("2018-08-10")[:7]))
+}
+
+var hm = make(map[string]string, 8)
+var result = make([]string, 0)
+
+func LetterCombinations(digits string) []string {
+	if len(digits) == 0 {
+		return nil
+	}
+	hm["2"] = "abc"
+	hm["3"] = "def"
+	hm["4"] = "ghi"
+	hm["5"] = "jkl"
+	hm["6"] = "mno"
+	hm["7"] = "pqrs"
+	hm["8"] = "tuv"
+	hm["9"] = "wxyz"
+
+	backtrack("", digits)
+
+	fmt.Println(result)
+	return result
+}
+
+func backtrack(str, next_digits string) {
+	if len(next_digits) == 0 {
+		result = append(result, str)
+	} else {
+		v := next_digits[:1]
+		temp := hm[v]
+		for _, j := range temp {
+			leter := j
+			backtrack(str+string(leter), next_digits[1:])
+		}
+	}
 }

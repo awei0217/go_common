@@ -17,7 +17,6 @@ type etcdBuilder struct {
 }
 
 func NewEtcdBuilder(address string) resolver.Builder {
-
 	client, err := clientv3.NewFromURL(address)
 	if err != nil {
 		log.Fatal("LearnGrpc: create etcd client error", err.Error())
@@ -25,10 +24,8 @@ func NewEtcdBuilder(address string) resolver.Builder {
 	}
 	return &etcdBuilder{address: address, client: client}
 }
-
 func (cb *etcdBuilder) Build(target resolver.Target, cc resolver.ClientConn, opts resolver.BuildOption) (resolver.Resolver, error) {
 	cb.serviceName = target.Endpoint
-
 	adds, serviceConfig, err := cb.resolve()
 	if err != nil {
 		return nil, err

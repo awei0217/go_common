@@ -2,6 +2,10 @@ package basic
 
 import "testing"
 
+func TestChanStudyClose(t *testing.T) {
+	ChanStudyClose()
+}
+
 func TestChanStudy1(t *testing.T) {
 	ChanStudy1()
 }

@@ -9,6 +9,7 @@ import (
 求最大子序列和 （就是说子序列加起来和最大）
 */
 func FindMaxSeqSum(array []int) int {
+
 	seqSum := make([]int, 0) // 存储子序列和
 	// 初始子序列和为 数组下标为0的值
 	seqSum = append(seqSum, array[0])
@@ -391,4 +392,31 @@ func GetPermutation(n int, k int) string {
 		s = append(s, strconv.Itoa(v))
 	}
 	return ""
+}
+
+func combinationSum2(candidates []int, target int) [][]int {
+	result := make([][]int, 0)
+	temp := make([]int, 0)
+
+	backtrack(candidates, temp, 0, target, &result)
+}
+
+func backtrack(candidates, temp []int, start, target int, result *[][]int) {
+
+	if target == 0 {
+		t := make([]int, len(temp))
+		copy(t, temp)
+		*result = append(*result, t)
+		return
+	}
+
+	for i := start; i < len(candidates); i++ {
+		temp = append(temp, candidates[i])
+		target = target - candidates[i]
+		backtrack(candidates, temp, start+1, target, result)
+		target = target + temp[len(temp)-1]
+		temp = temp[:len(temp)-1]
+
+	}
+
 }

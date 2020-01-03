@@ -33,6 +33,7 @@ func TestPipeline_Async(t *testing.T) {
 		}
 	}
 	err := pipeline.Wait()
+
 	if err != nil {
 		log.Print(err)
 	}
