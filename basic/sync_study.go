@@ -54,19 +54,18 @@ func SyncMapRange() {
 var mutex sync.Mutex
 
 func StudyMutex() {
-
+	runtime.GOMAXPROCS(4)
 	wait := sync.WaitGroup{}
 	wait.Add(1)
 	mutex.Lock()
 
-	fmt.Println("等待.....")
+	fmt.Println(1 | 2 | 4)
 
 	go func() {
 		mutex.Lock()
 	}()
-	time.Sleep(1 * time.Second)
+	time.Sleep(10 * time.Second)
 	mutex.Unlock()
-
 }
 
 func StudySyncOnce() {

@@ -12,6 +12,15 @@ func TestJsonSerialize(t *testing.T) {
 	bs := JsonSerialize()
 	end := time.Now().UnixNano()
 	fmt.Println((end - start), "ns", len(bs))
+	fmt.Println(string(bs[1:7]))
+}
+
+func TestJsonDeSerialize(t *testing.T) {
+	start := time.Now().UnixNano()
+	JsonDeSerialize(jsonBs)
+	end := time.Now().UnixNano()
+	fmt.Println((end - start), "ns")
+
 }
 
 //396

@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/gogo/protobuf/proto"
@@ -100,6 +102,8 @@ func MsgPackSerialize() []byte {
 	if err != nil {
 		fmt.Println(err)
 	}
+	//把数据写入文件
+	ioutil.WriteFile("./person.txt", bs, os.ModePerm)
 	return bs
 }
 
