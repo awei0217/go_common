@@ -49,3 +49,11 @@ func TestFromJson(t *testing.T) {
 func TestJsonMap(t *testing.T) {
 	JsonMap()
 }
+
+func TestJsonGetValueByKey(t *testing.T) {
+	JsonGetValueByKey()
+}
+
+func TestSimpleJsonStudy(t *testing.T) {
+	SimpleJsonStudy()
+}

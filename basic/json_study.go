@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	simplejson "github.com/bitly/go-simplejson"
 	"log"
 	"time"
 )
@@ -48,6 +49,11 @@ func JsonMap() {
 	data, err := json.Marshal(params)
 
 	fmt.Println(string(data), err)
+
+	temp := make(map[string]interface{})
+
+	json.Unmarshal(data, &temp)
+	fmt.Println(temp)
 }
 
 //omitempty  这个属性可以在序列化时忽略0值和nil值
@@ -88,4 +94,82 @@ func FromJson(jsonStr []byte, v interface{}) error {
 		return err
 	}
 	return nil
+}
+
+func JsonGetValueByKey() {
+	s := `{
+		"tagA" : "json string",
+		"tagB" : 1024,
+		"tagD" : {
+			"tagE":1000
+		},
+		"tagF":[
+			"json array",
+			1024,
+			{"tagH":"json object"}
+		]
+	}`
+
+	var i interface{}
+	err := json.Unmarshal([]byte(s), &i)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(i)
+
+	AssertMap(i)
+}
+
+func AssertMap(i interface{}) {
+	switch t := i.(type) {
+	case map[string]interface{}:
+		for k, v := range t {
+			switch t1 := v.(type) {
+			case map[string]interface{}:
+				AssertMap(t1)
+			case []interface{}:
+				for k1, v1 := range t1 {
+					switch t2 := v1.(type) {
+					case map[string]interface{}:
+						AssertMap(t2)
+					default:
+						fmt.Println(k1, ":", v1)
+					}
+				}
+			default:
+				fmt.Println(k, ":", v)
+			}
+		}
+	}
+}
+
+func SimpleJsonStudy() {
+	s := `{
+		"tagA" : "json string",
+		"tagB" : 1024,
+		"tagD" : {
+			"tagE":1000
+		},
+		"tagF":[
+			"json array",
+			1024,
+			{"tagH":"json object"}
+		]
+	}`
+
+	res, err := simplejson.NewJson([]byte(s))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	j, err := res.Get("tagF").GetIndex(2).Get("tagH").String()
+	fmt.Println(j)
+
+	k, err := res.GetPath("tagD", "tagE").Int64()
+	fmt.Println(k)
+
+	if l, ok := res.CheckGet("tagD"); ok { //true ,有该字段
+		fmt.Println(ok, l)
+	}
 }
