@@ -2,8 +2,11 @@ package redis
 
 import (
 	"fmt"
-	"github.com/gomodule/redigo/redis"
 	"time"
+
+	"github.com/prometheus/common/log"
+
+	"github.com/gomodule/redigo/redis"
 )
 
 var conn redis.Conn
@@ -15,7 +18,12 @@ var conn redis.Conn
 初始化
 */
 func init() {
-	conn, _ = redis.Dial("tcp4", "127.0.0.1:6369", redis.DialPassword(""))
+	c, err := redis.Dial("tcp4", "10.66.191.161:6379", redis.DialPassword(""))
+
+	if err != nil {
+		log.Fatalln("redis连接错误", err)
+	}
+	conn = c
 }
 func String() {
 	// set key value 原子性操作

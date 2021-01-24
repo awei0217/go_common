@@ -43,7 +43,6 @@ func TimeStudy() {
 			<-t.C
 			fmt.Println("get ticker1", time.Now().Format("2006-01-02 15:04:05"))
 		}
-
 	}(ticker1)
 
 	go func(t *time.Timer) {

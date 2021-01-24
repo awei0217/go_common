@@ -1,0 +1,12 @@
+
+修改允许任何机器远程登录mysql
+mysql -u root -p
+use mysql;
+update user set host = ''%' where user = 'root';
+flush privileges;
+
+
+查看binlow是否开启
+show VARIABLES like "%log_bin%";
+查看binlog的格式
+show VARIABLES like "%binlog%";

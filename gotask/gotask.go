@@ -10,12 +10,10 @@ import (
 * For this case, GoTask reduce your cpu rate and memory and make your project more efficency.
  */
 type GoTask struct {
-	wg         sync.WaitGroup    //wait for all gorotines finished
-	tasks      []GoTaskDetail    //tasks
-	taskChan   chan GoTaskDetail //job scheduler
-	maxTaskNum int               //max count of gorotine
-	cost       int64             //milliseconds of this job
-	quickMode  bool              //if set to quick mode, jobs will be executed when added
+	wg         sync.WaitGroup //wait for all gorotines finished
+	tasks      []GoTaskDetail //tasks
+	maxTaskNum int            //max count of gorotine
+	quickMode  bool           //if set to quick mode, jobs will be executed when added
 	curTaskNum int
 }
 
@@ -34,19 +32,11 @@ func NewGoTask(maxTaskNum int, quickMode bool) *GoTask {
 	ret := &GoTask{
 		wg:         sync.WaitGroup{},
 		tasks:      make([]GoTaskDetail, 0),
-		taskChan:   make(chan GoTaskDetail, maxTaskNum),
 		maxTaskNum: maxTaskNum,
 		quickMode:  quickMode,
 		curTaskNum: 0,
 	}
 	return ret
-}
-
-/*
-* Record how much time spent for all jobs.
- */
-func (self *GoTask) Cost() int64 {
-	return self.cost
 }
 
 /*
@@ -73,10 +63,7 @@ func (self *GoTask) Add(task func(...interface{}), params ...interface{}) {
 				self.curTaskNum--
 			}()
 			v.fn(v.params)
-		}(GoTaskDetail{
-			fn:     task,
-			params: params,
-		})
+		}(GoTaskDetail{fn: task, params: params})
 	}
 }
 
@@ -105,7 +92,6 @@ func (self *GoTask) Start() {
 		return
 	}
 	curTaskNum := 0
-	begin := time.Now().UnixNano() / 1000000
 	for _, v := range self.tasks {
 		self.wg.Add(1)
 		curTaskNum++
@@ -124,16 +110,15 @@ func (self *GoTask) Start() {
 		}
 	}
 	self.wg.Wait()
-	self.cost = time.Now().UnixNano()/1000000 - begin
 }
 
 /*
 * if set quickMode == true, you must invoke Done() to finish manually. Deprecated
  */
 func (self *GoTask) Done() {
-	// if self.quickMode == false {
-	// 	return
-	// }
-	// self.wg.Done()
+	if self.quickMode == false {
+		return
+	}
+	self.wg.Done()
 	return
 }

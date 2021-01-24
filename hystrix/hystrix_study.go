@@ -3,7 +3,10 @@ package hystrix
 import (
 	"errors"
 	"fmt"
+	"net"
+	"net/http"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/afex/hystrix-go/hystrix"
@@ -26,6 +29,9 @@ func init() {
 
 //异步调用
 func HystrixAsyStudy() {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+
 	result := make(chan string, 1)
 	//定义依赖外部系统的函数
 	f1 := func() error {
@@ -46,6 +52,11 @@ func HystrixAsyStudy() {
 	case e := <-errors:
 		fmt.Println(e)
 	}
+	hystrixStreamHandler := hystrix.NewStreamHandler()
+	hystrixStreamHandler.Start()
+	go http.ListenAndServe(net.JoinHostPort("127.0.0.1", "81"), hystrixStreamHandler)
+
+	wg.Wait()
 }
 
 //同步调用

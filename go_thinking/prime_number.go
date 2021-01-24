@@ -9,7 +9,6 @@ func generate(ch chan<- int) {
 	}
 	close(ch)
 }
-
 func filter(src <-chan int, dst chan<- int) {
 	prime, ok := <-src
 	if !ok {
@@ -19,7 +18,6 @@ func filter(src <-chan int, dst chan<- int) {
 	fmt.Println(prime)
 	out := make(chan int)
 	go filter(out, dst)
-
 	for num := range src {
 		if num%prime != 0 {
 			out <- num
@@ -30,15 +28,10 @@ func filter(src <-chan int, dst chan<- int) {
 
 //筛选素数
 func Sieve() {
-
 	origin, wait := make(chan int), make(chan int) // Create a new channel.
-
 	go generate(origin)
-
 	go filter(origin, wait)
-
 	<-wait
-
 }
 
 //1-100的质数
