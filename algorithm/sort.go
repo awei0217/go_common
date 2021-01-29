@@ -142,6 +142,7 @@ func partitionArray(array []int, head int, tail int) int {
 */
 func partitionArray2(array []int, head int, tail int) int {
 	middleValue := array[head]
+
 	for head < tail {
 		for head < tail && array[tail] > middleValue {
 			tail--

@@ -25,3 +25,7 @@ func BenchmarkMethod(b *testing.B) {
 func TestSort(t *testing.T) {
 	Sort()
 }
+
+func TestSort1(t *testing.T) {
+	Sort1()
+}

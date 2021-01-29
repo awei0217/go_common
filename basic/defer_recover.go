@@ -1,12 +1,13 @@
 package basic
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
 执行顺序，先声明的后执行
 */
 func DeferStudy() {
-
 	defer fmt.Println("defer 1")
 	defer func() {
 		fmt.Println("defer 2")
@@ -17,7 +18,6 @@ func DeferStudy() {
 }
 
 func RecoverStudy() error {
-
 	/**
 	defer 必须声明到panic之前
 	*/
@@ -79,4 +79,16 @@ func B() (i int) { //返回2
 		fmt.Println("defer1:", i) // 打印结果为 defer: 1
 	}()
 	return i
+}
+
+//测试defer性能和正常关闭性能
+type channel chan int
+
+func NoDefer() {
+	ch1 := make(channel, 10)
+	close(ch1)
+}
+func Defer() {
+	ch2 := make(channel, 10)
+	defer close(ch2)
 }

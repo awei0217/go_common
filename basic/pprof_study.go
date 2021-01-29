@@ -2,11 +2,13 @@ package basic
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
-	"time"
-
 	_ "net/http/pprof"
+	"os"
+	"runtime/pprof"
+	"time"
 )
 
 // 针对web性能监测 ,引入 _ "net/http/pprof" 就可以了
@@ -23,17 +25,26 @@ var Count int64 = 0
 
 // go tool pprof http://127.0.0.1:9909/debug/pprof/profile
 func PprofWeb() {
-
-	go calCount()
-
-	http.HandleFunc("/test", test)
-	http.HandleFunc("/data", handlerData)
-
-	err := http.ListenAndServe(":9909", nil)
+	go func() {
+		for {
+			time.Sleep(3 * time.Millisecond)
+			log.Println(Add("sunpengwei"))
+		}
+	}()
+	err := http.ListenAndServe(":9999", nil)
 	if err != nil {
 		panic(err)
 	}
+}
 
+var datas []string
+
+func Add(str string) string {
+	data := []byte(str)
+	sData := string(data)
+	datas = append(datas, sData)
+
+	return sData
 }
 
 func handlerData(w http.ResponseWriter, r *http.Request) {
@@ -96,11 +107,32 @@ func RandomInt(min, max int) int {
 
 func calCount() {
 	timeInterval := time.Tick(time.Second)
-
 	for {
 		select {
 		case i := <-timeInterval:
 			Count = int64(i.Second())
 		}
 	}
+}
+
+func PProfCPUApplication() {
+	f, _ := os.Create("./cpu.prof")
+	pprof.StartCPUProfile(f)
+
+	for i := 1; i < 3000; i++ {
+		time.Sleep(3 * time.Millisecond)
+		RandomInt(10, 50)
+	}
+	pprof.StopCPUProfile()
+	f.Close()
+}
+
+func PProfMemApplication() {
+	f, _ := os.Create("./mem.prof")
+	for i := 1; i < 3000; i++ {
+		time.Sleep(3 * time.Millisecond)
+		RandomInt(10, 50)
+	}
+	pprof.WriteHeapProfile(f)
+	f.Close()
 }

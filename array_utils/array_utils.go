@@ -1,31 +1,26 @@
 package array_utils
 
-import (
-	"fmt"
-	"strconv"
-)
-
 /**
 求最大子序列和 （就是说子序列加起来和最大）
 */
 func FindMaxSeqSum(array []int) int {
-
-	seqSum := make([]int, 0) // 存储子序列和
+	SeqSum := make([]int, 0) // 存储子序列和
 	// 初始子序列和为 数组下标为0的值
-	seqSum = append(seqSum, array[0])
+	SeqSum = append(SeqSum, array[0])
 	for i := 1; i < len(array); i++ {
-		if array[i] > seqSum[i-1]+array[i] {
-			seqSum = append(seqSum, array[i])
+		if array[i] > SeqSum[i-1]+array[i] {
+			SeqSum = append(SeqSum, array[i])
 		} else {
-			seqSum = append(seqSum, seqSum[i-1]+array[i])
+			SeqSum = append(SeqSum, SeqSum[i-1]+array[i])
 		}
 	}
-	max := seqSum[0]
-	for j := 1; j < len(seqSum); j++ {
-		if seqSum[j] > seqSum[j-1] {
-			max = seqSum[j]
+	max := SeqSum[0]
+	for j := 1; j < len(SeqSum); j++ {
+		if SeqSum[j] > SeqSum[j-1] {
+			max = SeqSum[j]
 		}
 	}
+	//fmt.Println(max)
 	return max
 }
 
@@ -129,8 +124,6 @@ func MergeTwoArray(nums1 []int, m int, nums2 []int, n int) {
 		}
 		lindex++
 	}
-	fmt.Println(nums1)
-
 }
 
 /**
@@ -237,7 +230,6 @@ func ThreeSum(nums []int) [][]int {
 		result = append(result, []int{0, 0, 0})
 		return result
 	}
-	fmt.Println(nums)
 	for index, v := range nums {
 		if v > 0 && index == 0 {
 			return result
@@ -304,14 +296,14 @@ func createHeap(nums []int, i int, length int) {
 
  求n的全排列
 */
-func GetAllPermutation(n int) {
+func GetAllPermutation(n int) [][]int {
 	nums := make([]int, n)
 	for i := 1; i <= n; i++ {
 		nums[i-1] = i
 	}
 	result := make([][]int, 0, 0)
 	result = permutation(nums, 0, result)
-	fmt.Println(result)
+	return result
 }
 func permutation(nums []int, index int, result [][]int) [][]int {
 	if index == len(nums)-1 {
@@ -328,95 +320,26 @@ func permutation(nums []int, index int, result [][]int) [][]int {
 	return result
 }
 
-/**
-/**
-给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
-
-按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
-
-"123"
-"132"
-"213"
-"231"
-"312"
-"321"
-给定 n 和 k，返回第 k 个排列。
-
-说明：
-
-给定 n 的范围是 [1, 9]。
-给定 k 的范围是[1,  n!]。
-示例 1:
-
-输入: n = 3, k = 3
-输出: "213"
-示例 2:
-
-输入: n = 4, k = 9
-输出: "2314"
-*/
-func GetPermutation(n int, k int) string {
-	// 把n转化为一个nums数组
-	nums := make([]int, n)
-	for i := 1; i <= n; i++ {
-		nums[i-1] = i
-	}
-	//n的全排列个数
-	permutationSum := 1
-	index := 0
-	//求n-1个数的全排列组合的个数
-	for i := 1; i <= n-1; i++ {
-		permutationSum = permutationSum * i
-	}
-	s := make([]string, 0, 0)
-	//找到一个起始值使得以这个值为起始值，排列组合的个数大于等于k
-	nextP := permutationSum
-	n = n - 1
-	for {
-		if permutationSum >= k {
-			s = append(s, strconv.Itoa(nums[index]))
-			permutationSum = permutationSum / 2
-			n--
-			nextP = nextP / n
-		}
-		permutationSum = permutationSum + nextP
-		index++
-
-	}
-	//index 为要找的第k个排列组合的字符串的起始字符
-	s = append(s, strconv.Itoa(nums[index]))
-	for i, v := range nums {
-		if index == i {
-			continue
-		}
-		s = append(s, strconv.Itoa(v))
-	}
-	return ""
-}
-
-func combinationSum2(candidates []int, target int) [][]int {
+func CombinationSum(candidates []int, target int) [][]int {
 	result := make([][]int, 0)
 	temp := make([]int, 0)
-
 	backtrack(candidates, temp, 0, target, &result)
+	return result
 }
 
 func backtrack(candidates, temp []int, start, target int, result *[][]int) {
-
 	if target == 0 {
 		t := make([]int, len(temp))
 		copy(t, temp)
 		*result = append(*result, t)
 		return
 	}
-
 	for i := start; i < len(candidates); i++ {
 		temp = append(temp, candidates[i])
 		target = target - candidates[i]
 		backtrack(candidates, temp, start+1, target, result)
 		target = target + temp[len(temp)-1]
 		temp = temp[:len(temp)-1]
-
 	}
 
 }

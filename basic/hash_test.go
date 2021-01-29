@@ -17,9 +17,13 @@ func TestBase64(t *testing.T) {
 }
 
 func TestHash(t *testing.T) {
-	Hash()
+	HashTest()
 }
 
 func TestCrc(t *testing.T) {
 	Crc()
+}
+
+func TestMapHashStudy(t *testing.T) {
+	MapHashStudy()
 }

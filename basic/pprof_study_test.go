@@ -13,3 +13,11 @@ func TestPprofWeb(t *testing.T) {
 	PprofWeb()
 
 }
+
+func TestPProfCPUApplication(t *testing.T) {
+	PProfCPUApplication()
+}
+
+func TestPProfMemApplication(t *testing.T) {
+	PProfMemApplication()
+}

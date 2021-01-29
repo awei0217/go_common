@@ -5,15 +5,18 @@ import (
 	"net/http"
 )
 
-func StartHttpServer(){
+//SET CGO_ENABLED=0
+//SET GOOS=linux
+//SET GOARCH=amd64
+//go build cron_delete_compute_result_uat.go
+func StartHttpServer() {
 
+	http.HandleFunc("/", IndexHandler)
+	http.ListenAndServe(":8080", nil)
 
-	http.HandleFunc("/",IndexHandler)
-	http.ListenAndServe(":8080",nil)
-	
 }
 
-func IndexHandler(w http.ResponseWriter, r *http.Request)  {
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintln(w,"hello world")
+	fmt.Fprintln(w, "hello world:"+r.Form.Get("key"))
 }

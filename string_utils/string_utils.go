@@ -208,22 +208,13 @@ func FindMaxLenCommonSubStr2(str1, str2 string) string {
 func FindMaxLenCommonSubSeq(str1, str2 string) string {
 	l1 := len(str1)
 	l2 := len(str2)
-	/*var twoArray [][]int
-	for i := 0; i < l2+1; i++ {
-		tmp := make([]int, l1+1)
-		twoArray = append(twoArray, tmp)
-	}*/
+
 	bs := make([]byte, 0)
 	for m := 1; m <= l2; m++ {
 		for n := 1; n <= l1; n++ {
 			if str1[n-1] == str2[m-1] {
-				//twoArray[m][n] = twoArray[m-1][n-1] + 1
 				bs = append(bs, str1[n-1])
-			} /*else if twoArray[m-1][n] >= twoArray[m][n-1] {
-				//twoArray[m][n] = twoArray[m-1][n]
-			} else {
-				//twoArray[m][n] = twoArray[m][n-1]
-			}*/
+			}
 		}
 	}
 	return Deduplicate(string(bs))

@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"hash/crc32"
 	"hash/crc64"
+	"hash/maphash"
 )
 
 /**
@@ -37,7 +38,7 @@ func Base64() {
 	fmt.Println(en, string(de))
 }
 
-func Hash() {
+func HashTest() {
 	// %x 16进制
 	// %b 2进制
 	// %s 字符串
@@ -59,4 +60,12 @@ func Crc() {
 
 	crc64_1 := crc64.Checksum([]byte("sunpengwei"), &crc64.Table{})
 	fmt.Println(crc64_1)
+}
+
+func MapHashStudy() {
+	b := []byte("foo")
+	h1 := new(maphash.Hash)
+	h1.Write(b)
+	//输出字节数组的hash值
+	fmt.Println(h1.Sum64())
 }

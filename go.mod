@@ -4,14 +4,19 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.46.2 // indirect
+	fyne.io/fyne v1.2.3 // indirect
 	git.apache.org/thrift.git v0.13.0 // indirect
 	github.com/360EntSecGroup-Skylar/excelize v1.3.0
 	github.com/OneOfOne/xxhash v1.2.4 // indirect
 	github.com/OpenPeeDeeP/depguard v1.0.1 // indirect
+	github.com/PuerkitoBio/goquery v1.5.1 // indirect
 	github.com/Sirupsen/logrus v1.0.6 // indirect
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/alecthomas/units v0.0.0-20190910110746-680d30ca3117 // indirect
+	github.com/antchfx/htmlquery v1.2.2 // indirect
+	github.com/antchfx/xmlquery v1.2.3 // indirect
+	github.com/antchfx/xpath v1.1.4 // indirect
 	github.com/apache/thrift v0.12.0 // indirect
 	github.com/aws/aws-sdk-go v1.23.21 // indirect
 	github.com/bitly/go-simplejson v0.5.0
@@ -29,6 +34,7 @@ require (
 	github.com/go-echarts/go-echarts v1.0.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-toolsmith/astinfo v1.0.0 // indirect
+	github.com/gocolly/colly v1.2.0
 	github.com/gogo/protobuf v1.3.0
 	github.com/golang/protobuf v1.3.3
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
@@ -37,7 +43,7 @@ require (
 	github.com/golangci/revgrep v0.0.0-20180812185044-276a5c0a1039 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.3.1 // indirect
-	github.com/google/pprof v0.0.0-20190908185732-236ed259b199 // indirect
+	github.com/google/pprof v0.0.0-20191218002539-d4f498aebedc // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/gostaticanalysis/analysisutil v0.0.3 // indirect
@@ -46,6 +52,7 @@ require (
 	github.com/guonaihong/gout v0.1.4
 	github.com/hashicorp/golang-lru v0.5.3 // indirectgateway
 	github.com/jessevdk/go-flags v1.4.0 // indirect
+	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/klauspost/compress v1.8.3 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/kr/pty v1.1.8 // indirect
@@ -64,7 +71,7 @@ require (
 	github.com/philhofer/fwd v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.1.0 // indirect
 	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect
-	github.com/prometheus/common v0.7.0 // indirect
+	github.com/prometheus/common v0.7.0
 	github.com/prometheus/procfs v0.0.5 // indirect
 	github.com/qianlnk/config v0.0.0-20170913092636-fb6786143b74 // indirect
 	github.com/qianlnk/gobot v0.0.0-20180105062732-ad1c82b06859
@@ -75,17 +82,21 @@ require (
 	github.com/rogpeppe/go-internal v1.3.2 // indirect
 	github.com/russross/blackfriday v2.0.0+incompatible // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
+	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/scritchley/orc v0.0.0-20190122202601-8bd759130ab7 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible // indirect
 	github.com/shurcooL/go v0.0.0-20190704215121-7189cc372560 // indirect
+	github.com/siddontang/go-mysql v0.0.0-20200311002057-7a62847fcdb5
 	github.com/skip2/go-qrcode v0.0.0-20190110000554-dc11ecdae0a9 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.4.0 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
+	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/ugorji/go v1.1.7 // indirect
 	github.com/ultraware/funlen v0.0.2 // indirect
+	github.com/urfave/cli/v2 v2.2.0
 	github.com/valyala/fasthttp v1.5.0 // indirect
 	github.com/valyala/quicktemplate v1.2.0 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
