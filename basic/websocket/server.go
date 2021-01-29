@@ -26,7 +26,7 @@ func ServerWebSocket() {
 	http.Handle("/echo", websocket.Handler(msgHandler))
 	http.Handle("/", http.FileServer(http.Dir(".")))
 
-	err := http.ListenAndServe("127.0.0.1:9090", nil)
+	err := http.ListenAndServe("127.0.0.1:9091", nil)
 
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())

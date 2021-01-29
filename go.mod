@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.46.2 // indirect
-	fyne.io/fyne v1.2.3 // indirect
+	fyne.io/fyne v1.2.3
 	git.apache.org/thrift.git v0.13.0 // indirect
 	github.com/360EntSecGroup-Skylar/excelize v1.3.0
 	github.com/OneOfOne/xxhash v1.2.4 // indirect
@@ -20,6 +20,7 @@ require (
 	github.com/apache/thrift v0.12.0 // indirect
 	github.com/aws/aws-sdk-go v1.23.21 // indirect
 	github.com/bitly/go-simplejson v0.5.0
+	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
 	github.com/boltdb/bolt v1.3.1
 	github.com/chrislusf/gleam v0.0.0-20181211145800-883f13cbcc1a
 	github.com/colinmarc/hdfs v1.1.3 // indirect
@@ -45,12 +46,12 @@ require (
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/pprof v0.0.0-20191218002539-d4f498aebedc // indirect
 	github.com/google/uuid v1.1.1 // indirect
-	github.com/gorilla/websocket v1.4.1 // indirect
+	github.com/gorilla/websocket v1.4.1
 	github.com/gostaticanalysis/analysisutil v0.0.3 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.11.1 // indirect
 	github.com/guonaihong/gout v0.1.4
-	github.com/hashicorp/golang-lru v0.5.3 // indirectgateway
+	github.com/hashicorp/golang-lru v0.5.3 // indirect; indirectgateway
 	github.com/jessevdk/go-flags v1.4.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/klauspost/compress v1.8.3 // indirect
@@ -76,7 +77,7 @@ require (
 	github.com/qianlnk/config v0.0.0-20170913092636-fb6786143b74 // indirect
 	github.com/qianlnk/gobot v0.0.0-20180105062732-ad1c82b06859
 	github.com/qianlnk/log v0.0.0-20170913092441-698e18ea3cb4 // indirect
-	github.com/qianlnk/qrcode v0.0.0-20180102074946-a03586d59508
+	github.com/qianlnk/qrcode v0.0.0-20180102074946-a03586d59508 // indirect
 	github.com/qianlnk/to v0.0.0-20180426070425-a52c7fda1751 // indirect
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.3.2 // indirect
@@ -88,6 +89,7 @@ require (
 	github.com/shurcooL/go v0.0.0-20190704215121-7189cc372560 // indirect
 	github.com/siddontang/go-mysql v0.0.0-20200311002057-7a62847fcdb5
 	github.com/skip2/go-qrcode v0.0.0-20190110000554-dc11ecdae0a9 // indirect
+	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -110,6 +112,7 @@ require (
 	golang.org/x/mobile v0.0.0-20190910184405-b558ed863381 // indirect
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
+	gonum.org/v1/netlib v0.0.0-20201012070519-2390d26c3658 // indirect
 	gonum.org/v1/plot v0.0.0-20190615073203-9aa86143727f
 	google.golang.org/api v0.10.0 // indirect
 	google.golang.org/appengine v1.6.2 // indirect
